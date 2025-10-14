@@ -3,6 +3,5 @@
     "source.fixAll": "explicit",
     "source.organizeImports": "explicit",
     "source.sortMembers": "explicit"
-  },
-  "liveServer.settings.multiRootWorkspaceName": "05Props"
+  }
 }

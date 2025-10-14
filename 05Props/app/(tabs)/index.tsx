@@ -1,109 +1,45 @@
 import React from 'react';
-import { Alert, GestureResponderEvent, Pressable, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import BotonPersonalizado from '../../components/BotonPersonalizado';
 
-// Componente BotonPersonalizado en el mismo archivo
-interface BotonPersonalizadoProps {
-  texto: string;
-  onPress?: (event: GestureResponderEvent) => void;
-  colorFondo?: string;
-  colorTexto?: string;
-}
-
-const BotonPersonalizado: React.FC<BotonPersonalizadoProps> = ({
-  texto,
-  onPress,
-  colorFondo = '#007AFF',
-  colorTexto = 'white'
-}) => {
+export default function Index() {
   return (
-    <Pressable
-      style={({ pressed }) => [
-        styles.boton,
-        { backgroundColor: colorFondo },
-        pressed && styles.botonPresionado
-      ]}
-      onPress={onPress}
-    >
-      <Text style={[styles.texto, { color: colorTexto }]}>
-        {texto}
-      </Text>
-    </Pressable>
-  );
-};
 
-// Componente principal
-export default function HomeScreen() {
-  const manejarPress = (textoBoton: string) => {
-    Alert.alert('Botón presionado', `Has presionado: ${textoBoton}`);
-  };
-
-  return (
-    <View style={styles.contenedor}>
-      <Text style={styles.titulo}>Componentes Reutilizables</Text>
-      <Text style={styles.subtitulo}>4 botones con diferentes textos usando props</Text>
+    <View style={styles.container}>
+      {/* Reutilizamos el mismo componente 4 veces, cambiando solo las "props" */}
       
+      {/* Botón 1: texto "Inicio", al pulsar muestra alerta con ese texto */}
       <BotonPersonalizado
-        texto="Primer Botón"
-        onPress={() => manejarPress('Primer Botón')}
+        texto="Inicio"
+        onPress={() => alert('Has pulsado: Inicio')}
       />
       
+      {/* Botón 2: texto "Perfil" */}
       <BotonPersonalizado
-        texto="Segundo Botón"
-        onPress={() => manejarPress('Segundo Botón')}
-        colorFondo="#FF3B30"
+        texto="Perfil"
+        onPress={() => alert('Has pulsado: Perfil')}
       />
       
+      {/* Botón 3: texto "Configuración" */}
       <BotonPersonalizado
-        texto="Tercer Botón"
-        onPress={() => manejarPress('Tercer Botón')}
-        colorFondo="#34C759"
-        colorTexto="black"
+        texto="Configuración"
+        onPress={() => alert('Has pulsado: Configuración')}
       />
       
+      {/* Botón 4: texto "Salir" */}
       <BotonPersonalizado
-        texto="Cuarto Botón"
-        onPress={() => manejarPress('Cuarto Botón')}
-        colorFondo="#5856D6"
+        texto="Salir"
+        onPress={() => alert('Has pulsado: Salir')}
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  contenedor: {
+  container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#F2F2F7',
-  },
-  titulo: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign: 'center',
-  },
-  subtitulo: {
-    fontSize: 16,
-    color: '#666',
-    marginBottom: 30,
-    textAlign: 'center',
-  },
-  boton: {
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 8,
-    marginVertical: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-    minWidth: 120,
-  },
-  botonPresionado: {
-    opacity: 0.7,
-    transform: [{ scale: 0.98 }],
-  },
-  texto: {
-    fontSize: 16,
-    fontWeight: '600',
+    backgroundColor: '#f8f9fa',
   },
 });
