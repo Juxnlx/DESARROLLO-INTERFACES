@@ -18,9 +18,14 @@ export default function App() {
         </Text>
         {/* El Switch controla el estado directamente */}
         <Switch
+          /*Le dice al interruptor en qué estado está.*/
           value={modoOscuro}
-          onValueChange={setModoOscuro} // Al cambiar, actualiza el estado
+          /*Cuando el usuario cambia el switch, se ejecuta setModoOscuro 
+          automáticamente con el nuevo valor.*/
+          onValueChange={setModoOscuro}
+          /*Cambia el color de la “pista” del switch según el valor.*/
           trackColor={{ false: '#767577', true: '#81b0ff' }}
+          /*Cambia el color del “botoncito” que se mueve.*/
           thumbColor={modoOscuro ? '#f5dd4b' : '#f4f3f4'}
         />
       </View>
@@ -33,6 +38,7 @@ export default function App() {
 }
 
 // Estilos
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
