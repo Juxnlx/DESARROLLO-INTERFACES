@@ -5,7 +5,7 @@ import { IndexVM } from '../ViewModels/indexVM';
 
 const Index = () => {
   const viewModel = new IndexVM();
-  const personas = viewModel.getPersonas();
+  const personas = viewModel.listaDePersona;
 
   const handlePress = (persona: Persona) => {
     Alert.alert(
