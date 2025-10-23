@@ -1,0 +1,22 @@
+src/
+	core/                  
+		container.ts        
+		types.ts    
+        
+	dominio/                
+		entities/
+			Persona.ts      
+		repos/
+			IPersonaRepository.ts 
+		casosDeUso/
+			GetListadoPersonasUseCase.ts 
+
+	datos/                  
+		repositories/
+			PersonaRepository.ts 
+
+	presentacion/           
+		viewModels/
+			PeopleListVM.ts 
+		views/
+			PeopleList.tsx 
