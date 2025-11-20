@@ -1,98 +1,111 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
+import { useState } from "react";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { TarjetaProducto } from "../../components/TarjetaProducto";
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+}
 
-export default function HomeScreen() {
+
+const products: Product[] = [
+  { id: 1, name: 'Reloj BuenoBonitoBarato', price: 79.99, image: 'https://m.media-amazon.com/images/I/61IjQceu6-L.jpg' },
+  { id: 2, name: 'Dron', price: 349.99, image: 'https://fotoruanopro.com/37351-home_default/dji-mavic-3-pro-con-controlador-dji-rc.jpg' },
+  { id: 3, name: 'Gaming Keyboard', price: 129.99, image: 'https://d3gqasl9vmjfd8.cloudfront.net/8afaf4d3-1400-4e05-8766-d588033f780e.jpg' },
+  { id: 4, name: 'Cascos Sony', price: 185.99, image: 'https://www.electrodepot.es/media/catalog/product/P982598.jpg' },
+];
+
+
+export default function Index() {
+  const [contador, setContador] = useState(0);
+
+  const contadorAddToCart = () => {
+    setContador(currentContador => currentContador + 1);
+  };
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
-
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <ScrollView style={styles.pageContainer}>
+        
+      {/* Encabezado con título y Carrito */}
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Nuestros Productos</Text>
+        <View style={styles.cartContainer}>
+            {/* Icono del carrito */}
+            <FontAwesome name="shopping-cart" size={24} color="black" />
+            {/* ontador: Se muestra solo si contador es > 0 */}
+            {contador > 0 && (
+                <View style={styles.badge}>
+                    <Text style={styles.badgeText}>{contador}</Text>
+                </View>
+            )}
+        </View>
+      </View>
+      
+      {/* Grid de Productos */}
+      <View style={styles.productGrid}>
+        {products.map((product) => (
+          <TarjetaProducto
+            key={product.id}
+            name={product.name}
+            price={product.price}
+            image={product.image}
+            onAddToCart={contadorAddToCart}
+          />
+        ))}
+      </View>
+      
+    </ScrollView>
   );
 }
 
+// Estilos para la página y el grid
 const styles = StyleSheet.create({
-  titleContainer: {
+  pageContainer: {
+    flex: 1,
+    paddingTop: 50,
+    backgroundColor: '#f5f5f5',
+  },
+  header: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    gap: 8,
+    paddingHorizontal: 20,
+    marginBottom: 20,
+    marginTop: 10,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  headerTitle: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#333',
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
+  cartContainer: {
+    position: 'relative',
+    padding: 5,
+  },
+  badge: {
     position: 'absolute',
+    right: 0,
+    top: 0,
+    backgroundColor: 'red',
+    borderRadius: 10,
+    minWidth: 20,
+    height: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 10,
+  },
+  badgeText: {
+    color: 'white',
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
+  productGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    paddingHorizontal: 10,
   },
 });
