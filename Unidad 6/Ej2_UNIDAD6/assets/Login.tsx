@@ -1,6 +1,7 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import App from '../app/App';
 import { Boton } from '../app/components/Boton';
 import { Formulario } from '../app/components/Formulario';
 

@@ -25,7 +25,6 @@ export default function Index() {
         <Text style={styles.appNombre}>Aplicación jytanah</Text>
       </View>
 
-      {/* Contenedor blanco */}
       <View style={styles.contenedorBlanco}>
         <Text style={styles.titulo}>Ingresar</Text>
 
