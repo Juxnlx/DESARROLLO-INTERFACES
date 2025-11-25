@@ -1,55 +1,42 @@
 import { Ionicons } from '@expo/vector-icons';
-import { Tabs } from 'expo-router';
-import React from 'react';
+import { Tabs } from "expo-router";
 
-// 
-export default function TabLayout() {
+export default function TabsLayout() {
   return (
-    <Tabs>
-      {/* Pestaña: Index.tsx */}
-      <Tabs.Screen
-        name="index"
-        options={{
-          // Título en el encabezado
-          headerTitle: 'Home',
-          // Icono de la pestaña
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="home" color={color} size={28} />
-          ),
-          // Nombre a mostrar debajo del icono de la pestaña
-          tabBarLabel: 'Inicio',
-          // Oculta el título del encabezado en la pestaña, si lo deseas
-          // headerShown: false, 
-        }}
-      />
-
-      {/* Pestaña: search.tsx */}
-      <Tabs.Screen
-        name="search"
-        options={{
-          // Título en el encabezado
-          headerTitle: 'Búsqueda',
-          // Icono de la pestaña
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="search" color={color} size={28} />
-          ),
-          tabBarLabel: 'Buscar',
-        }}
-      />
-
-      {/* Pestaña: profile.tsx */}
-      <Tabs.Screen
-        name="profile"
-        options={{
-          // Título en el encabezado
-          headerTitle: 'Perfil',
-          // Icono de la pestaña
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="person" color={color} size={28} />
-          ),
-          tabBarLabel: 'Mi Perfil',
-        }}
-      />
+    <Tabs 
+        screenOptions={{
+            tabBarShowLabel: false,
+            tabBarStyle: {
+                backgroundColor: "#ffffffff",
+                borderTopColor: "#222",
+                height: 60
+            }
+        }}>
+            <Tabs.Screen 
+                name="index" 
+                options={{ 
+                    title: "Inicio",
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="home" size={size} color={color} />
+                    )
+                }} 
+            />
+            <Tabs.Screen 
+                name="profile" 
+                options={{ 
+                    title: "Perfil",
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="person" size={size} color={color} />
+                    )
+                }}
+            />
+            <Tabs.Screen 
+                name="configuration" 
+                options={{ title: "Configuración", tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="settings" size={size} color={color} />
+                    ), headerShown: false
+                }}
+            />
     </Tabs>
   );
 }
