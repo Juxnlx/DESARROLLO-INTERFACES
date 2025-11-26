@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 
-export default function Profile() {
+export default function Index() {
   return (
     <View
       style={{
@@ -9,7 +9,7 @@ export default function Profile() {
         alignItems: "center",
       }}
     >
-      <Text>Estás en la vista: Galería</Text>
+      <Text>Estás en la vista: Índice</Text>
     </View>
   );
 }

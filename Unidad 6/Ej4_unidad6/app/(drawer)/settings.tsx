@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 
-export default function Configuration() {
+export default function Index() {
   return (
     <View
       style={{
@@ -9,7 +9,7 @@ export default function Configuration() {
         alignItems: "center",
       }}
     >
-      <Text>Estás en la vista: Configuración</Text>
+      <Text>Estás en la vista: Ajustes</Text>
     </View>
   );
 }
