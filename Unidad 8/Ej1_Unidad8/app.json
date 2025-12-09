@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "PeopleListCA",
-    "slug": "PeopleListCA",
+    "name": "Ej1_Unidad8",
+    "slug": "Ej1_Unidad8",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "peoplelistca",
+    "scheme": "ej1unidad8",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {

@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "PeopleListCA",
-    "slug": "PeopleListCA",
+    "name": "EjercicioGuiado_U5",
+    "slug": "EjercicioGuiado_U5",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "peoplelistca",
+    "scheme": "ejercicioguiadou5",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
