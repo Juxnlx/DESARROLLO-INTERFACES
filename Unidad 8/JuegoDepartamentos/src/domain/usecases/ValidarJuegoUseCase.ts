@@ -4,6 +4,10 @@ import { PersonaConDepartamentosDTO } from "../dtos/PersonaConDepartamentosDTO";
 import type { IPersonaRepository } from "../interfaces/repositories/IPersonaRepository";
 import type { IValidarJuegoUseCase } from "../interfaces/usecases/IValidarJuegoUseCase";
 
+/**
+ * Caso de uso que valida las respuestas del usuario en el juego.
+ * Compara la selección del usuario con el departamento real.
+ */
 @injectable()
 export class ValidarJuegoUseCase implements IValidarJuegoUseCase {
     private repositorioPersonas: IPersonaRepository;
@@ -14,39 +18,40 @@ export class ValidarJuegoUseCase implements IValidarJuegoUseCase {
         this.repositorioPersonas = repositorioPersonas;
     }
 
+    /**
+     * Calcula el número de aciertos comparando selecciones con departamentos reales.
+     * Incluye logs de debug para verificar la validación.
+     * @param respuestasUsuario - Array con las respuestas del usuario
+     * @returns Promise con el número de aciertos
+     */
     async calcularAciertos(respuestasUsuario: PersonaConDepartamentosDTO[]): Promise<number> {
-    const personasReales = await this.repositorioPersonas.getAllPersonas();
-    
-    let contadorAciertos = 0;
-    
-    for (let i = 0; i < respuestasUsuario.length; i++) {
-        const respuesta = respuestasUsuario[i];
-        const personaReal = personasReales[i];
+        const personasReales = await this.repositorioPersonas.getAllPersonas();
         
-        // El departamento real está en la posición [0] de la lista
-        const idDepartamentoReal = respuesta.listaDepartamentos[0]?.id || 0;
-        const idSeleccionado = respuesta.idDepartamentoSeleccionado;
+        let contadorAciertos = 0;
         
-        // DEBUG: Ver qué está pasando
-        console.log('===================');
-        console.log(`Persona: ${respuesta.nombrePersona} ${respuesta.apellidosPersona}`);
-        console.log(`ID Departamento Real: ${idDepartamentoReal}`);
-        console.log(`ID Departamento Seleccionado: ${idSeleccionado}`);
-        console.log(`¿Son iguales?: ${idSeleccionado === idDepartamentoReal}`);
-        console.log(`Tipo Real: ${typeof idDepartamentoReal}, Tipo Seleccionado: ${typeof idSeleccionado}`);
+        console.log('===== VALIDACIÓN =====');
+        console.log('Total personas:', respuestasUsuario.length);
         
-        // Comparar la selección del usuario con el departamento real
-        if (idSeleccionado === idDepartamentoReal) {
-            contadorAciertos = contadorAciertos + 1;
-            console.log('✅ ACIERTO!');
-        } else {
-            console.log('❌ FALLO');
+        for (let i = 0; i < respuestasUsuario.length; i++) {
+            const respuesta = respuestasUsuario[i];
+            const personaReal = personasReales[i];
+            
+            console.log(`\nPersona ${i + 1}: ${respuesta.nombrePersona}`);
+            console.log('  ID Real:', respuesta.idDepartamentoReal);
+            console.log('  ID Seleccionado:', respuesta.idDepartamentoSeleccionado);
+            console.log('  ¿Coincide?:', respuesta.idDepartamentoSeleccionado === respuesta.idDepartamentoReal);
+            
+            if (respuesta.idDepartamentoSeleccionado === respuesta.idDepartamentoReal) {
+                contadorAciertos = contadorAciertos + 1;
+                console.log('  ✅ ACIERTO');
+            } else {
+                console.log('  ❌ FALLO');
+            }
         }
+        
+        console.log('\n===== RESULTADO =====');
+        console.log('Aciertos totales:', contadorAciertos);
+        
+        return contadorAciertos;
     }
-    
-    console.log('===================');
-    console.log(`TOTAL ACIERTOS: ${contadorAciertos}`);
-    
-    return contadorAciertos;
-}
 }

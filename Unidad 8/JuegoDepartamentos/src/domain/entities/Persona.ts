@@ -1,3 +1,7 @@
+/**
+ * Entidad que representa una Persona en el dominio.
+ * Contiene toda la información de un empleado de la organización.
+ */
 export class Persona {
     private _id: number;
     private _nombre: string;

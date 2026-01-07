@@ -6,6 +6,10 @@ import type { IDepartamentoRepository } from "../interfaces/repositories/IDepart
 import type { IPersonaRepository } from "../interfaces/repositories/IPersonaRepository";
 import type { IObtenerPersonasUseCase } from "../interfaces/usecases/IObtenerPersonasUseCase";
 
+/**
+ * Caso de uso que obtiene personas con la lista completa de departamentos.
+ * Combina información de dos repositorios diferentes.
+ */
 @injectable()
 export class ObtenerPersonasUseCase implements IObtenerPersonasUseCase {
     private repositorioPersonas: IPersonaRepository;
@@ -19,6 +23,11 @@ export class ObtenerPersonasUseCase implements IObtenerPersonasUseCase {
         this.repositorioDepartamentos = repositorioDepartamentos;
     }
 
+    /**
+     * Obtiene todas las personas con la lista completa de departamentos para el selector.
+     * Crea DTOs con el ID real del departamento y la selección inicializada en 0.
+     * @returns Promise con array de PersonaConDepartamentosDTO
+     */
     async obtenerPersonasConDepartamentos(): Promise<PersonaConDepartamentosDTO[]> {
         const todasLasPersonas = await this.repositorioPersonas.getAllPersonas();
         const todosLosDepartamentos = await this.repositorioDepartamentos.getAllDepartamentos();
@@ -26,18 +35,11 @@ export class ObtenerPersonasUseCase implements IObtenerPersonasUseCase {
         const listaResultado: PersonaConDepartamentosDTO[] = [];
         
         for (const persona of todasLasPersonas) {
-            // Encontrar el departamento real de esta persona
-            const departamentoReal = todosLosDepartamentos.find(d => d.id === persona.idDepartamento);
-            
-            // Crear lista con el departamento real PRIMERO
-            const departamentosOrdenados = departamentoReal 
-                ? [departamentoReal, ...todosLosDepartamentos.filter(d => d.id !== persona.idDepartamento)]
-                : todosLosDepartamentos;
-            
             const dto = new PersonaConDepartamentosDTO(
                 persona.nombre,
                 persona.apellidos,
-                departamentosOrdenados, // El departamento real está en posición [0]
+                todosLosDepartamentos,
+                persona.idDepartamento,
                 0
             );
             listaResultado.push(dto);
@@ -46,6 +48,11 @@ export class ObtenerPersonasUseCase implements IObtenerPersonasUseCase {
         return listaResultado;
     }
 
+    /**
+     * Busca una persona específica por su ID.
+     * @param idPersona - ID de la persona a buscar
+     * @returns Promise con entidad Persona o null si no existe
+     */
     async buscarPersonaPorId(idPersona: number): Promise<Persona | null> {
         const persona = await this.repositorioPersonas.getPersonaById(idPersona);
         return persona;

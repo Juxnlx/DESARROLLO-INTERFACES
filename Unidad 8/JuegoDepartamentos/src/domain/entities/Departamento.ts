@@ -1,3 +1,7 @@
+/**
+ * Entidad que representa un Departamento en el dominio.
+ * Contiene la información básica de un departamento de la organización.
+ */
 export class Departamento {
     private _id: number;
     private _nombre: string;
