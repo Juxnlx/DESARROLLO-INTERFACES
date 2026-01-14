@@ -4,26 +4,15 @@ import "reflect-metadata";
 import { TYPES } from "../../core/types";
 import { PersonaDTO } from "../../domain/dtos/PersonaDTO";
 import { Persona } from "../../domain/entities/Persona";
-import type { IObtenerDepartamentosUseCase } from "../../domain/interfaces/usecases/departamentos/IObtenerDepartamentoUseCase";
 import type { IActualizarPersonaUseCase } from "../../domain/interfaces/usecases/personas/IActualizarPersonaUseCase";
 import type { ICrearPersonaUseCase } from "../../domain/interfaces/usecases/personas/ICrearPersonaUseCase";
 import type { IEliminarPersonaUseCase } from "../../domain/interfaces/usecases/personas/IEliminarPersonaUseCase";
 import type { IObtenerPersonasUseCase } from "../../domain/interfaces/usecases/personas/IObtenerPersonasUseCase";
-import { DepartamentoViewModel } from "../models/DepartamentoViewModel";
-import { PersonaViewModel } from "../models/PersonaViewModel";
 
-/**
- * ViewModel principal para la gestión de personas.
- * Coordina las operaciones CRUD y gestiona el estado observable.
- */
 @injectable()
 export class PersonasVM {
-    private _listaPersonas: PersonaViewModel[] = [];
-    private _listaFiltrada: PersonaViewModel[] = [];
-    private _personaSeleccionada: PersonaViewModel | null = null;
-    private _listaDepartamentos: DepartamentoViewModel[] = [];
-    private _textoBusqueda: string = "";
-    private _modoEdicion: boolean = false;
+    private _listaPersonas: Persona[] = [];
+    private _personaSeleccionada: Persona | null = null;
     private _cargando: boolean = false;
     private _error: string | null = null;
 
@@ -31,33 +20,40 @@ export class PersonasVM {
     private _casoUsoCrear: ICrearPersonaUseCase;
     private _casoUsoActualizar: IActualizarPersonaUseCase;
     private _casoUsoEliminar: IEliminarPersonaUseCase;
-    private _casoUsoObtenerDepartamentos: IObtenerDepartamentosUseCase;
 
     constructor(
         @inject(TYPES.IObtenerPersonasUseCase) casoUsoObtener: IObtenerPersonasUseCase,
         @inject(TYPES.ICrearPersonaUseCase) casoUsoCrear: ICrearPersonaUseCase,
         @inject(TYPES.IActualizarPersonaUseCase) casoUsoActualizar: IActualizarPersonaUseCase,
-        @inject(TYPES.IEliminarPersonaUseCase) casoUsoEliminar: IEliminarPersonaUseCase,
-        @inject(TYPES.IObtenerDepartamentosUseCase) casoUsoObtenerDepartamentos: IObtenerDepartamentosUseCase
+        @inject(TYPES.IEliminarPersonaUseCase) casoUsoEliminar: IEliminarPersonaUseCase
     ) {
         this._casoUsoObtener = casoUsoObtener;
         this._casoUsoCrear = casoUsoCrear;
         this._casoUsoActualizar = casoUsoActualizar;
         this._casoUsoEliminar = casoUsoEliminar;
-        this._casoUsoObtenerDepartamentos = casoUsoObtenerDepartamentos;
 
         makeAutoObservable(this);
     }
 
-    // Getters
-    get listaFiltrada(): PersonaViewModel[] { return this._listaFiltrada; }
-    get personaSeleccionada(): PersonaViewModel | null { return this._personaSeleccionada; }
-    get listaDepartamentos(): DepartamentoViewModel[] { return this._listaDepartamentos; }
-    get modoEdicion(): boolean { return this._modoEdicion; }
-    get cargando(): boolean { return this._cargando; }
-    get error(): string | null { return this._error; }
-    get textoBusqueda(): string { return this._textoBusqueda; }
+    // ==================== GETTERS PARA DRAWER ====================
+    get personas(): Persona[] { 
+        return this._listaPersonas; 
+    }
+    
+    get personaSeleccionada(): Persona | null { 
+        return this._personaSeleccionada; 
+    }
+    
+    get isLoading(): boolean { 
+        return this._cargando; 
+    }
+    
+    get error(): string | null { 
+        return this._error; 
+    }
 
+    // ==================== MÉTODOS PARA DRAWER ====================
+    
     /**
      * Carga todas las personas desde el caso de uso.
      */
@@ -69,11 +65,9 @@ export class PersonasVM {
             });
 
             const personas = await this._casoUsoObtener.obtenerPersonas();
-            const personasVM = this.convertirListaAViewModel(personas);
 
             runInAction(() => {
-                this._listaPersonas = personasVM;
-                this._listaFiltrada = personasVM;
+                this._listaPersonas = personas;
                 this._cargando = false;
             });
         } catch (error) {
@@ -85,70 +79,28 @@ export class PersonasVM {
     }
 
     /**
-     * Carga la lista de departamentos.
-     */
-    async cargarDepartamentos(): Promise<void> {
-        try {
-            const departamentos = await this._casoUsoObtenerDepartamentos.obtenerDepartamentos();
-            const departamentosVM = departamentos.map(d => new DepartamentoViewModel(d.id, d.nombre));
-
-            runInAction(() => {
-                this._listaDepartamentos = departamentosVM;
-            });
-        } catch (error) {
-            console.error("Error al cargar departamentos:", error);
-        }
-    }
-
-    /**
-     * Carga una persona específica por ID.
-     * @param id - ID de la persona
-     */
-    async cargarPersonaPorId(id: number): Promise<void> {
-        try {
-            runInAction(() => {
-                this._cargando = true;
-                this._error = null;
-            });
-
-            const persona = await this._casoUsoObtener.obtenerPersonaPorId(id);
-
-            runInAction(() => {
-                if (persona) {
-                    this._personaSeleccionada = this.convertirAViewModel(persona);
-                    this._modoEdicion = true;
-                }
-                this._cargando = false;
-            });
-        } catch (error) {
-            runInAction(() => {
-                this._error = error instanceof Error ? error.message : "Error al cargar persona";
-                this._cargando = false;
-            });
-        }
-    }
-
-    /**
-     * Filtra la lista de personas por texto.
-     * @param texto - Texto de búsqueda
-     */
-    filtrar(texto: string): void {
-        this._textoBusqueda = texto;
-        this.aplicarFiltro();
-    }
-
-    /**
      * Crea una nueva persona.
-     * @param datos - DTO con datos de la persona
+     * @param persona - Entidad Persona a crear
      */
-    async crear(datos: PersonaDTO): Promise<void> {
+    async crearPersona(persona: Persona): Promise<void> {
         try {
             runInAction(() => {
                 this._cargando = true;
                 this._error = null;
             });
 
-            await this._casoUsoCrear.crear(datos);
+            const dto: PersonaDTO = {
+                id: persona.id,
+                nombre: persona.nombre,
+                apellidos: persona.apellidos,
+                telefono: persona.telefono,
+                direccion: persona.direccion,
+                foto: persona.foto,
+                fechaNacimiento: persona.fechaNacimiento,
+                idDepartamento: persona.idDepartamento
+            };
+
+            await this._casoUsoCrear.crear(dto);
             await this.cargarPersonas();
 
             runInAction(() => {
@@ -166,16 +118,27 @@ export class PersonasVM {
     /**
      * Actualiza una persona existente.
      * @param id - ID de la persona
-     * @param datos - DTO con nuevos datos
+     * @param persona - Entidad Persona con nuevos datos
      */
-    async actualizar(id: number, datos: PersonaDTO): Promise<void> {
+    async editarPersona(id: number, persona: Persona): Promise<void> {
         try {
             runInAction(() => {
                 this._cargando = true;
                 this._error = null;
             });
 
-            await this._casoUsoActualizar.actualizar(id, datos);
+            const dto: PersonaDTO = {
+                id: persona.id,
+                nombre: persona.nombre,
+                apellidos: persona.apellidos,
+                telefono: persona.telefono,
+                direccion: persona.direccion,
+                foto: persona.foto,
+                fechaNacimiento: persona.fechaNacimiento,
+                idDepartamento: persona.idDepartamento
+            };
+
+            await this._casoUsoActualizar.actualizar(id, dto);
             await this.cargarPersonas();
 
             runInAction(() => {
@@ -194,7 +157,7 @@ export class PersonasVM {
      * Elimina una persona.
      * @param id - ID de la persona a eliminar
      */
-    async eliminar(id: number): Promise<void> {
+    async eliminarPersona(id: number): Promise<void> {
         try {
             runInAction(() => {
                 this._cargando = true;
@@ -218,14 +181,10 @@ export class PersonasVM {
 
     /**
      * Selecciona una persona para edición.
-     * @param id - ID de la persona
+     * @param persona - Persona a seleccionar
      */
-    seleccionar(id: number): void {
-        const persona = this._listaPersonas.find(p => p.id === id);
-        if (persona) {
-            this._personaSeleccionada = persona;
-            this._modoEdicion = true;
-        }
+    seleccionarPersona(persona: Persona): void {
+        this._personaSeleccionada = persona;
     }
 
     /**
@@ -233,46 +192,5 @@ export class PersonasVM {
      */
     limpiarSeleccion(): void {
         this._personaSeleccionada = null;
-        this._modoEdicion = false;
-    }
-
-    /**
-     * Aplica el filtro de búsqueda.
-     */
-    private aplicarFiltro(): void {
-        if (!this._textoBusqueda) {
-            this._listaFiltrada = this._listaPersonas;
-            return;
-        }
-
-        const textoLower = this._textoBusqueda.toLowerCase();
-        this._listaFiltrada = this._listaPersonas.filter(persona =>
-            persona.nombre.toLowerCase().includes(textoLower) ||
-            persona.apellidos.toLowerCase().includes(textoLower) ||
-            persona.nombreCompleto.toLowerCase().includes(textoLower)
-        );
-    }
-
-    /**
-     * Convierte una entidad Persona a PersonaViewModel.
-     */
-    private convertirAViewModel(persona: Persona): PersonaViewModel {
-        return new PersonaViewModel(
-            persona.id,
-            persona.nombre,
-            persona.apellidos,
-            persona.telefono,
-            persona.direccion,
-            persona.foto,
-            persona.fechaNacimiento,
-            persona.idDepartamento
-        );
-    }
-
-    /**
-     * Convierte un array de Persona a array de PersonaViewModel.
-     */
-    private convertirListaAViewModel(personas: Persona[]): PersonaViewModel[] {
-        return personas.map(p => this.convertirAViewModel(p));
     }
 }
