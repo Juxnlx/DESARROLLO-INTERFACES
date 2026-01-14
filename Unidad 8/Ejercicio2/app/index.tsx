@@ -1,30 +1,26 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-/**
- * Pantalla de bienvenida.
- * Primera vista que ve el usuario al abrir la app.
- */
 export default function WelcomeScreen() {
     const router = useRouter();
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Bienvenido</Text>
-            <Text style={styles.subtitle}>Gestión de Personas y Departamentos</Text>
+            <Text style={styles.subtitle}>Gestion de Personas y Departamentos</Text>
 
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => router.push("/views/personas/ListadoPersonasScreen")}
+                    onPress={() => router.push("/views/screens/personas/ListadoPersonasScreen")}
                 >
                     <Text style={styles.buttonText}>Ver Personas</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => router.push("/views/departamentos/ListadoDepartamentosScreen")}
+                    onPress={() => router.push("/views/screens/departamentos/ListadoDepartamentosScreen")}
                 >
                     <Text style={styles.buttonText}>Ver Departamentos</Text>
                 </TouchableOpacity>

@@ -1,17 +1,16 @@
-import "reflect-metadata";
-import { makeAutoObservable, runInAction } from "mobx";
 import { inject, injectable } from "inversify";
+import { makeAutoObservable, runInAction } from "mobx";
+import "reflect-metadata";
 import { TYPES } from "../../core/types";
-import { PersonaViewModel } from "../models/PersonaViewModel";
-import { DepartamentoViewModel } from "../models/DepartamentoViewModel";
 import { PersonaDTO } from "../../domain/dtos/PersonaDTO";
 import { Persona } from "../../domain/entities/Persona";
-import { Departamento } from "../../domain/entities/Departamento";
-import type { IObtenerPersonasUseCase } from "../../domain/interfaces/usecases/personas/IObtenerPersonasUseCase";
-import type { ICrearPersonaUseCase } from "../../domain/interfaces/usecases/personas/ICrearPersonaUseCase";
-import type { IActualizarPersonaUseCase } from "../../domain/interfaces/usecases/personas/IActualizarPersonaUseCase";
-import type { IEliminarPersonaUseCase } from "../../domain/interfaces/usecases/personas/IEliminarPersonaUseCase";
 import type { IObtenerDepartamentosUseCase } from "../../domain/interfaces/usecases/departamentos/IObtenerDepartamentoUseCase";
+import type { IActualizarPersonaUseCase } from "../../domain/interfaces/usecases/personas/IActualizarPersonaUseCase";
+import type { ICrearPersonaUseCase } from "../../domain/interfaces/usecases/personas/ICrearPersonaUseCase";
+import type { IEliminarPersonaUseCase } from "../../domain/interfaces/usecases/personas/IEliminarPersonaUseCase";
+import type { IObtenerPersonasUseCase } from "../../domain/interfaces/usecases/personas/IObtenerPersonasUseCase";
+import { DepartamentoViewModel } from "../models/DepartamentoViewModel";
+import { PersonaViewModel } from "../models/PersonaViewModel";
 
 /**
  * ViewModel principal para la gestión de personas.

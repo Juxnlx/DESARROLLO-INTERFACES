@@ -1,20 +1,20 @@
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { observer } from "mobx-react-lite";
 import React, { useEffect, useState } from "react";
 import {
-    View,
+    ActivityIndicator,
+    Alert,
+    ScrollView,
+    StyleSheet,
     Text,
     TextInput,
     TouchableOpacity,
-    ScrollView,
-    StyleSheet,
-    Alert,
-    ActivityIndicator,
+    View,
 } from "react-native";
-import { observer } from "mobx-react-lite";
-import { useRouter, useLocalSearchParams } from "expo-router";
 import { container } from "../../../../src/core/container";
 import { TYPES } from "../../../../src/core/types";
-import { DepartamentosVM } from "../../../../src/presenter/viewmodels/DepartamentosVM";
 import { DepartamentoDTO } from "../../../../src/domain/dtos/DepartamentoDTO";
+import { DepartamentosVM } from "../../../../src/presenter/viewmodels/DepartamentosVM";
 
 /**
  * Pantalla para crear o editar un departamento.

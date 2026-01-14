@@ -1,8 +1,8 @@
-import "reflect-metadata";
 import { inject, injectable } from "inversify";
+import "reflect-metadata";
 import { TYPES } from "../../core/types";
-import { Departamento } from "../../domain/entities/Departamento";
 import { DepartamentoDTO } from "../../domain/dtos/DepartamentoDTO";
+import { Departamento } from "../../domain/entities/Departamento";
 import type { IDepartamentoRepository } from "../../domain/interfaces/repositories/IDepartamentoRepository";
 import { AzureAPI } from "../datasource/AzureAPI";
 

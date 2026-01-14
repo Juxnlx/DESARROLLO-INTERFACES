@@ -1,14 +1,14 @@
-import "reflect-metadata";
-import { makeAutoObservable, runInAction } from "mobx";
 import { inject, injectable } from "inversify";
+import { makeAutoObservable, runInAction } from "mobx";
+import "reflect-metadata";
 import { TYPES } from "../../core/types";
-import { DepartamentoViewModel } from "../models/DepartamentoViewModel";
 import { DepartamentoDTO } from "../../domain/dtos/DepartamentoDTO";
 import { Departamento } from "../../domain/entities/Departamento";
-import type { IObtenerDepartamentosUseCase } from "../../domain/interfaces/usecases/departamentos/IObtenerDepartamentoUseCase";
-import type { ICrearDepartamentoUseCase } from "../../domain/interfaces/usecases/departamentos/ICrearDepartamentoUseCase";
 import type { IActualizarDepartamentoUseCase } from "../../domain/interfaces/usecases/departamentos/IActualizarDepartamentoUseCase";
+import type { ICrearDepartamentoUseCase } from "../../domain/interfaces/usecases/departamentos/ICrearDepartamentoUseCase";
 import type { IEliminarDepartamentoUseCase } from "../../domain/interfaces/usecases/departamentos/IEliminarDepartamentoUseCase";
+import type { IObtenerDepartamentosUseCase } from "../../domain/interfaces/usecases/departamentos/IObtenerDepartamentoUseCase";
+import { DepartamentoViewModel } from "../models/DepartamentoViewModel";
 
 /**
  * ViewModel principal para la gestión de departamentos.

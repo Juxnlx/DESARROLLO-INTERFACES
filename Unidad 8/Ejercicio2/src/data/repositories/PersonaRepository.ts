@@ -1,8 +1,8 @@
-import "reflect-metadata";
 import { inject, injectable } from "inversify";
+import "reflect-metadata";
 import { TYPES } from "../../core/types";
-import { Persona } from "../../domain/entities/Persona";
 import { PersonaDTO } from "../../domain/dtos/PersonaDTO";
+import { Persona } from "../../domain/entities/Persona";
 import type { IPersonaRepository } from "../../domain/interfaces/repositories/IPersonaRepository";
 import { AzureAPI } from "../datasource/AzureAPI";
 

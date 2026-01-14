@@ -1,16 +1,16 @@
+import { useRouter } from "expo-router";
+import { observer } from "mobx-react-lite";
 import React, { useEffect, useState } from "react";
 import {
-    View,
-    Text,
+    ActivityIndicator,
+    Alert,
     FlatList,
+    StyleSheet,
+    Text,
     TextInput,
     TouchableOpacity,
-    StyleSheet,
-    Alert,
-    ActivityIndicator,
+    View,
 } from "react-native";
-import { observer } from "mobx-react-lite";
-import { useRouter } from "expo-router";
 import { container } from "../../../../src/core/container";
 import { TYPES } from "../../../../src/core/types";
 import { DepartamentosVM } from "../../../../src/presenter/viewmodels/DepartamentosVM";

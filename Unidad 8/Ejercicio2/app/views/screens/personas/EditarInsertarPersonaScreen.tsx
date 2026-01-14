@@ -1,22 +1,22 @@
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { observer } from "mobx-react-lite";
 import React, { useEffect, useState } from "react";
 import {
-    View,
+    ActivityIndicator,
+    Alert,
+    FlatList,
+    Modal,
+    ScrollView,
+    StyleSheet,
     Text,
     TextInput,
     TouchableOpacity,
-    ScrollView,
-    StyleSheet,
-    Alert,
-    ActivityIndicator,
-    Modal,
-    FlatList,
+    View,
 } from "react-native";
-import { observer } from "mobx-react-lite";
-import { useRouter, useLocalSearchParams } from "expo-router";
 import { container } from "../../../../src/core/container";
 import { TYPES } from "../../../../src/core/types";
-import { PersonasVM } from "../../../../src/presenter/viewmodels/PersonasVM";
 import { PersonaDTO } from "../../../../src/domain/dtos/PersonaDTO";
+import { PersonasVM } from "../../../../src/presenter/viewmodels/PersonasVM";
 
 /**
  * Pantalla para crear o editar una persona.

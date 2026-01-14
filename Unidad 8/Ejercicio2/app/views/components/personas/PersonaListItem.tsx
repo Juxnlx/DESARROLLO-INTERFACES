@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { PersonaViewModel } from "../../../../src/presenter/models/PersonaViewModel";
 
 interface Props {
@@ -8,16 +8,13 @@ interface Props {
     onDelete: () => void;
 }
 
-/**
- * Componente para renderizar un item de persona en la lista.
- */
 export const PersonaListItem: React.FC<Props> = ({ persona, onPress, onDelete }) => {
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.content} onPress={onPress}>
                 <Text style={styles.name}>{persona.nombreCompleto}</Text>
-                <Text style={styles.info}>Edad: {persona.edad} años</Text>
-                <Text style={styles.info}>Teléfono: {persona.telefono}</Text>
+                <Text style={styles.info}>Edad: {persona.edad} anos</Text>
+                <Text style={styles.info}>Telefono: {persona.telefono}</Text>
             </TouchableOpacity>
 
             <View style={styles.actions}>

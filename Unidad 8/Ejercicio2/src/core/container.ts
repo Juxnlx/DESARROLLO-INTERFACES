@@ -1,44 +1,44 @@
-import "reflect-metadata";
 import { Container } from "inversify";
+import "reflect-metadata";
 import { TYPES } from "./types";
 
 // ==================== DATA ====================
 import { AzureAPI } from "../data/datasource/AzureAPI";
-import { PersonaRepository } from "../data/repositories/PersonaRepository";
 import { DepartamentoRepository } from "../data/repositories/DepartamentoRepository";
+import { PersonaRepository } from "../data/repositories/PersonaRepository";
 
 // ==================== DOMAIN - Interfaces ====================
-import type { IPersonaRepository } from "../domain/interfaces/repositories/IPersonaRepository";
 import type { IDepartamentoRepository } from "../domain/interfaces/repositories/IDepartamentoRepository";
+import type { IPersonaRepository } from "../domain/interfaces/repositories/IPersonaRepository";
 
 // UseCases - Personas
-import type { IObtenerPersonasUseCase } from "../domain/interfaces/usecases/personas/IObtenerPersonasUseCase";
-import type { ICrearPersonaUseCase } from "../domain/interfaces/usecases/personas/ICrearPersonaUseCase";
 import type { IActualizarPersonaUseCase } from "../domain/interfaces/usecases/personas/IActualizarPersonaUseCase";
+import type { ICrearPersonaUseCase } from "../domain/interfaces/usecases/personas/ICrearPersonaUseCase";
 import type { IEliminarPersonaUseCase } from "../domain/interfaces/usecases/personas/IEliminarPersonaUseCase";
+import type { IObtenerPersonasUseCase } from "../domain/interfaces/usecases/personas/IObtenerPersonasUseCase";
 
 // UseCases - Departamentos
-import type { IObtenerDepartamentosUseCase } from "../domain/interfaces/usecases/departamentos/IObtenerDepartamentoUseCase";
-import type { ICrearDepartamentoUseCase } from "../domain/interfaces/usecases/departamentos/ICrearDepartamentoUseCase";
 import type { IActualizarDepartamentoUseCase } from "../domain/interfaces/usecases/departamentos/IActualizarDepartamentoUseCase";
+import type { ICrearDepartamentoUseCase } from "../domain/interfaces/usecases/departamentos/ICrearDepartamentoUseCase";
 import type { IEliminarDepartamentoUseCase } from "../domain/interfaces/usecases/departamentos/IEliminarDepartamentoUseCase";
+import type { IObtenerDepartamentosUseCase } from "../domain/interfaces/usecases/departamentos/IObtenerDepartamentoUseCase";
 
 // ==================== DOMAIN - Implementaciones ====================
 // UseCases - Personas
-import { ObtenerPersonasUseCase } from "../domain/usecases/personas/ObtenerPersonasUseCase";
-import { CrearPersonaUseCase } from "../domain/usecases/personas/CrearPersonaUseCase";
 import { ActualizarPersonaUseCase } from "../domain/usecases/personas/ActualizarPersonaUseCase";
+import { CrearPersonaUseCase } from "../domain/usecases/personas/CrearPersonaUseCase";
 import { EliminarPersonaUseCase } from "../domain/usecases/personas/EliminarPersonaUseCase";
+import { ObtenerPersonasUseCase } from "../domain/usecases/personas/ObtenerPersonasUseCase";
 
 // UseCases - Departamentos
-import { ObtenerDepartamentosUseCase } from "../domain/usecases/departamentos/ObtenerDepartamentoUseCase";
-import { CrearDepartamentoUseCase } from "../domain/usecases/departamentos/CrearDepartamentoUseCase";
 import { ActualizarDepartamentoUseCase } from "../domain/usecases/departamentos/ActualizarDepartamentoUseCase";
+import { CrearDepartamentoUseCase } from "../domain/usecases/departamentos/CrearDepartamentoUseCase";
 import { EliminarDepartamentoUseCase } from "../domain/usecases/departamentos/EliminarDepartamentoUseCase";
+import { ObtenerDepartamentosUseCase } from "../domain/usecases/departamentos/ObtenerDepartamentoUseCase";
 
 // ==================== PRESENTER ====================
-import { PersonasVM } from "../presenter/viewmodels/PersonasVM";
 import { DepartamentosVM } from "../presenter/viewmodels/DepartamentosVM";
+import { PersonasVM } from "../presenter/viewmodels/PersonasVM";
 
 /**
  * Contenedor de Inversify.
@@ -70,3 +70,4 @@ container.bind<PersonasVM>(TYPES.PersonasVM).to(PersonasVM).inSingletonScope();
 container.bind<DepartamentosVM>(TYPES.DepartamentosVM).to(DepartamentosVM).inSingletonScope();
 
 export { container };
+
