@@ -1,4 +1,4 @@
-using SignalRChat.Hubs;
+﻿using SignalRChat.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,7 +6,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddSignalR();
 
-
+// ⬇️⬇️⬇️ AÑADIR CORS (OBLIGATORIO PARA REACT NATIVE) ⬇️⬇️⬇️
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactNative", policy =>
+    {
+        policy.AllowAnyHeader()
+              .AllowAnyMethod()
+              .SetIsOriginAllowed((host) => true) // Permite cualquier origen
+              .AllowCredentials(); // Obligatorio para SignalR
+    });
+});
 
 var app = builder.Build();
 
@@ -14,7 +24,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -22,6 +31,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+// ⬇️⬇️⬇️ USAR CORS ⬇️⬇️⬇️
+app.UseCors("AllowReactNative");
 
 app.UseAuthorization();
 
