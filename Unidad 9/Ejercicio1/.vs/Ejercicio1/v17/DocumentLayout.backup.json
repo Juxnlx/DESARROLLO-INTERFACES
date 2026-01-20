@@ -1,26 +1,10 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\",
+  "WorkspaceRootPath": "C:\\Users\\jlbarrionuevo\\Desktop\\2\u00BADAM\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\wwwroot\\js\\chat.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Ejercicio1\\wwwroot\\js\\chat.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Ejercicio1\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\wwwroot\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Ejercicio1\\wwwroot\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\Pages\\Index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Ejercicio1\\Pages\\Index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\Hubs\\ChatHub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Ejercicio1\\Hubs\\ChatHub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2F3503DE-CE6B-44AA-8170-402FC24DE8E5}|Ejercicio1\\Ejercicio1.csproj|c:\\users\\jlbarrionuevo\\desktop\\2\u00BAdam\\desarrollo-interfaces\\unidad 9\\ejercicio1\\ejercicio1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F3503DE-CE6B-44AA-8170-402FC24DE8E5}|Ejercicio1\\Ejercicio1.csproj|solutionrelative:ejercicio1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,70 +14,20 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "index.html",
-              "DocumentMoniker": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\wwwroot\\index.html",
-              "RelativeDocumentMoniker": "Ejercicio1\\wwwroot\\index.html",
-              "ToolTip": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\wwwroot\\index.html",
-              "RelativeToolTip": "Ejercicio1\\wwwroot\\index.html",
-              "ViewState": "AgIAAC8AAAAAAAAAAADwv3sAAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2026-01-19T20:21:37.337Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "chat.js",
-              "DocumentMoniker": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\wwwroot\\js\\chat.js",
-              "RelativeDocumentMoniker": "Ejercicio1\\wwwroot\\js\\chat.js",
-              "ToolTip": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\wwwroot\\js\\chat.js",
-              "RelativeToolTip": "Ejercicio1\\wwwroot\\js\\chat.js",
-              "ViewState": "AgIAACcAAAAAAAAAAAAAAC0AAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-01-15T12:31:38.327Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\Pages\\Index.cshtml",
-              "RelativeDocumentMoniker": "Ejercicio1\\Pages\\Index.cshtml",
-              "ToolTip": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\Pages\\Index.cshtml",
-              "RelativeToolTip": "Ejercicio1\\Pages\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-15T12:30:29.326Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\jlbarrionuevo\\Desktop\\2\u00BADAM\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\Program.cs",
               "RelativeDocumentMoniker": "Ejercicio1\\Program.cs",
-              "ToolTip": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\Program.cs",
+              "ToolTip": "C:\\Users\\jlbarrionuevo\\Desktop\\2\u00BADAM\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\Program.cs",
               "RelativeToolTip": "Ejercicio1\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAAAKAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-15T12:30:12.197Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ChatHub.cs",
-              "DocumentMoniker": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\Hubs\\ChatHub.cs",
-              "RelativeDocumentMoniker": "Ejercicio1\\Hubs\\ChatHub.cs",
-              "ToolTip": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\Hubs\\ChatHub.cs",
-              "RelativeToolTip": "Ejercicio1\\Hubs\\ChatHub.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-15T12:28:12.102Z"
             }
           ]
         }

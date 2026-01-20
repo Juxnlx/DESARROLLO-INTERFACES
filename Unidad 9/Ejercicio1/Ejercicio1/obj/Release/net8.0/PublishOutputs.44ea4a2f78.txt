@@ -1,0 +1,8 @@
+C:\Users\jlbarrionuevo\Desktop\2ºDAM\DESARROLLO-INTERFACES\Unidad 9\Ejercicio1\Ejercicio1\obj\Release\net8.0\PubTmp\Out\Ejercicio1.exe
+C:\Users\jlbarrionuevo\Desktop\2ºDAM\DESARROLLO-INTERFACES\Unidad 9\Ejercicio1\Ejercicio1\obj\Release\net8.0\PubTmp\Out\appsettings.Development.json
+C:\Users\jlbarrionuevo\Desktop\2ºDAM\DESARROLLO-INTERFACES\Unidad 9\Ejercicio1\Ejercicio1\obj\Release\net8.0\PubTmp\Out\appsettings.json
+C:\Users\jlbarrionuevo\Desktop\2ºDAM\DESARROLLO-INTERFACES\Unidad 9\Ejercicio1\Ejercicio1\obj\Release\net8.0\PubTmp\Out\libman.json
+C:\Users\jlbarrionuevo\Desktop\2ºDAM\DESARROLLO-INTERFACES\Unidad 9\Ejercicio1\Ejercicio1\obj\Release\net8.0\PubTmp\Out\Ejercicio1.dll
+C:\Users\jlbarrionuevo\Desktop\2ºDAM\DESARROLLO-INTERFACES\Unidad 9\Ejercicio1\Ejercicio1\obj\Release\net8.0\PubTmp\Out\Ejercicio1.deps.json
+C:\Users\jlbarrionuevo\Desktop\2ºDAM\DESARROLLO-INTERFACES\Unidad 9\Ejercicio1\Ejercicio1\obj\Release\net8.0\PubTmp\Out\Ejercicio1.runtimeconfig.json
+C:\Users\jlbarrionuevo\Desktop\2ºDAM\DESARROLLO-INTERFACES\Unidad 9\Ejercicio1\Ejercicio1\obj\Release\net8.0\PubTmp\Out\Ejercicio1.pdb

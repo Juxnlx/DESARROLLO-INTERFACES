@@ -4,6 +4,7 @@ wwwroot\index.html
 wwwroot\js\chat.js
 wwwroot\js\signalr\dist\browser\signalr.js
 wwwroot\js\signalr\dist\browser\signalr.min.js
+wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
