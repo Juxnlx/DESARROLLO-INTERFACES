@@ -3,100 +3,47 @@ import "reflect-metadata";
 import { TYPES } from "../../core/types";
 import { DepartamentoDTO } from "../../domain/dtos/DepartamentoDTO";
 import { Departamento } from "../../domain/entities/Departamento";
-import type { IDepartamentoRepository } from "../../domain/interfaces/repositories/IDepartamentoRepository";
+import { IDepartamentoRepository } from "../../domain/interfaces/repositories/IDepartamentoRepository";
 import { AzureAPI } from "../datasource/AzureAPI";
 
-/**
- * Implementación del repositorio de departamentos.
- * Transforma datos de la API en entidades del dominio.
- */
 @injectable()
 export class DepartamentoRepository implements IDepartamentoRepository {
-    
-    constructor(
-        @inject(TYPES.AzureAPI) private apiAzure: AzureAPI
-    ) {}
+  private readonly _azureAPI: AzureAPI;
 
-    /**
-     * Obtiene todos los departamentos y los transforma en entidades.
-     * @returns Promise con array de entidades Departamento
-     */
-    async getAllDepartamentos(): Promise<Departamento[]> {
-        const datosAPI = await this.apiAzure.obtenerListaDepartamentos();
-        const listaDepartamentos: Departamento[] = [];
-        
-        for (const item of datosAPI) {
-            const departamento = new Departamento(item.id, item.nombre);
-            listaDepartamentos.push(departamento);
-        }
-        
-        return listaDepartamentos;
-    }
+  constructor(@inject(TYPES.AzureAPI) azureAPI: AzureAPI) {
+    this._azureAPI = azureAPI;
+  }
 
-    /**
-     * Obtiene un departamento específico por su ID.
-     * @param id - ID del departamento a buscar
-     * @returns Promise con entidad Departamento o null si no existe
-     */
-    async getDepartamentoById(id: number): Promise<Departamento | null> {
-        const datosAPI = await this.apiAzure.obtenerDepartamentoPorId(id);
-        
-        if (!datosAPI) {
-            return null;
-        }
-        
-        const departamento = new Departamento(datosAPI.id, datosAPI.nombre);
-        
-        return departamento;
-    }
+  async getAllDepartamentos(): Promise<Departamento[]> {
+    const dtos = await this._azureAPI.obtenerListaDepartamentos();
+    return dtos.map(dto => new Departamento(dto.id, dto.nombre));
+  }
 
-    /**
-     * Crea un nuevo departamento en el sistema.
-     * @param departamento - DTO con datos del departamento a crear
-     * @returns Promise con entidad Departamento creada
-     */
-    async createDepartamento(departamento: DepartamentoDTO): Promise<Departamento> {
-        const departamentoData = {
-            nombre: departamento.nombre,
-        };
-        
-        const datosAPI = await this.apiAzure.crearDepartamento(departamentoData);
-        
-        const nuevoDepartamento = new Departamento(datosAPI.id, datosAPI.nombre);
-        
-        return nuevoDepartamento;
+  async getDepartamentoById(id: number): Promise<Departamento | null> {
+    try {
+      const dto = await this._azureAPI.obtenerDepartamentoPorId(id);
+      return new Departamento(dto.id, dto.nombre);
+    } catch {
+      return null;
     }
+  }
 
-    /**
-     * Actualiza un departamento existente.
-     * @param id - ID del departamento a actualizar
-     * @param departamento - DTO con nuevos datos del departamento
-     * @returns Promise con entidad Departamento actualizada
-     */
-    async updateDepartamento(id: number, departamento: DepartamentoDTO): Promise<Departamento> {
-        const departamentoData = {
-            nombre: departamento.nombre,
-        };
-        
-        const datosAPI = await this.apiAzure.actualizarDepartamento(id, departamentoData);
-        
-        const departamentoActualizado = new Departamento(datosAPI.id, datosAPI.nombre);
-        
-        return departamentoActualizado;
-    }
+  async createDepartamento(departamentoDTO: DepartamentoDTO): Promise<Departamento> {
+    await this._azureAPI.crearDepartamento(departamentoDTO);
+    return new Departamento(departamentoDTO.id, departamentoDTO.nombre);
+  }
 
-    /**
-     * Elimina un departamento del sistema.
-     * @param id - ID del departamento a eliminar
-     * @returns Promise con true si se eliminó correctamente
-     */
-    async deleteDepartamento(id: number): Promise<boolean> {
-        try {
-            await this.apiAzure.eliminarDepartamento(id);
-            return true;
-        } catch (error) {
-            console.error(`Error al eliminar departamento ${id}:`, error);
-            return false;
-        }
+  async updateDepartamento(id: number, departamentoDTO: DepartamentoDTO): Promise<Departamento> {
+    await this._azureAPI.actualizarDepartamento(id, departamentoDTO);
+    return new Departamento(departamentoDTO.id, departamentoDTO.nombre);
+  }
+
+  async deleteDepartamento(id: number): Promise<boolean> {
+    try {
+      await this._azureAPI.eliminarDepartamento(id);
+      return true;
+    } catch {
+      return false;
     }
+  }
 }

@@ -1,111 +1,113 @@
 import { injectable } from "inversify";
 import "reflect-metadata";
+import { DepartamentoDTO } from "../../domain/dtos/DepartamentoDTO";
+import { PersonaDTO } from "../../domain/dtos/PersonaDTO";
 
 @injectable()
 export class AzureAPI {
-    private readonly URL_BASE: string;
+  private baseURL: string = "https://montero-hzedh8ahesg5cceh.francecentral-01.azurewebsites.net/API/";
 
-    constructor() {
-        this.URL_BASE = "https://juanluis-g9hvdhc7azdvgphc.spaincentral-01.azurewebsites.net";
+  // ==================== PERSONAS ====================
+  
+  async obtenerListaPersonas(): Promise<PersonaDTO[]> {
+    const response = await fetch(`${this.baseURL}/api/Personas`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+    return await response.json();
+  }
 
-    async obtenerListaPersonas(): Promise<any> {
-        const respuesta = await fetch(`${this.URL_BASE}/api/Persona`);
-        if (!respuesta.ok) {
-            throw new Error(`Error HTTP: ${respuesta.status}`);
-        }
-        return respuesta.json();
+  async obtenerPersonaPorId(id: number): Promise<PersonaDTO> {
+    const response = await fetch(`${this.baseURL}/api/Personas/${id}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+    return await response.json();
+  }
 
-    async obtenerPersonaPorId(id: number): Promise<any> {
-        const respuesta = await fetch(`${this.URL_BASE}/api/Persona/${id}`);
-        if (!respuesta.ok) {
-            throw new Error(`Error HTTP: ${respuesta.status}`);
-        }
-        return respuesta.json();
+  async crearPersona(persona: PersonaDTO): Promise<number> {
+    const response = await fetch(`${this.baseURL}/api/Personas`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(persona),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+    return response.status;
+  }
 
-    async crearPersona(persona: any): Promise<any> {
-        const respuesta = await fetch(`${this.URL_BASE}/api/Persona`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(persona),
-        });
-        if (!respuesta.ok) {
-            throw new Error(`Error HTTP: ${respuesta.status}`);
-        }
-        return respuesta.json();
+  async actualizarPersona(id: number, persona: PersonaDTO): Promise<number> {
+    const response = await fetch(`${this.baseURL}/api/Personas/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(persona),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+    return response.status;
+  }
 
-    async actualizarPersona(id: number, persona: any): Promise<any> {
-        const respuesta = await fetch(`${this.URL_BASE}/api/Persona/${id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(persona),
-        });
-        if (!respuesta.ok) {
-            throw new Error(`Error HTTP: ${respuesta.status}`);
-        }
-        return respuesta.json();
+  async eliminarPersona(id: number): Promise<number> {
+    const response = await fetch(`${this.baseURL}/api/Personas/${id}`, {
+      method: "DELETE",
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+    return response.status;
+  }
 
-    async eliminarPersona(id: number): Promise<any> {
-        const respuesta = await fetch(`${this.URL_BASE}/api/Persona/${id}`, {
-            method: "DELETE",
-        });
-        if (!respuesta.ok) {
-            throw new Error(`Error HTTP: ${respuesta.status}`);
-        }
-        return respuesta.status === 204 ? true : respuesta.json();
+  // ==================== DEPARTAMENTOS ====================
+  
+  async obtenerListaDepartamentos(): Promise<DepartamentoDTO[]> {
+    const response = await fetch(`${this.baseURL}/api/Departamentos`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+    return await response.json();
+  }
 
-    async obtenerListaDepartamentos(): Promise<any> {
-        const respuesta = await fetch(`${this.URL_BASE}/api/Departamento`);
-        if (!respuesta.ok) {
-            throw new Error(`Error HTTP: ${respuesta.status}`);
-        }
-        return respuesta.json();
+  async obtenerDepartamentoPorId(id: number): Promise<DepartamentoDTO> {
+    const response = await fetch(`${this.baseURL}/api/Departamentos/${id}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+    return await response.json();
+  }
 
-    async obtenerDepartamentoPorId(id: number): Promise<any> {
-        const respuesta = await fetch(`${this.URL_BASE}/api/Departamento/${id}`);
-        if (!respuesta.ok) {
-            throw new Error(`Error HTTP: ${respuesta.status}`);
-        }
-        return respuesta.json();
+  async crearDepartamento(departamento: DepartamentoDTO): Promise<number> {
+    const response = await fetch(`${this.baseURL}/api/Departamentos`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(departamento),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+    return response.status;
+  }
 
-    async crearDepartamento(departamento: any): Promise<any> {
-        const respuesta = await fetch(`${this.URL_BASE}/api/Departamento`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(departamento),
-        });
-        if (!respuesta.ok) {
-            throw new Error(`Error HTTP: ${respuesta.status}`);
-        }
-        return respuesta.json();
+  async actualizarDepartamento(id: number, departamento: DepartamentoDTO): Promise<number> {
+    const response = await fetch(`${this.baseURL}/api/Departamentos/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(departamento),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+    return response.status;
+  }
 
-    async actualizarDepartamento(id: number, departamento: any): Promise<any> {
-        const respuesta = await fetch(`${this.URL_BASE}/api/Departamento/${id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(departamento),
-        });
-        if (!respuesta.ok) {
-            throw new Error(`Error HTTP: ${respuesta.status}`);
-        }
-        return respuesta.json();
+  async eliminarDepartamento(id: number): Promise<number> {
+    const response = await fetch(`${this.baseURL}/api/Departamentos/${id}`, {
+      method: "DELETE",
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
-
-    async eliminarDepartamento(id: number): Promise<any> {
-        const respuesta = await fetch(`${this.URL_BASE}/api/Departamento/${id}`, {
-            method: "DELETE",
-        });
-        if (!respuesta.ok) {
-            throw new Error(`Error HTTP: ${respuesta.status}`);
-        }
-        return respuesta.status === 204 ? true : respuesta.json();
-    }
+    return response.status;
+  }
 }

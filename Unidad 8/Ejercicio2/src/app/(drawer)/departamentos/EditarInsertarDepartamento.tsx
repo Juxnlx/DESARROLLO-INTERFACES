@@ -48,10 +48,10 @@ const EditarInsertarDepartamento: React.FC = observer(() => {
     try {
       if (esEdicion) {
         await departamentoVM.editarDepartamento(idDepartamento, departamento);
-        Alert.alert("Éxito", "Departamento actualizado correctamente");
+        Alert.alert("Exito", "Departamento actualizado correctamente");
       } else {
         await departamentoVM.crearDepartamento(departamento);
-        Alert.alert("Éxito", "Departamento creado correctamente");
+        Alert.alert("Exito", "Departamento creado correctamente");
       }
       router.back();
     } catch (error) {

@@ -90,10 +90,10 @@ const EditarInsertarPersonas: React.FC = observer(() => {
     try {
       if (esEdicion) {
         await personaVM.editarPersona(idPersona, persona);
-        Alert.alert("Éxito", "Persona actualizada correctamente");
+        Alert.alert("Exito", "Persona actualizada correctamente");
       } else {
         await personaVM.crearPersona(persona);
-        Alert.alert("Éxito", "Persona creada correctamente");
+        Alert.alert("Exito", "Persona creada correctamente");
       }
       router.back();
     } catch (error) {
@@ -130,23 +130,23 @@ const EditarInsertarPersonas: React.FC = observer(() => {
         </View>
 
         <View style={styles.formGroup}>
-          <Text style={styles.label}>Teléfono *</Text>
+          <Text style={styles.label}>Telefono *</Text>
           <TextInput
             style={styles.input}
             value={telefono}
             onChangeText={setTelefono}
-            placeholder="Ingrese el teléfono"
+            placeholder="Ingrese el telefono"
             keyboardType="phone-pad"
           />
         </View>
 
         <View style={styles.formGroup}>
-          <Text style={styles.label}>Dirección</Text>
+          <Text style={styles.label}>Direccion</Text>
           <TextInput
             style={styles.input}
             value={direccion}
             onChangeText={setDireccion}
-            placeholder="Ingrese la dirección"
+            placeholder="Ingrese la direccion"
           />
         </View>
 

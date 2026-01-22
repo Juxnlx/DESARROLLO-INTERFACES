@@ -52,7 +52,7 @@ export class DepartamentosVM {
         return this._error; 
     }
 
-    // ==================== MÉTODOS PARA DRAWER ====================
+    // ==================== METODOS PARA DRAWER ====================
     
     /**
      * Carga todos los departamentos desde el caso de uso.
@@ -168,7 +168,7 @@ export class DepartamentosVM {
     }
 
     /**
-     * Selecciona un departamento para edición.
+     * Selecciona un departamento para edicion.
      * @param departamento - Departamento a seleccionar
      */
     seleccionarDepartamento(departamento: Departamento): void {
@@ -176,7 +176,7 @@ export class DepartamentosVM {
     }
 
     /**
-     * Limpia la selección actual.
+     * Limpia la seleccion actual.
      */
     limpiarSeleccion(): void {
         this._departamentoSeleccionado = null;

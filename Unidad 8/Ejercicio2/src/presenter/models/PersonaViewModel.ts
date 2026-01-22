@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 
 /**
  * ViewModel observable para Persona.
- * Usado en la capa de presentación con MobX.
+ * Usado en la capa de presentacion con MobX.
  */
 export class PersonaViewModel {
     private _id: number;

@@ -1,7 +1,5 @@
-// src/components/Elemento.tsx
-
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 interface ElementoProps {
   titulo: string;
@@ -36,7 +34,7 @@ export const Elemento: React.FC<ElementoProps> = ({
       </TouchableOpacity>
       {onDelete && (
         <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
-          <Text style={styles.deleteText}>✕</Text>
+          <Text style={styles.deleteText}>X</Text>
         </TouchableOpacity>
       )}
     </View>

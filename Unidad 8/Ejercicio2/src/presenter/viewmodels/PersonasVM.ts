@@ -52,7 +52,7 @@ export class PersonasVM {
         return this._error; 
     }
 
-    // ==================== MÉTODOS PARA DRAWER ====================
+    // ==================== METODOS PARA DRAWER ====================
     
     /**
      * Carga todas las personas desde el caso de uso.
@@ -180,7 +180,7 @@ export class PersonasVM {
     }
 
     /**
-     * Selecciona una persona para edición.
+     * Selecciona una persona para edicion.
      * @param persona - Persona a seleccionar
      */
     seleccionarPersona(persona: Persona): void {
@@ -188,7 +188,7 @@ export class PersonasVM {
     }
 
     /**
-     * Limpia la selección actual.
+     * Limpia la seleccion actual.
      */
     limpiarSeleccion(): void {
         this._personaSeleccionada = null;

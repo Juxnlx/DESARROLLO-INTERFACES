@@ -1,8 +1,8 @@
-import "reflect-metadata";
 import { inject, injectable } from "inversify";
+import "reflect-metadata";
 import { TYPES } from "../../../core/types";
-import type { IEliminarDepartamentoUseCase } from "../../interfaces/usecases/departamentos/IEliminarDepartamentoUseCase";
 import type { IDepartamentoRepository } from "../../interfaces/repositories/IDepartamentoRepository";
+import type { IEliminarDepartamentoUseCase } from "../../interfaces/usecases/departamentos/IEliminarDepartamentoUseCase";
 
 /**
  * Caso de uso para eliminar departamentos.
@@ -17,7 +17,7 @@ export class EliminarDepartamentoUseCase implements IEliminarDepartamentoUseCase
     /**
      * Elimina un departamento del sistema.
      * @param id - ID del departamento a eliminar
-     * @returns Promise con true si se eliminó
+     * @returns Promise con true si se elimino
      */
     async eliminar(id: number): Promise<boolean> {
         return await this.repositorioDepartamentos.deleteDepartamento(id);

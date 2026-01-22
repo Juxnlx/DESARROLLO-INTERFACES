@@ -2,7 +2,7 @@ import { useRouter } from "expo-router";
 import { observer } from "mobx-react-lite";
 import React, { JSX, useEffect, useState } from "react";
 import { ActivityIndicator, Alert, FlatList, StyleSheet, Text, TextInput, View } from "react-native";
-import { BotonAñadir } from "../../../components/BotonAñadir";
+import { BotonAnadir } from "../../../components/BotonAnadir";
 import { Elemento } from "../../../components/Elemento";
 import { container } from "../../../core/container";
 import { TYPES } from "../../../core/types";
@@ -42,13 +42,13 @@ const ListadoDepartamentos: React.FC = observer(() => {
 
   function handleEditar(departamento: Departamento): void {
     departamentoVM.seleccionarDepartamento(departamento);
-    router.push("/(drawer)/departamentos/EditarInsertarDepartamento");
+    router.push("/(drawer)/departamentos/EditarInsertarDepartamento" as any);
   }
 
   function handleEliminar(id: number): void {
     Alert.alert(
-      "Confirmar eliminación",
-      "¿Estás seguro de que deseas eliminar este departamento?",
+      "Confirmar eliminacion",
+      "¿Estss seguro de que deseas eliminar este departamento?",
       [
         { text: "Cancelar", style: "cancel" },
         {
@@ -63,16 +63,16 @@ const ListadoDepartamentos: React.FC = observer(() => {
   async function eliminarDepartamento(id: number): Promise<void> {
     try {
       await departamentoVM.eliminarDepartamento(id);
-      Alert.alert("Éxito", "Departamento eliminado correctamente");
+      Alert.alert("Exito", "Departamento eliminado correctamente");
     } catch (error) {
       const mensaje = error instanceof Error ? error.message : "Error desconocido";
       Alert.alert("Error", mensaje);
     }
   }
 
-  function handleAñadir(): void {
+  function handleAnadir(): void {
     departamentoVM.limpiarSeleccion();
-    router.push("/(drawer)/departamentos/EditarInsertarDepartamento");
+    router.push("/(drawer)/departamentos/EditarInsertarDepartamento" as any);
   }
 
   function renderDepartamento({ item }: { item: Departamento }): JSX.Element {
@@ -126,7 +126,7 @@ const ListadoDepartamentos: React.FC = observer(() => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <BotonAñadir onPress={handleAñadir} titulo="Añadir Departamento" />
+        <BotonAnadir onPress={handleAnadir} titulo="Anadir Departamento" />
       </View>
 
       {renderContenido()}

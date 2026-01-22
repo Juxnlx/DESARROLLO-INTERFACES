@@ -56,3 +56,4 @@ container.bind(TYPES.PersonaViewModel).to(PersonasVM).inSingletonScope();
 container.bind(TYPES.DepartamentoViewModel).to(DepartamentosVM).inSingletonScope();
 
 export { container };
+

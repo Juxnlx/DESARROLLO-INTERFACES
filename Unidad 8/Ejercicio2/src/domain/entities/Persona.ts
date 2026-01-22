@@ -48,7 +48,7 @@ export class Persona {
   set fechaNacimiento(value: Date) { this._fechaNacimiento = value; }
   set idDepartamento(value: number) { this._idDepartamento = value; }
 
-  // Método de negocio
+  // Metodo de negocio
   calcularEdad(): number {
     const hoy = new Date();
     let edad = hoy.getFullYear() - this._fechaNacimiento.getFullYear();

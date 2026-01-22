@@ -1,8 +1,8 @@
-import "reflect-metadata";
 import { inject, injectable } from "inversify";
+import "reflect-metadata";
 import { TYPES } from "../../../core/types";
-import type { IEliminarPersonaUseCase } from "../../interfaces/usecases/personas/IEliminarPersonaUseCase";
 import type { IPersonaRepository } from "../../interfaces/repositories/IPersonaRepository";
+import type { IEliminarPersonaUseCase } from "../../interfaces/usecases/personas/IEliminarPersonaUseCase";
 
 /**
  * Caso de uso para eliminar personas.
@@ -19,7 +19,7 @@ export class EliminarPersonaUseCase implements IEliminarPersonaUseCase {
      * Elimina una persona del sistema.
      * Los domingos lanza un error y no permite eliminar.
      * @param id - ID de la persona a eliminar
-     * @returns Promise con true si se eliminó
+     * @returns Promise con true si se elimino
      * @throws Error si es domingo
      */
     async eliminar(id: number): Promise<boolean> {

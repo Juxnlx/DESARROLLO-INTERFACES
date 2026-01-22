@@ -2,7 +2,7 @@ import { useRouter } from "expo-router";
 import { observer } from "mobx-react-lite";
 import React, { JSX, useEffect, useState } from "react";
 import { ActivityIndicator, Alert, FlatList, StyleSheet, Text, TextInput, View } from "react-native";
-import { BotonAñadir } from "../../../components/BotonAñadir";
+import { BotonAnadir } from "../../../components/BotonAnadir";
 import { Elemento } from "../../../components/Elemento";
 import { container } from "../../../core/container";
 import { TYPES } from "../../../core/types";
@@ -43,13 +43,13 @@ const ListadoPersonas: React.FC = observer(() => {
 
   function handleEditar(persona: Persona): void {
     personaVM.seleccionarPersona(persona);
-    router.push("/(drawer)/personas/EditarInsertarPersonas");
+    router.push("/(drawer)/personas/EditarInsertarPersonas" as any);
   }
 
   function handleEliminar(id: number): void {
     Alert.alert(
-      "Confirmar eliminación",
-      "¿Estás seguro de que deseas eliminar esta persona?",
+      "Confirmar eliminacion",
+      "Estas seguro de que deseas eliminar esta persona?",
       [
         { text: "Cancelar", style: "cancel" },
         {
@@ -64,16 +64,16 @@ const ListadoPersonas: React.FC = observer(() => {
   async function eliminarPersona(id: number): Promise<void> {
     try {
       await personaVM.eliminarPersona(id);
-      Alert.alert("Éxito", "Persona eliminada correctamente");
+      Alert.alert("Exito", "Persona eliminada correctamente");
     } catch (error) {
       const mensaje = error instanceof Error ? error.message : "Error desconocido";
       Alert.alert("Error", mensaje);
     }
   }
 
-  function handleAñadir(): void {
+  function handleAnadir(): void {
     personaVM.limpiarSeleccion();
-    router.push("/(drawer)/personas/EditarInsertarPersonas");
+    router.push("/(drawer)/personas/EditarInsertarPersonas" as any);
   }
 
   function renderPersona({ item }: { item: Persona }): JSX.Element {
@@ -128,7 +128,7 @@ const ListadoPersonas: React.FC = observer(() => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <BotonAñadir onPress={handleAñadir} titulo="Añadir Persona" />
+        <BotonAnadir onPress={handleAnadir} titulo="Anadir Persona" />
       </View>
 
       {renderContenido()}

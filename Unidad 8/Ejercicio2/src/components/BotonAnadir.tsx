@@ -1,14 +1,12 @@
-// src/components/BotonAñadir.tsx
-
 import React from "react";
-import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
-interface BotonAñadirProps {
+interface BotonAnadirProps {
   onPress: () => void;
   titulo?: string;
 }
 
-export const BotonAñadir: React.FC<BotonAñadirProps> = ({ onPress, titulo = "Añadir" }) => {
+export const BotonAnadir: React.FC<BotonAnadirProps> = ({ onPress, titulo = "Anadir" }) => {
   const handlePress = (): void => {
     onPress();
   };
