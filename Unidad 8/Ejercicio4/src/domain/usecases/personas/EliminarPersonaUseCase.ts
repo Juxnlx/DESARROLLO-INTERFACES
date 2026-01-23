@@ -12,7 +12,6 @@ export class EliminarPersonaUseCase implements IEliminarPersonaUseCase {
     ) {}
 
     async eliminar(id: number): Promise<boolean> {
-        // Aplicar regla de negocio: no eliminar domingos
         if (this.esDomingo()) {
             throw new Error("No se pueden eliminar personas los domingos");
         }

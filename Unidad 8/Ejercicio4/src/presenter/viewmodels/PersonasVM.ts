@@ -35,7 +35,6 @@ export class PersonasVM {
         makeAutoObservable(this);
     }
 
-    // ==================== GETTERS PARA DRAWER ====================
     get personas(): Persona[] { 
         return this._listaPersonas; 
     }
@@ -51,15 +50,13 @@ export class PersonasVM {
     get error(): string | null { 
         return this._error; 
     }
-
-    // ==================== METODOS PARA DRAWER ====================
     
     async cargarPersonas(): Promise<void> {
         try {
             runInAction(() => {
                 this._cargando = true;
                 this._error = null;
-                this._listaPersonas = []; // IMPORTANTE: Limpiar array para forzar actualización
+                this._listaPersonas = []; 
             });
 
             const personas = await this._casoUsoObtener.obtenerPersonas();

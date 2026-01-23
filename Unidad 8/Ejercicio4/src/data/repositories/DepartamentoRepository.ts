@@ -39,7 +39,6 @@ export class DepartamentoRepository implements IDepartamentoRepository {
   }
 
   async deleteDepartamento(id: number): Promise<boolean> {
-    // NO capturar el error - dejar que se propague hacia arriba
     await this._azureAPI.eliminarDepartamento(id);
     return true;
   }

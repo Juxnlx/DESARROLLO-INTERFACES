@@ -3,6 +3,12 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { theme } from "../theme/theme";
 
+/**
+ * BOTÓN NAVEGAR
+ * Botón para navegación usado en pantalla de inicio.
+ * Recibe título y ruta, usa useRouter de Expo para navegar.
+ */
+
 interface BotonNavegarProps {
   titulo: string;
   ruta: string;

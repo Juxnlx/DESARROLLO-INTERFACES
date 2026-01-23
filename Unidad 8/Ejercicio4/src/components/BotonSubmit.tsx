@@ -2,6 +2,12 @@ import React from "react";
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { theme } from "../theme/theme";
 
+/**
+ * BOTÓN SUBMIT
+ * Botón de submit con loading spinner integrado.
+ * Se deshabilita y muestra spinner cuando isLoading es true.
+ */
+
 interface BotonSubmitProps {
   titulo: string;
   onPress: () => void;

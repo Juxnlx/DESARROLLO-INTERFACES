@@ -1,6 +1,11 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Drawer } from "expo-router/drawer";
 
+/**
+ * Componente DrawerLayout
+ * 
+ * Configuramos el comportamiento visual y navegación del drawer.
+ */
 export default function DrawerLayout() {
   return (
     <Drawer

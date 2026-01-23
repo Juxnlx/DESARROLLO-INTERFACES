@@ -15,6 +15,7 @@ const ListadoDepartamentos: React.FC = observer(() => {
   const router = useRouter();
   const [busqueda, setBusqueda] = useState<string>("");
 
+  // Cargar departamentos al montar el componente
   useEffect(() => {
     cargarDatos();
   }, []);
@@ -23,6 +24,9 @@ const ListadoDepartamentos: React.FC = observer(() => {
     departamentoVM.cargarDepartamentos();
   }
 
+  /**
+   * Filtra departamentos por nombre (case insensitive)
+   */
   function filtrarDepartamentos(): Departamento[] {
     const lista = departamentoVM.departamentos;
     let resultado: Departamento[] = [];
@@ -41,11 +45,17 @@ const ListadoDepartamentos: React.FC = observer(() => {
 
   const departamentosFiltrados = filtrarDepartamentos();
 
+  /**
+   * Guarda departamento seleccionado y navega a edición
+   */
   function handleEditar(departamento: Departamento): void {
     departamentoVM.seleccionarDepartamento(departamento);
     router.push("/(drawer)/departamentos/EditarInsertarDepartamento" as any);
   }
 
+  /**
+   * Muestra confirmación antes de eliminar (web vs móvil)
+   */
   function handleEliminar(id: number): void {
     if (Platform.OS === 'web') {
       if (window.confirm("¿Estás seguro de que deseas eliminar este departamento?")) {
@@ -67,6 +77,10 @@ const ListadoDepartamentos: React.FC = observer(() => {
     }
   }
 
+  /**
+   * Elimina departamento
+   * La API valida que no tenga personas asociadas (lanza error si las tiene)
+   */
   async function eliminarDepartamento(id: number): Promise<void> {
     try {
       await departamentoVM.eliminarDepartamento(id);
@@ -87,11 +101,17 @@ const ListadoDepartamentos: React.FC = observer(() => {
     }
   }
 
+  /**
+   * Limpia selección y navega a crear nuevo
+   */
   function handleAnadir(): void {
     departamentoVM.limpiarSeleccion();
     router.push("/(drawer)/departamentos/EditarInsertarDepartamento" as any);
   }
 
+  /**
+   * Renderiza un departamento en la lista (sin foto ni edad)
+   */
   function renderDepartamento({ item }: { item: Departamento }): JSX.Element {
     return (
       <Elemento
@@ -102,6 +122,9 @@ const ListadoDepartamentos: React.FC = observer(() => {
     );
   }
 
+  /**
+   * Renderiza contenido según estado: loading, vacío o lista
+   */
   function renderContenido(): JSX.Element {
     let contenido: JSX.Element = <View />;
 

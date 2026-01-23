@@ -14,6 +14,11 @@ const EditarInsertarDepartamento: React.FC = observer(() => {
 
   const [nombre, setNombre] = useState<string>("");
 
+  /**
+   * useFocusEffect: carga datos al recibir foco
+   * Si hay departamentoSeleccionado: modo EDICIÓN (carga nombre)
+   * Si no hay: modo CREACIÓN (limpia campo)
+   */
   useFocusEffect(
     useCallback(() => {
       const departamentoSeleccionado = departamentoVM.departamentoSeleccionado;
@@ -26,6 +31,9 @@ const EditarInsertarDepartamento: React.FC = observer(() => {
     }, [])
   );
 
+  /**
+   * Valida que el nombre no esté vacío
+   */
   function validarFormulario(): boolean {
     const hayNombre = nombre.trim() !== "";
 
@@ -37,6 +45,9 @@ const EditarInsertarDepartamento: React.FC = observer(() => {
     return true;
   }
 
+  /**
+   * Guarda el departamento (crear o editar según el modo)
+   */
   async function handleGuardar(): Promise<void> {
     if (!validarFormulario()) {
       return;

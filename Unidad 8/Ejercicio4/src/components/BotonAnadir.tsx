@@ -2,6 +2,12 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { theme } from "../theme/theme";
 
+/**
+ * BOTÓN AÑADIR
+ * Botón verde con icono "+" para añadir nuevos registros.
+ * Usado en listados para navegar a formularios de creación.
+ */
+
 interface BotonAnadirProps {
   onPress: () => void;
   titulo: string;

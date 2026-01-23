@@ -2,6 +2,12 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { theme } from "../theme/theme";
 
+/**
+ * CAJÓN BOTONES
+ * Contenedor con sombra para agrupar botones.
+ * Usado en pantalla de inicio para agrupar BotonNavegar.
+ */
+
 interface CajonBotonesProps {
   children: React.ReactNode;
 }

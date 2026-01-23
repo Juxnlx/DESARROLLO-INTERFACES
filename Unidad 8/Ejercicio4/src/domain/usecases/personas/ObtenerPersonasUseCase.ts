@@ -15,12 +15,10 @@ export class ObtenerPersonasUseCase implements IObtenerPersonasUseCase {
     async obtenerPersonas(): Promise<Persona[]> {
         const todasLasPersonas = await this.repositorioPersonas.getAllPersonas();
         
-        // IMPORTANTE: Calcular la fecha AQUÍ, no en una función helper
         const hoy = new Date();
         const diaSemana = hoy.getDay();
         const esViernesOSabado = diaSemana === 5 || diaSemana === 6;
         
-        // Si es viernes o sábado, filtrar por edad
         if (esViernesOSabado) {
             return todasLasPersonas.filter(persona => {
                 const edad = this.calcularEdad(persona.fechaNacimiento, hoy);
