@@ -1,10 +1,12 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { theme } from "../theme/theme";
 
 interface ElementoProps {
   titulo: string;
   subtitulo?: string;
+  edad?: number;
+  fotoUrl?: string;
   onPress: () => void;
   onDelete?: () => void;
 }
@@ -12,11 +14,29 @@ interface ElementoProps {
 export const Elemento: React.FC<ElementoProps> = ({
   titulo,
   subtitulo,
+  edad,
+  fotoUrl,
   onPress,
   onDelete,
 }) => {
+  // Imagen por defecto si no hay URL
+  const imagenDefecto = "https://via.placeholder.com/60/047857/FFFFFF?text=👤";
+  const imagenMostrar = fotoUrl && fotoUrl.trim() !== "" ? fotoUrl : imagenDefecto;
+  
+  // Mostrar foto solo si se proporciona fotoUrl (incluso vacío cuenta como "quiero foto")
+  const mostrarFoto = fotoUrl !== undefined;
+
   return (
     <TouchableOpacity style={styles.container} onPress={onPress} activeOpacity={0.7}>
+      {/* Foto circular a la izquierda - SOLO si se pasa fotoUrl */}
+      {mostrarFoto && (
+        <Image
+          source={{ uri: imagenMostrar }}
+          style={styles.foto}
+          defaultSource={{ uri: imagenDefecto }}
+        />
+      )}
+
       <View style={styles.content}>
         <Text style={styles.titulo} numberOfLines={1}>
           {titulo}
@@ -26,7 +46,13 @@ export const Elemento: React.FC<ElementoProps> = ({
             {subtitulo}
           </Text>
         )}
+        {edad !== undefined && (
+          <Text style={styles.edad}>
+            {edad} años
+          </Text>
+        )}
       </View>
+
       {onDelete && (
         <TouchableOpacity
           style={styles.deleteButton}
@@ -60,6 +86,15 @@ const styles = StyleSheet.create({
     borderLeftWidth: 4,
     borderLeftColor: theme.colors.secondary,
   },
+  foto: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    marginRight: theme.spacing.md,
+    backgroundColor: theme.colors.background,
+    borderWidth: 2,
+    borderColor: theme.colors.secondary,
+  },
   content: {
     flex: 1,
     marginRight: theme.spacing.md,
@@ -73,6 +108,12 @@ const styles = StyleSheet.create({
   subtitulo: {
     fontSize: theme.fontSize.sm,
     color: theme.colors.text.secondary,
+    marginBottom: 2,
+  },
+  edad: {
+    fontSize: theme.fontSize.xs,
+    color: theme.colors.accent,
+    fontWeight: "600",
   },
   deleteButton: {
     width: 32,

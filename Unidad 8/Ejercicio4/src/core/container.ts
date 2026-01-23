@@ -21,23 +21,26 @@ import { PersonasVM } from "../presenter/viewmodels/PersonasVM";
 
 const container = new Container();
 
+// Singleton para la API (una sola instancia)
 container.bind(TYPES.AzureAPI).to(AzureAPI).inSingletonScope();
 
-container.bind(TYPES.IPersonaRepository).to(PersonaRepository);
-container.bind(TYPES.IDepartamentoRepository).to(DepartamentoRepository);
+// Transient para repositorios (nueva instancia cada vez)
+container.bind(TYPES.IPersonaRepository).to(PersonaRepository).inTransientScope();
+container.bind(TYPES.IDepartamentoRepository).to(DepartamentoRepository).inTransientScope();
 
-container.bind(TYPES.IObtenerPersonasUseCase).to(ObtenerPersonasUseCase);
-container.bind(TYPES.ICrearPersonaUseCase).to(CrearPersonaUseCase);
-container.bind(TYPES.IActualizarPersonaUseCase).to(ActualizarPersonaUseCase);
-container.bind(TYPES.IEliminarPersonaUseCase).to(EliminarPersonaUseCase);
+// Transient para UseCases (IMPORTANTE: nueva instancia cada vez para recalcular fechas)
+container.bind(TYPES.IObtenerPersonasUseCase).to(ObtenerPersonasUseCase).inTransientScope();
+container.bind(TYPES.ICrearPersonaUseCase).to(CrearPersonaUseCase).inTransientScope();
+container.bind(TYPES.IActualizarPersonaUseCase).to(ActualizarPersonaUseCase).inTransientScope();
+container.bind(TYPES.IEliminarPersonaUseCase).to(EliminarPersonaUseCase).inTransientScope();
 
-container.bind(TYPES.IObtenerDepartamentosUseCase).to(ObtenerDepartamentosUseCase);
-container.bind(TYPES.ICrearDepartamentoUseCase).to(CrearDepartamentoUseCase);
-container.bind(TYPES.IActualizarDepartamentoUseCase).to(ActualizarDepartamentoUseCase);
-container.bind(TYPES.IEliminarDepartamentoUseCase).to(EliminarDepartamentoUseCase);
+container.bind(TYPES.IObtenerDepartamentosUseCase).to(ObtenerDepartamentosUseCase).inTransientScope();
+container.bind(TYPES.ICrearDepartamentoUseCase).to(CrearDepartamentoUseCase).inTransientScope();
+container.bind(TYPES.IActualizarDepartamentoUseCase).to(ActualizarDepartamentoUseCase).inTransientScope();
+container.bind(TYPES.IEliminarDepartamentoUseCase).to(EliminarDepartamentoUseCase).inTransientScope();
 
+// Singleton para ViewModels (mantener el estado)
 container.bind(TYPES.PersonaViewModel).to(PersonasVM).inSingletonScope();
 container.bind(TYPES.DepartamentoViewModel).to(DepartamentosVM).inSingletonScope();
 
 export { container };
-

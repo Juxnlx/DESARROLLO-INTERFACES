@@ -1,6 +1,6 @@
-import { useFocusEffect, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { observer } from "mobx-react-lite";
-import React, { JSX, useCallback, useState } from "react";
+import React, { JSX, useEffect, useState } from "react";
 import { ActivityIndicator, Alert, FlatList, Platform, StyleSheet, Text, TextInput, View } from "react-native";
 import { BotonAnadir } from "../../../components/BotonAnadir";
 import { Elemento } from "../../../components/Elemento";
@@ -15,12 +15,9 @@ const ListadoDepartamentos: React.FC = observer(() => {
   const router = useRouter();
   const [busqueda, setBusqueda] = useState<string>("");
 
-  // useFocusEffect se ejecuta cada vez que la pantalla recibe foco (incluyendo F5)
-  useFocusEffect(
-    useCallback(() => {
-      cargarDatos();
-    }, [])
-  );
+  useEffect(() => {
+    cargarDatos();
+  }, []);
 
   function cargarDatos(): void {
     departamentoVM.cargarDepartamentos();
@@ -51,12 +48,10 @@ const ListadoDepartamentos: React.FC = observer(() => {
 
   function handleEliminar(id: number): void {
     if (Platform.OS === 'web') {
-      // En web usar window.confirm
       if (window.confirm("¿Estás seguro de que deseas eliminar este departamento?")) {
         eliminarDepartamento(id);
       }
     } else {
-      // En móvil usar Alert.alert
       Alert.alert(
         "Confirmar eliminación",
         "¿Estás seguro de que deseas eliminar este departamento?",
@@ -76,7 +71,6 @@ const ListadoDepartamentos: React.FC = observer(() => {
     try {
       await departamentoVM.eliminarDepartamento(id);
       
-      // Mostrar mensaje de éxito
       if (Platform.OS === 'web') {
         window.alert("Éxito: Departamento eliminado correctamente");
       } else {
@@ -85,7 +79,6 @@ const ListadoDepartamentos: React.FC = observer(() => {
     } catch (error) {
       const mensaje = error instanceof Error ? error.message : "Error desconocido";
       
-      // Mostrar mensaje de error
       if (Platform.OS === 'web') {
         window.alert("Error: " + mensaje);
       } else {

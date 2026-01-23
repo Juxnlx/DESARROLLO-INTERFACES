@@ -59,6 +59,7 @@ export class PersonasVM {
             runInAction(() => {
                 this._cargando = true;
                 this._error = null;
+                this._listaPersonas = []; // IMPORTANTE: Limpiar array para forzar actualización
             });
 
             const personas = await this._casoUsoObtener.obtenerPersonas();

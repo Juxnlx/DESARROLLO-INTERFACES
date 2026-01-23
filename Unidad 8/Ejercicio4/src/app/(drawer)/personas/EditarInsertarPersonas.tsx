@@ -100,7 +100,7 @@ const EditarInsertarPersonas: React.FC = observer(() => {
         await personaVM.crearPersona(persona);
         Alert.alert("Exito", "Persona creada correctamente");
       }
-      router.back();
+      router.push("/(drawer)/personas/ListadoPersonas");
     } catch (error) {
       const mensaje = error instanceof Error ? error.message : "Error desconocido";
       Alert.alert("Error", mensaje);

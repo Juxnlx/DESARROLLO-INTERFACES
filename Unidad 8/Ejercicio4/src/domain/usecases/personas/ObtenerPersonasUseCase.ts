@@ -15,10 +15,15 @@ export class ObtenerPersonasUseCase implements IObtenerPersonasUseCase {
     async obtenerPersonas(): Promise<Persona[]> {
         const todasLasPersonas = await this.repositorioPersonas.getAllPersonas();
         
-        // Aplicar regla de negocio: viernes o sabado
-        if (this.esViernesOSabado()) {
+        // IMPORTANTE: Calcular la fecha AQUÍ, no en una función helper
+        const hoy = new Date();
+        const diaSemana = hoy.getDay();
+        const esViernesOSabado = diaSemana === 5 || diaSemana === 6;
+        
+        // Si es viernes o sábado, filtrar por edad
+        if (esViernesOSabado) {
             return todasLasPersonas.filter(persona => {
-                const edad = this.calcularEdad(persona.fechaNacimiento);
+                const edad = this.calcularEdad(persona.fechaNacimiento, hoy);
                 return edad >= 18;
             });
         }
@@ -30,20 +35,14 @@ export class ObtenerPersonasUseCase implements IObtenerPersonasUseCase {
         return await this.repositorioPersonas.getPersonaById(id);
     }
 
-    private calcularEdad(fechaNacimiento: Date): number {
-        const hoy = new Date();
-        let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
-        const mes = hoy.getMonth() - fechaNacimiento.getMonth();
+    private calcularEdad(fechaNacimiento: Date, fechaActual: Date): number {
+        let edad = fechaActual.getFullYear() - fechaNacimiento.getFullYear();
+        const mes = fechaActual.getMonth() - fechaNacimiento.getMonth();
         
-        if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
+        if (mes < 0 || (mes === 0 && fechaActual.getDate() < fechaNacimiento.getDate())) {
             edad--;
         }
         
         return edad;
-    }
-
-    private esViernesOSabado(): boolean {
-        const diaSemana = new Date().getDay();
-        return diaSemana === 5 || diaSemana === 6;
     }
 }
