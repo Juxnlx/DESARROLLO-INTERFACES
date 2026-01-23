@@ -3,12 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { Button, FlatList, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-
 interface Message {
   user: string;
   message: string;
 }
-
 
 const ChatApp = () => {
   const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
@@ -16,17 +14,15 @@ const ChatApp = () => {
   const [userInput, setUserInput] = useState('');
   const [messageInput, setMessageInput] = useState('');
 
-
   useEffect(() => {
     // 1. Configurar la conexión
     // Reemplaza con la URL de tu App Service en Azure (ej: https://tu-app.azurewebsites.net/chatHub)
     const newConnection = new signalR.HubConnectionBuilder()
-      .withUrl("https://signalrchatmontero-a8d7byc9afetb7c4.francecentral-01.azurewebsites.net/chatHub") 
+      .withUrl("https://chatjuanluis-cufffvb7e6c4fsbg.spaincentral-01.azurewebsites.net/chatHub") 
       .withAutomaticReconnect()
       .build();
     setConnection(newConnection);
   }, []);
-
 
   useEffect(() => {
     if (connection) {
@@ -34,7 +30,6 @@ const ChatApp = () => {
       connection.start()
         .then(() => {
           console.log('Conectado a SignalR en Azure');
-
 
           // 3. Escuchar el evento 'ReceiveMessage' (debe coincidir con tu código C#)
           connection.on("ReceiveMessage", (user: string, message: string) => {
@@ -44,7 +39,6 @@ const ChatApp = () => {
         .catch(e => console.log('Error de conexión: ', e));
     }
   }, [connection]);
-
 
   const sendMessage = async () => {
     if (connection && connection.state === signalR.HubConnectionState.Connected) {
