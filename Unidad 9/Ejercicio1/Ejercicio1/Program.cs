@@ -1,9 +1,10 @@
-using SignalRChat.Hubs; //a?adido
+﻿using Ejercicio1.Hubs;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddSignalR(); //a?adido
+builder.Services.AddSignalR();
 
 builder.Services.AddCors(options =>
 {
@@ -11,7 +12,7 @@ builder.Services.AddCors(options =>
     {
         policy.AllowAnyHeader()
               .AllowAnyMethod()
-              .SetIsOriginAllowed((host) => true) // Permite cualquier origen (ideal para apps m�viles)
+              .SetIsOriginAllowed((host) => true) // Permite cualquier origen (ideal para apps móviles)
               .AllowCredentials();               // Obligatorio para SignalR
     });
 });
@@ -27,6 +28,6 @@ app.UseCors("AllowReactNative");
 app.UseAuthorization();
 
 app.MapRazorPages();
-app.MapHub<ChatHub>("/chatHub"); //a?adido
+app.MapHub<ChatHub>("/chatHub");
 
 app.Run();

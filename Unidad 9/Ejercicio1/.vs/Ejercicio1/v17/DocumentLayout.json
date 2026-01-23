@@ -1,14 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\jlbarrionuevo\\Desktop\\2\u00BADAM\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\",
+  "WorkspaceRootPath": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2F3503DE-CE6B-44AA-8170-402FC24DE8E5}|Ejercicio1\\Ejercicio1.csproj|c:\\users\\jlbarrionuevo\\desktop\\2\u00BAdam\\desarrollo-interfaces\\unidad 9\\ejercicio1\\ejercicio1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2F3503DE-CE6B-44AA-8170-402FC24DE8E5}|Ejercicio1\\Ejercicio1.csproj|solutionrelative:ejercicio1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2F3503DE-CE6B-44AA-8170-402FC24DE8E5}|Ejercicio1\\Ejercicio1.csproj|c:\\users\\juanl\\onedrive\\escritorio\\2_daw\\desarrollo-interfaces\\unidad 9\\ejercicio1\\ejercicio1\\hubs\\clsmensajeusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F3503DE-CE6B-44AA-8170-402FC24DE8E5}|Ejercicio1\\Ejercicio1.csproj|solutionrelative:ejercicio1\\hubs\\clsmensajeusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2F3503DE-CE6B-44AA-8170-402FC24DE8E5}|Ejercicio1\\Ejercicio1.csproj|c:\\users\\jlbarrionuevo\\desktop\\2\u00BAdam\\desarrollo-interfaces\\unidad 9\\ejercicio1\\ejercicio1\\hubs\\chathub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{2F3503DE-CE6B-44AA-8170-402FC24DE8E5}|Ejercicio1\\Ejercicio1.csproj|c:\\users\\juanl\\onedrive\\escritorio\\2_daw\\desarrollo-interfaces\\unidad 9\\ejercicio1\\ejercicio1\\hubs\\chathub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2F3503DE-CE6B-44AA-8170-402FC24DE8E5}|Ejercicio1\\Ejercicio1.csproj|solutionrelative:ejercicio1\\hubs\\chathub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F3503DE-CE6B-44AA-8170-402FC24DE8E5}|Ejercicio1\\Ejercicio1.csproj|c:\\users\\juanl\\onedrive\\escritorio\\2_daw\\desarrollo-interfaces\\unidad 9\\ejercicio1\\ejercicio1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F3503DE-CE6B-44AA-8170-402FC24DE8E5}|Ejercicio1\\Ejercicio1.csproj|solutionrelative:ejercicio1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,32 +22,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ChatHub.cs",
-              "DocumentMoniker": "C:\\Users\\jlbarrionuevo\\Desktop\\2\u00BADAM\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\Hubs\\ChatHub.cs",
-              "RelativeDocumentMoniker": "Ejercicio1\\Hubs\\ChatHub.cs",
-              "ToolTip": "C:\\Users\\jlbarrionuevo\\Desktop\\2\u00BADAM\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\Hubs\\ChatHub.cs",
-              "RelativeToolTip": "Ejercicio1\\Hubs\\ChatHub.cs",
+              "DocumentIndex": 0,
+              "Title": "clsMensajeUsuario.cs",
+              "DocumentMoniker": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\Hubs\\clsMensajeUsuario.cs",
+              "RelativeDocumentMoniker": "Ejercicio1\\Hubs\\clsMensajeUsuario.cs",
+              "ToolTip": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\Hubs\\clsMensajeUsuario.cs",
+              "RelativeToolTip": "Ejercicio1\\Hubs\\clsMensajeUsuario.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-22T11:18:27.749Z",
+              "WhenOpened": "2026-01-22T17:47:26.562Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\jlbarrionuevo\\Desktop\\2\u00BADAM\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\Program.cs",
-              "RelativeDocumentMoniker": "Ejercicio1\\Program.cs",
-              "ToolTip": "C:\\Users\\jlbarrionuevo\\Desktop\\2\u00BADAM\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\Program.cs",
-              "RelativeToolTip": "Ejercicio1\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAKAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "ChatHub.cs",
+              "DocumentMoniker": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\Hubs\\ChatHub.cs",
+              "RelativeDocumentMoniker": "Ejercicio1\\Hubs\\ChatHub.cs",
+              "ToolTip": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\Hubs\\ChatHub.cs",
+              "RelativeToolTip": "Ejercicio1\\Hubs\\ChatHub.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-15T12:30:12.197Z",
+              "WhenOpened": "2026-01-22T17:47:21.431Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\Program.cs",
+              "RelativeDocumentMoniker": "Ejercicio1\\Program.cs",
+              "ToolTip": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio1\\Ejercicio1\\Program.cs",
+              "RelativeToolTip": "Ejercicio1\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-22T17:47:16.73Z",
               "EditorCaption": ""
             }
           ]
