@@ -1,6 +1,6 @@
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import { observer } from "mobx-react-lite";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, Alert, FlatList, Platform, StyleSheet, Text, TextInput, View } from "react-native";
 import { BotonAnadir } from "../../../components/BotonAnadir";
 import { Elemento } from "../../../components/Elemento";
@@ -15,8 +15,33 @@ const ListadoPersonas: React.FC = observer(() => {
   const router = useRouter();
   const [busqueda, setBusqueda] = useState<string>("");
 
+  // Cargar datos al montar
   useEffect(() => {
     personaVM.cargarPersonas();
+  }, []);
+
+  // Recargar al obtener foco (navegación)
+  useFocusEffect(
+    useCallback(() => {
+      personaVM.cargarPersonas();
+    }, [])
+  );
+
+  // Recargar cuando la ventana obtiene foco (F5 o cambio de pestaña)
+  useEffect(() => {
+    if (Platform.OS === 'web') {
+      const handleVisibilityChange = () => {
+        if (document.visibilityState === 'visible') {
+          personaVM.cargarPersonas();
+        }
+      };
+
+      document.addEventListener('visibilitychange', handleVisibilityChange);
+
+      return () => {
+        document.removeEventListener('visibilitychange', handleVisibilityChange);
+      };
+    }
   }, []);
 
   const personasFiltradas = personaVM.personas.filter((persona: Persona) => {
