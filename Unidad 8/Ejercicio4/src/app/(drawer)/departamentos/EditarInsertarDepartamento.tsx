@@ -18,11 +18,13 @@ const EditarInsertarDepartamento: React.FC = observer(() => {
 
   useEffect(() => {
     cargarDatosDepartamento();
-  }, []);
+  }, [departamentoSeleccionado]);
 
   function cargarDatosDepartamento(): void {
     if (departamentoSeleccionado) {
       setNombre(departamentoSeleccionado.nombre);
+    } else {
+      setNombre("");
     }
   }
 

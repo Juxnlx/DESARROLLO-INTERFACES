@@ -1,10 +1,10 @@
-import "reflect-metadata";
 import { inject, injectable } from "inversify";
+import "reflect-metadata";
 import { TYPES } from "../../../core/types";
-import { Persona } from "../../entities/Persona";
 import { PersonaDTO } from "../../dtos/PersonaDTO";
-import type { IActualizarPersonaUseCase } from "../../interfaces/usecases/personas/IActualizarPersonaUseCase";
+import { Persona } from "../../entities/Persona";
 import type { IPersonaRepository } from "../../interfaces/repositories/IPersonaRepository";
+import type { IActualizarPersonaUseCase } from "../../interfaces/usecases/personas/IActualizarPersonaUseCase";
 
 /**
  * Caso de uso para actualizar personas.
@@ -23,6 +23,6 @@ export class ActualizarPersonaUseCase implements IActualizarPersonaUseCase {
      * @returns Promise con la persona actualizada
      */
     async actualizar(id: number, persona: PersonaDTO): Promise<Persona> {
-        return await this.repositorioPersonas.updatePersona(id, persona);
+        return await this.repositorioPersonas.editarPersona(id, persona);
     }
 }

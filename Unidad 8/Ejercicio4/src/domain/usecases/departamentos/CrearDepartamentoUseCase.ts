@@ -1,10 +1,10 @@
-import "reflect-metadata";
 import { inject, injectable } from "inversify";
+import "reflect-metadata";
 import { TYPES } from "../../../core/types";
-import { Departamento } from "../../entities/Departamento";
 import { DepartamentoDTO } from "../../dtos/DepartamentoDTO";
-import type { ICrearDepartamentoUseCase } from "../../interfaces/usecases/departamentos/ICrearDepartamentoUseCase";
+import { Departamento } from "../../entities/Departamento";
 import type { IDepartamentoRepository } from "../../interfaces/repositories/IDepartamentoRepository";
+import type { ICrearDepartamentoUseCase } from "../../interfaces/usecases/departamentos/ICrearDepartamentoUseCase";
 
 /**
  * Caso de uso para crear departamentos.
@@ -22,6 +22,6 @@ export class CrearDepartamentoUseCase implements ICrearDepartamentoUseCase {
      * @returns Promise con el departamento creado
      */
     async crear(departamento: DepartamentoDTO): Promise<Departamento> {
-        return await this.repositorioDepartamentos.createDepartamento(departamento);
+        return await this.repositorioDepartamentos.insertarDepartamento(departamento);
     }
 }

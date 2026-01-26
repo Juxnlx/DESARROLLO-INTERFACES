@@ -6,8 +6,6 @@ import { PersonaDTO } from "../../domain/dtos/PersonaDTO";
 @injectable()
 export class AzureAPI {
   private baseURL: string = "https://juanluis-g9hvdhc7azdvgphc.spaincentral-01.azurewebsites.net";
-
-  // ==================== PERSONAS ====================
   
   async obtenerListaPersonas(): Promise<PersonaDTO[]> {
     const response = await fetch(`${this.baseURL}/api/Persona`);
@@ -58,8 +56,6 @@ export class AzureAPI {
     }
     return response.status;
   }
-
-  // ==================== DEPARTAMENTOS ====================
   
   async obtenerListaDepartamentos(): Promise<DepartamentoDTO[]> {
     const response = await fetch(`${this.baseURL}/api/Departamento`);

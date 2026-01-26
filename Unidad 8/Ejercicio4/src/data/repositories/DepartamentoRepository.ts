@@ -28,12 +28,12 @@ export class DepartamentoRepository implements IDepartamentoRepository {
     }
   }
 
-  async createDepartamento(departamentoDTO: DepartamentoDTO): Promise<Departamento> {
+  async insertarDepartamento(departamentoDTO: DepartamentoDTO): Promise<Departamento> {
     await this._azureAPI.crearDepartamento(departamentoDTO);
     return new Departamento(departamentoDTO.id, departamentoDTO.nombre);
   }
 
-  async updateDepartamento(id: number, departamentoDTO: DepartamentoDTO): Promise<Departamento> {
+  async editarDepartamento(id: number, departamentoDTO: DepartamentoDTO): Promise<Departamento> {
     await this._azureAPI.actualizarDepartamento(id, departamentoDTO);
     return new Departamento(departamentoDTO.id, departamentoDTO.nombre);
   }

@@ -1,10 +1,9 @@
-// src/domain/usecases/PersonaUseCase.ts
-
-import { injectable, inject } from "inversify";
-import { IPersonaUseCase } from "../interfaces/usecases/IPersonaUseCase";
-import { IPersonaRepository } from "../interfaces/repositories/IPersonaRepository";
-import { Persona } from "../entities/Persona";
+import { inject, injectable } from "inversify";
 import { TYPES } from "../../core/types";
+import { PersonaDTO } from "../dtos/PersonaDTO";
+import { Persona } from "../entities/Persona";
+import { IPersonaRepository } from "../interfaces/repositories/IPersonaRepository";
+import { IPersonaUseCase } from "../interfaces/usecases/IPersonaUseCase";
 
 @injectable()
 export class PersonaUseCase implements IPersonaUseCase {
@@ -30,13 +29,13 @@ export class PersonaUseCase implements IPersonaUseCase {
 
     if (esViernesOSabado) {
       resultado = personas.filter((persona) => {
-        if (!persona.FechaNacimiento) {
+        if (!persona.fechaNacimiento) {
           //si no tiene fecha, no puede ser mayor de edad
           return false;
         }
-          const edad = this.calcularEdad(persona.FechaNacimiento);
-          return edad >= 18;
-        });
+        const edad = this.calcularEdad(persona.fechaNacimiento);
+        return edad >= 18;
+      });
     } else {
       resultado = personas;
     }
@@ -58,38 +57,51 @@ export class PersonaUseCase implements IPersonaUseCase {
     return edad;
   }
 
-  async editarPersona(idPersonaEditar: number, persona: Persona): Promise<number> {
-    const resultado = await this._personaRepository.editarPersona(idPersonaEditar, persona);
+  async editarPersona(idPersonaEditar: number, persona: Persona): Promise<Persona> {
+    // Convertir Entidad a DTO
+    const dto: PersonaDTO = {
+      id: persona.id,
+      nombre: persona.nombre,
+      apellidos: persona.apellidos,
+      telefono: persona.telefono,
+      direccion: persona.direccion,
+      foto: persona.foto,
+      fechaNacimiento: persona.fechaNacimiento.toISOString(),
+      idDepartamento: persona.idDepartamento
+    };
+    
+    const resultado = await this._personaRepository.editarPersona(idPersonaEditar, dto);
     return resultado;
   }
 
-  async insertarPersona(personaNueva: Persona): Promise<number> {
-    const resultado = await this._personaRepository.insertarPersona(personaNueva);
+  async insertarPersona(personaNueva: Persona): Promise<Persona> {
+    // Convertir Entidad a DTO
+    const dto: PersonaDTO = {
+      id: personaNueva.id,
+      nombre: personaNueva.nombre,
+      apellidos: personaNueva.apellidos,
+      telefono: personaNueva.telefono,
+      direccion: personaNueva.direccion,
+      foto: personaNueva.foto,
+      fechaNacimiento: personaNueva.fechaNacimiento.toISOString(),
+      idDepartamento: personaNueva.idDepartamento
+    };
+    
+    const resultado = await this._personaRepository.insertarPersona(dto);
     return resultado;
   }
 
-  async eliminarPersona(idPersonaEliminar: number): Promise<number> {
-    // Validación de negocio: no eliminar los domingos (cliente)
+  async eliminarPersona(idPersonaEliminar: number): Promise<boolean> {
+    // Validación de negocio: no eliminar los domingos
     const hoy = new Date();
     const diaSemana = hoy.getDay();
     const esDomingo = diaSemana === 0;
 
-    console.log(idPersonaEliminar)
     if (esDomingo) {
-      // devolver un código o lanzar un error tipado para que la UI lo muestre claramente
-      //  -1 = prohibido por regla de negocio
-      return -1;
+      throw new Error("No se pueden eliminar personas los domingos");
     }
 
-    try {
-      // aquí debes llamar a la capa que hace la petición HTTP (repositorio / datasource)
-      // supongamos que tienes this._personaRepo.deletePersona que devuelve 1 en éxito, 0 en fallo
-      const resultado = await this._personaRepository.eliminarPersona(idPersonaEliminar);
-      return resultado;
-    } catch (error) {
-      // log y rethrow o devolver 0 según convenga
-      console.error("Error técnico al eliminar persona en use case:", error);
-      return 0;
-    }
+    const resultado = await this._personaRepository.eliminarPersona(idPersonaEliminar);
+    return resultado;
   }
 }

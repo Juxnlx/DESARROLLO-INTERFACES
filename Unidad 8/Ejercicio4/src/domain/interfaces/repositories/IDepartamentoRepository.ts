@@ -1,10 +1,10 @@
-import { Departamento } from '../../entities/Departamento';
 import { DepartamentoDTO } from '../../dtos/DepartamentoDTO';
+import { Departamento } from '../../entities/Departamento';
 
 export interface IDepartamentoRepository {
   getAllDepartamentos(): Promise<Departamento[]>;
   getDepartamentoById(id: number): Promise<Departamento | null>;
-  createDepartamento(departamento: DepartamentoDTO): Promise<Departamento>;
-  updateDepartamento(id: number, departamento: DepartamentoDTO): Promise<Departamento>;
+  insertarDepartamento(departamento: DepartamentoDTO): Promise<Departamento>;  // ← Cambio
+  editarDepartamento(id: number, departamento: DepartamentoDTO): Promise<Departamento>;  // ← Cambio
   deleteDepartamento(id: number): Promise<boolean>;
 }

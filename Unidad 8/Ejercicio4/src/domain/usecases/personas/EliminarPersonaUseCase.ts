@@ -28,7 +28,7 @@ export class EliminarPersonaUseCase implements IEliminarPersonaUseCase {
             throw new Error("No se pueden eliminar personas los domingos");
         }
         
-        return await this.repositorioPersonas.deletePersona(id);
+        return await this.repositorioPersonas.eliminarPersona(id);
     }
 
     /**

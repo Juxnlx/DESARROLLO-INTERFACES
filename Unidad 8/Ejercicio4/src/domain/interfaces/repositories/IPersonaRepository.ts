@@ -1,10 +1,10 @@
-import { Persona } from '../../entities/Persona';
 import { PersonaDTO } from '../../dtos/PersonaDTO';
+import { Persona } from '../../entities/Persona';
 
 export interface IPersonaRepository {
   getAllPersonas(): Promise<Persona[]>;
   getPersonaById(id: number): Promise<Persona | null>;
-  createPersona(persona: PersonaDTO): Promise<Persona>;
-  updatePersona(id: number, persona: PersonaDTO): Promise<Persona>;
-  deletePersona(id: number): Promise<boolean>;
+  insertarPersona(persona: PersonaDTO): Promise<Persona>;  // ← Cambio
+  editarPersona(id: number, persona: PersonaDTO): Promise<Persona>;  // ← Cambio
+  eliminarPersona(id: number): Promise<boolean>;  // ← Cambio
 }

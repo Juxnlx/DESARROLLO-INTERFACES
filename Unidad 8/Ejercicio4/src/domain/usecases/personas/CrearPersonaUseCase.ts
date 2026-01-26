@@ -1,10 +1,10 @@
-import "reflect-metadata";
 import { inject, injectable } from "inversify";
+import "reflect-metadata";
 import { TYPES } from "../../../core/types";
-import { Persona } from "../../entities/Persona";
 import { PersonaDTO } from "../../dtos/PersonaDTO";
-import type { ICrearPersonaUseCase } from "../../interfaces/usecases/personas/ICrearPersonaUseCase";
+import { Persona } from "../../entities/Persona";
 import type { IPersonaRepository } from "../../interfaces/repositories/IPersonaRepository";
+import type { ICrearPersonaUseCase } from "../../interfaces/usecases/personas/ICrearPersonaUseCase";
 
 /**
  * Caso de uso para crear personas.
@@ -22,6 +22,6 @@ export class CrearPersonaUseCase implements ICrearPersonaUseCase {
      * @returns Promise con la persona creada
      */
     async crear(persona: PersonaDTO): Promise<Persona> {
-        return await this.repositorioPersonas.createPersona(persona);
+        return await this.repositorioPersonas.insertarPersona(persona);
     }
 }

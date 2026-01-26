@@ -99,6 +99,7 @@ export class DepartamentosVM {
 
             runInAction(() => {
                 this._cargando = false;
+                this._departamentoSeleccionado = null; // ← Limpiar selección
             });
         } catch (error) {
             runInAction(() => {

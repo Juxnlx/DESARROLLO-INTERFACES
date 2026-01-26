@@ -1,7 +1,5 @@
-// src/components/BotonSubmit.tsx
-
 import React from "react";
-import { TouchableOpacity, Text, StyleSheet, ActivityIndicator } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity } from "react-native";
 
 interface BotonSubmitProps {
   titulo: string;

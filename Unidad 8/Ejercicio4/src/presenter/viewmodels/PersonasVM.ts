@@ -96,7 +96,7 @@ export class PersonasVM {
                 telefono: persona.telefono,
                 direccion: persona.direccion,
                 foto: persona.foto,
-                fechaNacimiento: persona.fechaNacimiento,
+                fechaNacimiento: persona.fechaNacimiento.toISOString(), // ← Convertir Date a string
                 idDepartamento: persona.idDepartamento
             };
 
@@ -105,6 +105,7 @@ export class PersonasVM {
 
             runInAction(() => {
                 this._cargando = false;
+                this._personaSeleccionada = null; // ← Limpiar selección
             });
         } catch (error) {
             runInAction(() => {
@@ -134,7 +135,7 @@ export class PersonasVM {
                 telefono: persona.telefono,
                 direccion: persona.direccion,
                 foto: persona.foto,
-                fechaNacimiento: persona.fechaNacimiento,
+                fechaNacimiento: persona.fechaNacimiento.toISOString(), // ← Convertir Date a string
                 idDepartamento: persona.idDepartamento
             };
 

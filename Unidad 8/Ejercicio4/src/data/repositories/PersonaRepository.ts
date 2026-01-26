@@ -16,16 +16,19 @@ export class PersonaRepository implements IPersonaRepository {
 
   async getAllPersonas(): Promise<Persona[]> {
     const dtos = await this._azureAPI.obtenerListaPersonas();
-    return dtos.map(dto => new Persona(
-      dto.id,
-      dto.nombre,
-      dto.apellidos,
-      dto.telefono,
-      dto.direccion,
-      dto.foto,
-      new Date(dto.fechaNacimiento),
-      dto.idDepartamento
-    ));
+    return dtos.map(
+      (dto) =>
+        new Persona(
+          dto.id,
+          dto.nombre,
+          dto.apellidos,
+          dto.telefono,
+          dto.direccion,
+          dto.foto,
+          new Date(dto.fechaNacimiento),
+          dto.idDepartamento
+        )
+    );
   }
 
   async getPersonaById(id: number): Promise<Persona | null> {
@@ -46,9 +49,8 @@ export class PersonaRepository implements IPersonaRepository {
     }
   }
 
-  async createPersona(personaDTO: PersonaDTO): Promise<Persona> {
+  async insertarPersona(personaDTO: PersonaDTO): Promise<Persona> {
     await this._azureAPI.crearPersona(personaDTO);
-    // Devolver la persona creada
     return new Persona(
       personaDTO.id,
       personaDTO.nombre,
@@ -56,14 +58,13 @@ export class PersonaRepository implements IPersonaRepository {
       personaDTO.telefono,
       personaDTO.direccion,
       personaDTO.foto,
-      personaDTO.fechaNacimiento,
+      new Date(personaDTO.fechaNacimiento),
       personaDTO.idDepartamento
     );
   }
 
-  async updatePersona(id: number, personaDTO: PersonaDTO): Promise<Persona> {
+  async editarPersona(id: number, personaDTO: PersonaDTO): Promise<Persona> {
     await this._azureAPI.actualizarPersona(id, personaDTO);
-    // Devolver la persona actualizada
     return new Persona(
       personaDTO.id,
       personaDTO.nombre,
@@ -71,12 +72,12 @@ export class PersonaRepository implements IPersonaRepository {
       personaDTO.telefono,
       personaDTO.direccion,
       personaDTO.foto,
-      personaDTO.fechaNacimiento,
+      new Date(personaDTO.fechaNacimiento),
       personaDTO.idDepartamento
     );
   }
 
-  async deletePersona(id: number): Promise<boolean> {
+  async eliminarPersona(id: number): Promise<boolean> {
     try {
       await this._azureAPI.eliminarPersona(id);
       return true;

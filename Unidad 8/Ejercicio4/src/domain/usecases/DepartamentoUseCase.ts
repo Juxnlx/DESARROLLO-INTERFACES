@@ -1,10 +1,9 @@
-// src/domain/usecases/DepartamentoUseCase.ts
-
-import { injectable, inject } from "inversify";
-import { IDepartamentoUseCase } from "../interfaces/usecases/IDepartamentoUseCase";
-import { IDepartamentoRepository } from "../interfaces/repositories/IDepartamentoRepository";
-import { Departamento } from "../entities/Departamento";
+import { inject, injectable } from "inversify";
 import { TYPES } from "../../core/types";
+import { DepartamentoDTO } from "../dtos/DepartamentoDTO";
+import { Departamento } from "../entities/Departamento";
+import { IDepartamentoRepository } from "../interfaces/repositories/IDepartamentoRepository";
+import { IDepartamentoUseCase } from "../interfaces/usecases/IDepartamentoUseCase";
 
 @injectable()
 export class DepartamentoUseCase implements IDepartamentoUseCase {
@@ -21,18 +20,30 @@ export class DepartamentoUseCase implements IDepartamentoUseCase {
     return resultado;
   }
 
-  async editarDepartamento(idDepartamentoEditar: number, departamento: Departamento): Promise<number> {
-    const resultado = await this._departamentoRepository.editarDepartamento(idDepartamentoEditar, departamento);
+  async editarDepartamento(idDepartamentoEditar: number, departamento: Departamento): Promise<Departamento> {
+    // Convertir Entidad a DTO
+    const dto: DepartamentoDTO = {
+      id: departamento.id,
+      nombre: departamento.nombre
+    };
+    
+    const resultado = await this._departamentoRepository.editarDepartamento(idDepartamentoEditar, dto);
     return resultado;
   }
 
-  async insertarDepartamento(departamentoNuevo: Departamento): Promise<number> {
-    const resultado = await this._departamentoRepository.insertarDepartamento(departamentoNuevo);
+  async insertarDepartamento(departamentoNuevo: Departamento): Promise<Departamento> {
+    // Convertir Entidad a DTO
+    const dto: DepartamentoDTO = {
+      id: departamentoNuevo.id,
+      nombre: departamentoNuevo.nombre
+    };
+    
+    const resultado = await this._departamentoRepository.insertarDepartamento(dto);
     return resultado;
   }
 
-  async eliminarDepartamento(idDepartamentoEliminar: number): Promise<number> {
-    const resultado = await this._departamentoRepository.eliminarDepartamento(idDepartamentoEliminar);
+  async eliminarDepartamento(idDepartamentoEliminar: number): Promise<boolean> {
+    const resultado = await this._departamentoRepository.deleteDepartamento(idDepartamentoEliminar);
     return resultado;
   }
 }
