@@ -18,7 +18,7 @@ const EditarInsertarDepartamento: React.FC = observer(() => {
 
   useEffect(() => {
     cargarDatosDepartamento();
-  }, [departamentoSeleccionado]);
+  }, [departamentoSeleccionado?.id]);
 
   function cargarDatosDepartamento(): void {
     if (departamentoSeleccionado) {

@@ -28,7 +28,7 @@ const EditarInsertarPersonas: React.FC = observer(() => {
   useEffect(() => {
     cargarDepartamentos();
     cargarDatosPersona();
-  }, [personaSeleccionada]); // ← CAMBIO: Añadir dependencia
+  }, [personaSeleccionada?.id]); // ← CAMBIO: Añadir dependencia
 
   function cargarDepartamentos(): void {
     departamentoVM.cargarDepartamentos();
