@@ -1,9 +1,5 @@
 import { makeAutoObservable } from "mobx";
 
-/**
- * ViewModel observable para Departamento.
- * Usado en la capa de presentacion con MobX.
- */
 export class DepartamentoViewModel {
     private _id: number;
     private _nombre: string;

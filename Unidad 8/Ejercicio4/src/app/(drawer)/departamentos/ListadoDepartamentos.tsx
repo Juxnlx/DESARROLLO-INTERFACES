@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router";
 import { observer } from "mobx-react-lite";
 import React, { JSX, useEffect, useState } from "react";
-import { ActivityIndicator, Alert, FlatList, StyleSheet, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, FlatList, StyleSheet, Text, TextInput, View } from "react-native";
 import { BotonAnadir } from "../../../components/BotonAnadir";
 import { Elemento } from "../../../components/Elemento";
 import { container } from "../../../core/container";
@@ -46,27 +46,29 @@ const ListadoDepartamentos: React.FC = observer(() => {
   }
 
   function handleEliminar(id: number): void {
-  const confirmar = window.confirm(
-    "Estas seguro de que deseas eliminar este departamento?"
-  );
-  
-  if (confirmar) {
-    eliminarDepartamento(id);
+    const confirmar = window.confirm(
+      "Estas seguro de que deseas eliminar este departamento?"
+    );
+    
+    if (confirmar) {
+      eliminarDepartamento(id);
+    }
   }
-}
 
   async function eliminarDepartamento(id: number): Promise<void> {
     try {
       await departamentoVM.eliminarDepartamento(id);
-      Alert.alert("Exito", "Departamento eliminado correctamente");
+      window.alert("Exito: Departamento eliminado correctamente");
     } catch (error) {
       const mensaje = error instanceof Error ? error.message : "Error desconocido";
-      Alert.alert("Error", mensaje);
+      window.alert("Error: " + mensaje);
     }
   }
 
   function handleAnadir(): void {
+    // IMPORTANTE: Limpiar ANTES de navegar
     departamentoVM.limpiarSeleccion();
+    // Navegar después para que el componente vea departamentoSeleccionado = null
     router.push("/(drawer)/departamentos/EditarInsertarDepartamento" as any);
   }
 

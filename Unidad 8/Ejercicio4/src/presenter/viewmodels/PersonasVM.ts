@@ -54,9 +54,6 @@ export class PersonasVM {
 
     // ==================== METODOS PARA DRAWER ====================
     
-    /**
-     * Carga todas las personas desde el caso de uso.
-     */
     async cargarPersonas(): Promise<void> {
         try {
             runInAction(() => {
@@ -78,10 +75,6 @@ export class PersonasVM {
         }
     }
 
-    /**
-     * Crea una nueva persona.
-     * @param persona - Entidad Persona a crear
-     */
     async crearPersona(persona: Persona): Promise<void> {
         try {
             runInAction(() => {
@@ -96,7 +89,7 @@ export class PersonasVM {
                 telefono: persona.telefono,
                 direccion: persona.direccion,
                 foto: persona.foto,
-                fechaNacimiento: persona.fechaNacimiento.toISOString(), // ← Convertir Date a string
+                fechaNacimiento: persona.fechaNacimiento.toISOString(), 
                 idDepartamento: persona.idDepartamento
             };
 
@@ -105,7 +98,7 @@ export class PersonasVM {
 
             runInAction(() => {
                 this._cargando = false;
-                this._personaSeleccionada = null; // ← Limpiar selección
+                this._personaSeleccionada = null; 
             });
         } catch (error) {
             runInAction(() => {
@@ -116,11 +109,6 @@ export class PersonasVM {
         }
     }
 
-    /**
-     * Actualiza una persona existente.
-     * @param id - ID de la persona
-     * @param persona - Entidad Persona con nuevos datos
-     */
     async editarPersona(id: number, persona: Persona): Promise<void> {
         try {
             runInAction(() => {
@@ -135,7 +123,7 @@ export class PersonasVM {
                 telefono: persona.telefono,
                 direccion: persona.direccion,
                 foto: persona.foto,
-                fechaNacimiento: persona.fechaNacimiento.toISOString(), // ← Convertir Date a string
+                fechaNacimiento: persona.fechaNacimiento.toISOString(), 
                 idDepartamento: persona.idDepartamento
             };
 
@@ -154,10 +142,6 @@ export class PersonasVM {
         }
     }
 
-    /**
-     * Elimina una persona.
-     * @param id - ID de la persona a eliminar
-     */
     async eliminarPersona(id: number): Promise<void> {
         try {
             runInAction(() => {
@@ -180,17 +164,10 @@ export class PersonasVM {
         }
     }
 
-    /**
-     * Selecciona una persona para edicion.
-     * @param persona - Persona a seleccionar
-     */
     seleccionarPersona(persona: Persona): void {
         this._personaSeleccionada = persona;
     }
 
-    /**
-     * Limpia la seleccion actual.
-     */
     limpiarSeleccion(): void {
         this._personaSeleccionada = null;
     }

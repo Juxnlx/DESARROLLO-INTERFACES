@@ -1,35 +1,29 @@
 import React from "react";
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { theme } from "../theme/theme";
 
 interface BotonSubmitProps {
   titulo: string;
   onPress: () => void;
-  disabled?: boolean;
   isLoading?: boolean;
 }
 
-export const BotonSubmit: React.FC<BotonSubmitProps> = ({ 
-  titulo, 
-  onPress, 
-  disabled = false,
-  isLoading = false 
+export const BotonSubmit: React.FC<BotonSubmitProps> = ({
+  titulo,
+  onPress,
+  isLoading = false,
 }) => {
-  const handlePress = (): void => {
-    if (!disabled && !isLoading) {
-      onPress();
-    }
-  };
-
   return (
-    <TouchableOpacity 
-      style={[styles.button, disabled && styles.buttonDisabled]} 
-      onPress={handlePress}
-      disabled={disabled || isLoading}
+    <TouchableOpacity
+      style={[styles.button, isLoading && styles.buttonDisabled]}
+      onPress={onPress}
+      disabled={isLoading}
+      activeOpacity={0.8}
     >
       {isLoading ? (
-        <ActivityIndicator color="#fff" />
+        <ActivityIndicator color={theme.colors.surface} size="small" />
       ) : (
-        <Text style={styles.buttonText}>{titulo}</Text>
+        <Text style={styles.text}>{titulo}</Text>
       )}
     </TouchableOpacity>
   );
@@ -37,18 +31,25 @@ export const BotonSubmit: React.FC<BotonSubmitProps> = ({
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "#34C759",
-    padding: 15,
-    borderRadius: 8,
+    backgroundColor: theme.colors.primary,
+    borderRadius: theme.borderRadius.md,
+    paddingVertical: theme.spacing.lg,
     alignItems: "center",
-    marginVertical: 10,
+    justifyContent: "center",
+    marginTop: theme.spacing.lg,
+    shadowColor: theme.colors.primary,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 4,
   },
   buttonDisabled: {
-    backgroundColor: "#A0A0A0",
+    backgroundColor: theme.colors.text.disabled,
+    shadowOpacity: 0.1,
   },
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "600",
+  text: {
+    color: theme.colors.surface,
+    fontSize: theme.fontSize.lg,
+    fontWeight: "700",
   },
 });

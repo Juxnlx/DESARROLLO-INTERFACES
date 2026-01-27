@@ -8,6 +8,7 @@ import { container } from "../../../core/container";
 import { TYPES } from "../../../core/types";
 import { Persona } from "../../../domain/entities/Persona";
 import { PersonasVM } from "../../../presenter/viewmodels/PersonasVM";
+import { theme } from "../../../theme/theme";
 
 const ListadoPersonas: React.FC = observer(() => {
   const personaVM = container.get<PersonasVM>(TYPES.PersonaViewModel);
@@ -57,7 +58,7 @@ const ListadoPersonas: React.FC = observer(() => {
   if (personaVM.isLoading) {
     return (
       <View style={styles.centerContainer}>
-        <ActivityIndicator size="large" color="#007AFF" />
+        <ActivityIndicator size="large" color={theme.colors.primary} />
       </View>
     );
   }
@@ -68,6 +69,7 @@ const ListadoPersonas: React.FC = observer(() => {
         <TextInput
           style={styles.searchInput}
           placeholder="Buscar por nombre..."
+          placeholderTextColor={theme.colors.text.disabled}
           value={busqueda}
           onChangeText={setBusqueda}
         />
@@ -105,24 +107,29 @@ export default ListadoPersonas;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: theme.colors.background,
   },
   searchContainer: {
-    padding: 15,
-    backgroundColor: "#fff",
+    padding: theme.spacing.lg,
+    backgroundColor: theme.colors.surface,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.colors.border,
   },
   searchInput: {
-    backgroundColor: "#f0f0f0",
-    padding: 12,
-    borderRadius: 8,
-    fontSize: 16,
+    backgroundColor: theme.colors.background,
+    padding: theme.spacing.md,
+    borderRadius: theme.borderRadius.md,
+    fontSize: theme.fontSize.md,
+    color: theme.colors.text.primary,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
   },
   buttonContainer: {
-    padding: 15,
+    padding: theme.spacing.lg,
     paddingBottom: 0,
   },
   listContent: {
-    padding: 15,
+    padding: theme.spacing.lg,
   },
   centerContainer: {
     flex: 1,
@@ -130,7 +137,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   emptyText: {
-    fontSize: 16,
-    color: "#666",
+    fontSize: theme.fontSize.md,
+    color: theme.colors.text.secondary,
   },
 });

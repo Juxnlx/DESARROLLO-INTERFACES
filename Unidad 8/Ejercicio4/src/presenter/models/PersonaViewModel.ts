@@ -1,9 +1,5 @@
 import { makeAutoObservable } from "mobx";
 
-/**
- * ViewModel observable para Persona.
- * Usado en la capa de presentacion con MobX.
- */
 export class PersonaViewModel {
     private _id: number;
     private _nombre: string;
@@ -56,7 +52,6 @@ export class PersonaViewModel {
     set fechaNacimiento(value: Date) { this._fechaNacimiento = value; }
     set idDepartamento(value: number) { this._idDepartamento = value; }
 
-    // Computed properties
     get nombreCompleto(): string {
         return `${this._nombre} ${this._apellidos}`;
     }

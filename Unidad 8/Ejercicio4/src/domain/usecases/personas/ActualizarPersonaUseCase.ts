@@ -6,9 +6,6 @@ import { Persona } from "../../entities/Persona";
 import type { IPersonaRepository } from "../../interfaces/repositories/IPersonaRepository";
 import type { IActualizarPersonaUseCase } from "../../interfaces/usecases/personas/IActualizarPersonaUseCase";
 
-/**
- * Caso de uso para actualizar personas.
- */
 @injectable()
 export class ActualizarPersonaUseCase implements IActualizarPersonaUseCase {
     
@@ -16,12 +13,6 @@ export class ActualizarPersonaUseCase implements IActualizarPersonaUseCase {
         @inject(TYPES.IPersonaRepository) private repositorioPersonas: IPersonaRepository
     ) {}
 
-    /**
-     * Actualiza una persona existente.
-     * @param id - ID de la persona a actualizar
-     * @param persona - DTO con nuevos datos
-     * @returns Promise con la persona actualizada
-     */
     async actualizar(id: number, persona: PersonaDTO): Promise<Persona> {
         return await this.repositorioPersonas.editarPersona(id, persona);
     }

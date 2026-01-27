@@ -35,7 +35,7 @@ export class DepartamentosVM {
         makeAutoObservable(this);
     }
 
-    // ==================== GETTERS PARA DRAWER ====================
+  
     get departamentos(): Departamento[] { 
         return this._listaDepartamentos; 
     }
@@ -52,11 +52,7 @@ export class DepartamentosVM {
         return this._error; 
     }
 
-    // ==================== METODOS PARA DRAWER ====================
     
-    /**
-     * Carga todos los departamentos desde el caso de uso.
-     */
     async cargarDepartamentos(): Promise<void> {
         try {
             runInAction(() => {
@@ -78,10 +74,6 @@ export class DepartamentosVM {
         }
     }
 
-    /**
-     * Crea un nuevo departamento.
-     * @param departamento - Entidad Departamento a crear
-     */
     async crearDepartamento(departamento: Departamento): Promise<void> {
         try {
             runInAction(() => {
@@ -99,7 +91,7 @@ export class DepartamentosVM {
 
             runInAction(() => {
                 this._cargando = false;
-                this._departamentoSeleccionado = null; // ← Limpiar selección
+                this._departamentoSeleccionado = null;
             });
         } catch (error) {
             runInAction(() => {
@@ -110,11 +102,6 @@ export class DepartamentosVM {
         }
     }
 
-    /**
-     * Actualiza un departamento existente.
-     * @param id - ID del departamento
-     * @param departamento - Entidad Departamento con nuevos datos
-     */
     async editarDepartamento(id: number, departamento: Departamento): Promise<void> {
         try {
             runInAction(() => {
@@ -142,10 +129,6 @@ export class DepartamentosVM {
         }
     }
 
-    /**
-     * Elimina un departamento.
-     * @param id - ID del departamento a eliminar
-     */
     async eliminarDepartamento(id: number): Promise<void> {
         try {
             runInAction(() => {
@@ -161,24 +144,17 @@ export class DepartamentosVM {
             });
         } catch (error) {
             runInAction(() => {
-                this._error = error instanceof Error ? error.message : "Error al eliminar departamento";
                 this._cargando = false;
             });
-            throw error;
+            
+            throw new Error("No se puede eliminar el departamento porque tiene personas asignadas");
         }
     }
 
-    /**
-     * Selecciona un departamento para edicion.
-     * @param departamento - Departamento a seleccionar
-     */
     seleccionarDepartamento(departamento: Departamento): void {
         this._departamentoSeleccionado = departamento;
     }
 
-    /**
-     * Limpia la seleccion actual.
-     */
     limpiarSeleccion(): void {
         this._departamentoSeleccionado = null;
     }

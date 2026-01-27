@@ -1,34 +1,45 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { theme } from "../theme/theme";
 
 interface BotonAnadirProps {
   onPress: () => void;
-  titulo?: string;
+  titulo: string;
 }
 
-export const BotonAnadir: React.FC<BotonAnadirProps> = ({ onPress, titulo = "Anadir" }) => {
-  const handlePress = (): void => {
-    onPress();
-  };
-
+export const BotonAnadir: React.FC<BotonAnadirProps> = ({ onPress, titulo }) => {
   return (
-    <TouchableOpacity style={styles.button} onPress={handlePress}>
-      <Text style={styles.buttonText}>{titulo}</Text>
+    <TouchableOpacity style={styles.button} onPress={onPress} activeOpacity={0.8}>
+      <Text style={styles.icon}>+</Text>
+      <Text style={styles.text}>{titulo}</Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "#FF9500",
-    padding: 12,
-    borderRadius: 8,
+    backgroundColor: theme.colors.primary,
+    borderRadius: theme.borderRadius.md,
+    paddingVertical: theme.spacing.md,
+    paddingHorizontal: theme.spacing.lg,
+    flexDirection: "row",
     alignItems: "center",
-    marginVertical: 5,
+    justifyContent: "center",
+    shadowColor: theme.colors.primary,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 4,
   },
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
+  icon: {
+    color: theme.colors.surface,
+    fontSize: 24,
+    fontWeight: "bold",
+    marginRight: theme.spacing.sm,
+  },
+  text: {
+    color: theme.colors.surface,
+    fontSize: theme.fontSize.md,
     fontWeight: "600",
   },
 });

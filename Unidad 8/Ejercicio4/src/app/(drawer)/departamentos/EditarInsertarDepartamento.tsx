@@ -1,6 +1,6 @@
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import { observer } from "mobx-react-lite";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Alert, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { BotonSubmit } from "../../../components/BotonSubmit";
 import { container } from "../../../core/container";
@@ -11,22 +11,20 @@ import { DepartamentosVM } from "../../../presenter/viewmodels/DepartamentosVM";
 const EditarInsertarDepartamento: React.FC = observer(() => {
   const departamentoVM = container.get<DepartamentosVM>(TYPES.DepartamentoViewModel);
   const router = useRouter();
-  const departamentoSeleccionado = departamentoVM.departamentoSeleccionado;
-  const esEdicion = departamentoSeleccionado !== null;
 
   const [nombre, setNombre] = useState<string>("");
 
-  useEffect(() => {
-    cargarDatosDepartamento();
-  }, [departamentoSeleccionado?.id]);
-
-  function cargarDatosDepartamento(): void {
-    if (departamentoSeleccionado) {
-      setNombre(departamentoSeleccionado.nombre);
-    } else {
-      setNombre("");
-    }
-  }
+  useFocusEffect(
+    useCallback(() => {
+      const departamentoSeleccionado = departamentoVM.departamentoSeleccionado;
+      
+      if (departamentoSeleccionado) {
+        setNombre(departamentoSeleccionado.nombre);
+      } else {
+        setNombre("");
+      }
+    }, [])
+  );
 
   function validarFormulario(): boolean {
     const hayNombre = nombre.trim() !== "";
@@ -44,7 +42,9 @@ const EditarInsertarDepartamento: React.FC = observer(() => {
       return;
     }
 
+    const departamentoSeleccionado = departamentoVM.departamentoSeleccionado;
     const idDepartamento = departamentoSeleccionado ? departamentoSeleccionado.id : 0;
+    const esEdicion = departamentoSeleccionado !== null;
     const departamento = new Departamento(idDepartamento, nombre);
 
     try {
@@ -62,6 +62,8 @@ const EditarInsertarDepartamento: React.FC = observer(() => {
     }
   }
 
+  const departamentoSeleccionado = departamentoVM.departamentoSeleccionado;
+  const esEdicion = departamentoSeleccionado !== null;
   const titulo = esEdicion ? "Editar Departamento" : "Nuevo Departamento";
 
   return (

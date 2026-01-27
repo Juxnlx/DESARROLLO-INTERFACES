@@ -1,7 +1,7 @@
 import { Picker } from "@react-native-picker/picker";
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import { observer } from "mobx-react-lite";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Alert, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { BotonSubmit } from "../../../components/BotonSubmit";
 import { container } from "../../../core/container";
@@ -14,8 +14,6 @@ const EditarInsertarPersonas: React.FC = observer(() => {
   const personaVM = container.get<PersonasVM>(TYPES.PersonaViewModel);
   const departamentoVM = container.get<DepartamentosVM>(TYPES.DepartamentoViewModel);
   const router = useRouter();
-  const personaSeleccionada = personaVM.personaSeleccionada;
-  const esEdicion = personaSeleccionada !== null;
 
   const [nombre, setNombre] = useState<string>("");
   const [apellidos, setApellidos] = useState<string>("");
@@ -25,34 +23,31 @@ const EditarInsertarPersonas: React.FC = observer(() => {
   const [fechaNacimiento, setFechaNacimiento] = useState<string>("");
   const [idDepartamento, setIdDepartamento] = useState<number>(0);
 
-  useEffect(() => {
-    cargarDepartamentos();
-    cargarDatosPersona();
-  }, [personaSeleccionada?.id]); // ← CAMBIO: Añadir dependencia
-
-  function cargarDepartamentos(): void {
-    departamentoVM.cargarDepartamentos();
-  }
-
-  function cargarDatosPersona(): void {
-    if (personaSeleccionada) {
-      setNombre(personaSeleccionada.nombre);
-      setApellidos(personaSeleccionada.apellidos);
-      setTelefono(personaSeleccionada.telefono);
-      setDireccion(personaSeleccionada.direccion);
-      setFoto(personaSeleccionada.foto);
-      setFechaNacimiento(formatearFecha(personaSeleccionada.fechaNacimiento));
-      setIdDepartamento(personaSeleccionada.idDepartamento);
-    } else {
-      setNombre("");
-      setApellidos("");
-      setTelefono("");
-      setDireccion("");
-      setFoto("");
-      setFechaNacimiento("");
-      setIdDepartamento(0);
-    }
-  }
+  useFocusEffect(
+    useCallback(() => {
+      const personaSeleccionada = personaVM.personaSeleccionada;
+      
+      departamentoVM.cargarDepartamentos();
+      
+      if (personaSeleccionada) {
+        setNombre(personaSeleccionada.nombre);
+        setApellidos(personaSeleccionada.apellidos);
+        setTelefono(personaSeleccionada.telefono);
+        setDireccion(personaSeleccionada.direccion);
+        setFoto(personaSeleccionada.foto);
+        setFechaNacimiento(formatearFecha(personaSeleccionada.fechaNacimiento));
+        setIdDepartamento(personaSeleccionada.idDepartamento);
+      } else {
+        setNombre("");
+        setApellidos("");
+        setTelefono("");
+        setDireccion("");
+        setFoto("");
+        setFechaNacimiento("");
+        setIdDepartamento(0);
+      }
+    }, [])
+  );
 
   function formatearFecha(fecha: Date): string {
     const d = new Date(fecha);
@@ -82,7 +77,9 @@ const EditarInsertarPersonas: React.FC = observer(() => {
     }
 
     const fecha = fechaNacimiento ? new Date(fechaNacimiento) : new Date();
+    const personaSeleccionada = personaVM.personaSeleccionada;
     const idPersona = personaSeleccionada ? personaSeleccionada.id : 0;
+    const esEdicion = personaSeleccionada !== null;
 
     const persona = new Persona(
       idPersona,
@@ -110,6 +107,8 @@ const EditarInsertarPersonas: React.FC = observer(() => {
     }
   }
 
+  const personaSeleccionada = personaVM.personaSeleccionada;
+  const esEdicion = personaSeleccionada !== null;
   const titulo = esEdicion ? "Editar Persona" : "Nueva Persona";
 
   return (
