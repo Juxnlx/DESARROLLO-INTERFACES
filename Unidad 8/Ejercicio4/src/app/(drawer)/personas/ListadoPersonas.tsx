@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router";
 import { observer } from "mobx-react-lite";
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, FlatList, StyleSheet, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, Alert, FlatList, Platform, StyleSheet, Text, TextInput, View } from "react-native";
 import { BotonAnadir } from "../../../components/BotonAnadir";
 import { Elemento } from "../../../components/Elemento";
 import { container } from "../../../core/container";
@@ -31,22 +31,43 @@ const ListadoPersonas: React.FC = observer(() => {
   }
 
   function handleEliminar(id: number): void {
-    const confirmar = window.confirm(
-      "Estas seguro de que deseas eliminar esta persona?"
-    );
-    
-    if (confirmar) {
-      eliminarPersona(id);
+    if (Platform.OS === 'web') {
+      if (window.confirm("¿Estás seguro de que deseas eliminar esta persona?")) {
+        eliminarPersona(id);
+      }
+    } else {
+      Alert.alert(
+        "Confirmar eliminación",
+        "¿Estás seguro de que deseas eliminar esta persona?",
+        [
+          { text: "Cancelar", style: "cancel" },
+          {
+            text: "Eliminar",
+            style: "destructive",
+            onPress: () => eliminarPersona(id),
+          },
+        ]
+      );
     }
   }
 
   async function eliminarPersona(id: number): Promise<void> {
     try {
       await personaVM.eliminarPersona(id);
-      window.alert("Exito: Persona eliminada correctamente");
+      
+      if (Platform.OS === 'web') {
+        window.alert("Éxito: Persona eliminada correctamente");
+      } else {
+        Alert.alert("Éxito", "Persona eliminada correctamente");
+      }
     } catch (error) {
       const mensaje = error instanceof Error ? error.message : "Error desconocido";
-      window.alert("Error: " + mensaje);
+      
+      if (Platform.OS === 'web') {
+        window.alert("Error: " + mensaje);
+      } else {
+        Alert.alert("Error", mensaje);
+      }
     }
   }
 

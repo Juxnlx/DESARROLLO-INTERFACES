@@ -1,20 +1,19 @@
-// Theme configuration - Verde Moderno
 export const theme = {
   colors: {
-    primary: '#047857',        // Verde oscuro
-    secondary: '#10b981',      // Verde brillante
-    accent: '#f59e0b',         // Naranja/Amarillo
-    background: '#f0fdf4',     // Verde muy claro
-    surface: '#ffffff',        // Blanco
-    error: '#dc2626',          // Rojo
-    success: '#059669',        // Verde éxito
+    primary: '#047857',        
+    secondary: '#10b981',      
+    accent: '#f59e0b',         
+    background: '#f0fdf4',     
+    surface: '#ffffff',        
+    error: '#dc2626',          
+    success: '#059669',        
     text: {
-      primary: '#064e3b',      // Verde muy oscuro
-      secondary: '#6b7280',    // Gris
-      disabled: '#9ca3af',     // Gris claro
+      primary: '#064e3b',      
+      secondary: '#6b7280',    
+      disabled: '#9ca3af',     
     },
-    border: '#d1fae5',         // Verde claro
-    shadow: '#00000015',       // Sombra suave
+    border: '#d1fae5',         
+    shadow: '#00000015',       
   },
   spacing: {
     xs: 4,

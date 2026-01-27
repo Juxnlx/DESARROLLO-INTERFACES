@@ -17,7 +17,7 @@ export default function PantallaBienvenida() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#f0fdf4",
     justifyContent: "center",
   },
 });

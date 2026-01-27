@@ -5,10 +5,10 @@ export default function DrawerLayout() {
   return (
     <Drawer
       screenOptions={{
-        drawerStyle: { backgroundColor: "#fff", width: 280 },
-        drawerActiveTintColor: "#007AFF",
-        drawerInactiveTintColor: "#666",
-        headerStyle: { backgroundColor: "#007AFF" },
+        drawerStyle: { backgroundColor: "#f0fdf4", width: 280 },
+        drawerActiveTintColor: "#047857",
+        drawerInactiveTintColor: "#6b7280",
+        headerStyle: { backgroundColor: "#047857" },
         headerTintColor: "#fff",
         headerTitleStyle: { fontWeight: "bold" },
       }}

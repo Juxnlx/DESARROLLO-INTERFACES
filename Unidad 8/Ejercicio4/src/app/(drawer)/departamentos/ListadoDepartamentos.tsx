@@ -1,13 +1,14 @@
 import { useRouter } from "expo-router";
 import { observer } from "mobx-react-lite";
 import React, { JSX, useEffect, useState } from "react";
-import { ActivityIndicator, FlatList, StyleSheet, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, Alert, FlatList, Platform, StyleSheet, Text, TextInput, View } from "react-native";
 import { BotonAnadir } from "../../../components/BotonAnadir";
 import { Elemento } from "../../../components/Elemento";
 import { container } from "../../../core/container";
 import { TYPES } from "../../../core/types";
 import { Departamento } from "../../../domain/entities/Departamento";
 import { DepartamentosVM } from "../../../presenter/viewmodels/DepartamentosVM";
+import { theme } from "../../../theme/theme";
 
 const ListadoDepartamentos: React.FC = observer(() => {
   const departamentoVM = container.get<DepartamentosVM>(TYPES.DepartamentoViewModel);
@@ -46,29 +47,48 @@ const ListadoDepartamentos: React.FC = observer(() => {
   }
 
   function handleEliminar(id: number): void {
-    const confirmar = window.confirm(
-      "Estas seguro de que deseas eliminar este departamento?"
-    );
-    
-    if (confirmar) {
-      eliminarDepartamento(id);
+    if (Platform.OS === 'web') {
+      if (window.confirm("¿Estás seguro de que deseas eliminar este departamento?")) {
+        eliminarDepartamento(id);
+      }
+    } else {
+      Alert.alert(
+        "Confirmar eliminación",
+        "¿Estás seguro de que deseas eliminar este departamento?",
+        [
+          { text: "Cancelar", style: "cancel" },
+          {
+            text: "Eliminar",
+            style: "destructive",
+            onPress: () => eliminarDepartamento(id),
+          },
+        ]
+      );
     }
   }
 
   async function eliminarDepartamento(id: number): Promise<void> {
     try {
       await departamentoVM.eliminarDepartamento(id);
-      window.alert("Exito: Departamento eliminado correctamente");
+      
+      if (Platform.OS === 'web') {
+        window.alert("Éxito: Departamento eliminado correctamente");
+      } else {
+        Alert.alert("Éxito", "Departamento eliminado correctamente");
+      }
     } catch (error) {
       const mensaje = error instanceof Error ? error.message : "Error desconocido";
-      window.alert("Error: " + mensaje);
+      
+      if (Platform.OS === 'web') {
+        window.alert("Error: " + mensaje);
+      } else {
+        Alert.alert("Error", mensaje);
+      }
     }
   }
 
   function handleAnadir(): void {
-    // IMPORTANTE: Limpiar ANTES de navegar
     departamentoVM.limpiarSeleccion();
-    // Navegar después para que el componente vea departamentoSeleccionado = null
     router.push("/(drawer)/departamentos/EditarInsertarDepartamento" as any);
   }
 
@@ -88,7 +108,7 @@ const ListadoDepartamentos: React.FC = observer(() => {
     if (departamentoVM.isLoading) {
       contenido = (
         <View style={styles.centerContainer}>
-          <ActivityIndicator size="large" color="#007AFF" />
+          <ActivityIndicator size="large" color={theme.colors.primary} />
         </View>
       );
     } else if (departamentosFiltrados.length === 0) {
@@ -117,6 +137,7 @@ const ListadoDepartamentos: React.FC = observer(() => {
         <TextInput
           style={styles.searchInput}
           placeholder="Buscar departamento..."
+          placeholderTextColor={theme.colors.text.disabled}
           value={busqueda}
           onChangeText={setBusqueda}
         />
@@ -136,24 +157,29 @@ export default ListadoDepartamentos;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: theme.colors.background,
   },
   searchContainer: {
-    padding: 15,
-    backgroundColor: "#fff",
+    padding: theme.spacing.lg,
+    backgroundColor: theme.colors.surface,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.colors.border,
   },
   searchInput: {
-    backgroundColor: "#f0f0f0",
-    padding: 12,
-    borderRadius: 8,
-    fontSize: 16,
+    backgroundColor: theme.colors.background,
+    padding: theme.spacing.md,
+    borderRadius: theme.borderRadius.md,
+    fontSize: theme.fontSize.md,
+    color: theme.colors.text.primary,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
   },
   buttonContainer: {
-    padding: 15,
+    padding: theme.spacing.lg,
     paddingBottom: 0,
   },
   listContent: {
-    padding: 15,
+    padding: theme.spacing.lg,
   },
   centerContainer: {
     flex: 1,
@@ -161,7 +187,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   emptyText: {
-    fontSize: 16,
-    color: "#666",
+    fontSize: theme.fontSize.md,
+    color: theme.colors.text.secondary,
   },
 });
