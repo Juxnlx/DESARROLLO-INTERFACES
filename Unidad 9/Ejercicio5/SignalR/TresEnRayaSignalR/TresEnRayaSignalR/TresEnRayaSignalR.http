@@ -1,0 +1,6 @@
+@TresEnRayaSignalR_HostAddress = http://localhost:5217
+
+GET {{TresEnRayaSignalR_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
