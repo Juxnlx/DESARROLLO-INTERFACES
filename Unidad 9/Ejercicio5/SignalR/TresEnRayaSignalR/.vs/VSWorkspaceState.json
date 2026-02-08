@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\TresEnRayaSignalR",
+    "\\TresEnRayaSignalR\\Entities",
+    "\\TresEnRayaSignalR\\Hubs"
   ],
   "SelectedNode": "\\TresEnRayaSignalR.sln",
   "PreviewInSolutionExplorer": false

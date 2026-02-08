@@ -3,10 +3,10 @@ import {
   View,
   Text,
   TouchableOpacity,
-  StyleSheet,
   Modal,
   SafeAreaView,
   StatusBar,
+  StyleSheet,
 } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { VMPartida } from '../../presenter/viewmodels/VMPartida';
@@ -72,44 +72,12 @@ const Tablero = observer(() => {
 
   const obtenerInfoResultado = () => {
     const mensaje = viewModel.mensajeEstado;
-    
-    if (mensaje.includes('ganado')) {
-      return { 
-        titulo: '¡VICTORIA!', 
-        color: '#10b981', 
-        icono: '🏆' 
-      };
-    }
-    
-    if (mensaje.includes('perdido')) {
-      return { 
-        titulo: 'DERROTA', 
-        color: '#ef4444', 
-        icono: '😢' 
-      };
-    }
-    
-    if (mensaje.includes('Empate')) {
-      return { 
-        titulo: 'EMPATE', 
-        color: '#f59e0b', 
-        icono: '🤝' 
-      };
-    }
-    
-    if (mensaje.includes('desconectado')) {
-      return { 
-        titulo: 'DESCONECTADO', 
-        color: '#6b7280', 
-        icono: '👋' 
-      };
-    }
-    
-    return { 
-      titulo: 'FIN', 
-      color: '#6b7280', 
-      icono: '🎮' 
-    };
+
+    if (mensaje.includes('ganado')) return { titulo: '¡VICTORIA!', color: '#10b981', icono: '🏆' };
+    if (mensaje.includes('perdido')) return { titulo: 'DERROTA', color: '#ef4444', icono: '😢' };
+    if (mensaje.includes('Empate')) return { titulo: 'EMPATE', color: '#f59e0b', icono: '🤝' };
+    if (mensaje.includes('desconectado')) return { titulo: 'DESCONECTADO', color: '#6b7280', icono: '👋' };
+    return { titulo: 'FIN', color: '#6b7280', icono: '🎮' };
   };
 
   const renderModal = () => {
@@ -119,20 +87,14 @@ const Tablero = observer(() => {
     const puedeJugarDeNuevo = !viewModel.esperandoReset;
 
     return (
-      <Modal
-        transparent={true}
-        animationType="fade"
-        visible={true}
-      >
+      <Modal transparent={true} animationType="fade" visible={true}>
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <View style={[styles.modalIconoContainer, { backgroundColor: info.color + '20' }]}>
               <Text style={styles.modalIcono}>{info.icono}</Text>
             </View>
-            
-            <Text style={[styles.modalTitulo, { color: info.color }]}>
-              {info.titulo}
-            </Text>
+
+            <Text style={[styles.modalTitulo, { color: info.color }]}>{info.titulo}</Text>
             <Text style={styles.modalMensaje}>{viewModel.mensajeEstado}</Text>
 
             <View style={styles.tableroFinal}>
@@ -141,10 +103,7 @@ const Tablero = observer(() => {
                 <View key={i} style={styles.filaFinal}>
                   {fila.map((valor, j) => (
                     <View key={j} style={styles.celdaFinal}>
-                      <Text style={[
-                        styles.valorFinal,
-                        valor === 'X' ? styles.simboloX : styles.simboloO
-                      ]}>
+                      <Text style={[styles.valorFinal, valor === 'X' ? styles.simboloX : styles.simboloO]}>
                         {valor || '-'}
                       </Text>
                     </View>
@@ -174,34 +133,24 @@ const Tablero = observer(() => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#fef3c7" />
-      
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.header}>
           <Text style={styles.titulo}>✨ Tres en Raya ✨</Text>
-          
+
           <View style={styles.infoContainer}>
             <View style={styles.infoBox}>
               <Text style={styles.infoLabel}>Tu símbolo</Text>
-              <Text style={styles.infoValor}>
-                {viewModel.miSimbolo || '...'}
-              </Text>
+              <Text style={styles.infoValor}>{viewModel.miSimbolo || '...'}</Text>
             </View>
-            
+
             <View style={styles.infoBox}>
               <Text style={styles.infoLabel}>Turno</Text>
-              <Text style={styles.infoValor}>
-                {viewModel.esMiTurno ? 'TÚ' : 'RIVAL'}
-              </Text>
+              <Text style={styles.infoValor}>{viewModel.esMiTurno ? 'TÚ' : 'RIVAL'}</Text>
             </View>
           </View>
 
-          <View style={[
-            styles.estadoBanner,
-            { backgroundColor: obtenerColorEstado() }
-          ]}>
-            <Text style={styles.estadoTexto}>
-              {viewModel.mensajeEstado}
-            </Text>
+          <View style={[styles.estadoBanner, { backgroundColor: obtenerColorEstado() }]}>
+            <Text style={styles.estadoTexto}>{viewModel.mensajeEstado}</Text>
           </View>
         </View>
 

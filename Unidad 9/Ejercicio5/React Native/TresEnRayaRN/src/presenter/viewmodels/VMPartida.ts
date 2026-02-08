@@ -5,26 +5,43 @@ import { IUseCasePartida } from "../../domain/interfaces/usecases/IUseCasePartid
 import { Movimiento } from "../../domain/entities/Movimiento";
 import { Tablero } from "../../domain/entities/Tablero";
 
+/**
+ * ViewModel de la partida de Tres en Raya.
+ * Gestiona el estado observable del juego, los movimientos,
+ * la interacción con SignalR y la lógica de negocio de la partida.
+ */
 export class VMPartida {
+  // ----------------------------
   // Propiedades observables
-  miSimbolo: string | null = null;
+  // ----------------------------
+  miSimbolo: string | null = null; // Símbolo asignado al jugador
   estadoJuego: string = "esperando"; // "esperando" | "jugando" | "finalizado"
-  mensajeEstado: string = "Conectando...";
-  tablero: Tablero = new Tablero();
-  casillasOcupadas: number = 0;
-  esMiTurno: boolean = false;
-  esperandoReset: boolean = false;
-  simboloGanador: string | null = null;
+  mensajeEstado: string = "Conectando..."; // Mensaje para mostrar en la UI
+  tablero: Tablero = new Tablero(); // Tablero local de la partida
+  casillasOcupadas: number = 0; // Contador de movimientos realizados
+  esMiTurno: boolean = false; // Indica si es el turno del jugador
+  esperandoReset: boolean = false; // Flag para esperar reset del servidor
+  simboloGanador: string | null = null; // Símbolo del ganador
 
-  private useCase: IUseCasePartida;
-  private partidaTerminadaNotificada: boolean = false;
+  private useCase: IUseCasePartida; // Capa de negocio
+  private partidaTerminadaNotificada: boolean = false; // Evita múltiples notificaciones de fin de partida
+  private turnoInicialProximaPartida: string = "X"; // Turno que empieza la próxima partida
 
+  /**
+   * Inicializa el ViewModel y obtiene el caso de uso del contenedor.
+   */
   constructor() {
-    makeAutoObservable(this);
+    makeAutoObservable(this); // Hace que todas las propiedades sean observables
     this.useCase = container.get<IUseCasePartida>(TYPES.IUseCasePartida);
   }
 
-  // Conectar al servidor y configurar eventos
+  // ----------------------------
+  // Métodos de inicialización
+  // ----------------------------
+
+  /**
+   * Conecta al servidor y configura los eventos de SignalR.
+   */
   async inicializar(): Promise<void> {
     try {
       await this.useCase.connect();
@@ -37,7 +54,9 @@ export class VMPartida {
     }
   }
 
-  // Configurar eventos de SignalR
+  /**
+   * Configura todos los eventos de SignalR relacionados con la partida.
+   */
   private configurarEventos(): void {
     // Cuando me asignan un símbolo
     this.useCase.on("SimboloAsignado", (simbolo: string) => {
@@ -55,7 +74,7 @@ export class VMPartida {
         const esJugadorX = this.miSimbolo === "X";
         this.esMiTurno = esJugadorX;
         this.mensajeEstado = esJugadorX ? "Tu turno" : "Turno del oponente";
-        this.partidaTerminadaNotificada = false; // Reset flag
+        this.partidaTerminadaNotificada = false;
         this.simboloGanador = null;
       });
       console.log("🎮 Partida iniciada!");
@@ -96,19 +115,22 @@ export class VMPartida {
     this.useCase.on("ListoParaNuevaPartida", (turnoInicial: string) => {
       runInAction(() => {
         this.esperandoReset = false;
-        console.log(`✅ Servidor listo - Turno inicial: ${turnoInicial}`);
-        
-        // Guardar quién debe empezar
         this.turnoInicialProximaPartida = turnoInicial;
+        console.log(`✅ Servidor listo - Turno inicial: ${turnoInicial}`);
       });
     });
   }
 
-  private turnoInicialProximaPartida: string = "X";
+  // ----------------------------
+  // Métodos de juego
+  // ----------------------------
 
-  // Realizar un movimiento
+  /**
+   * Realiza un movimiento si es válido y es el turno del jugador.
+   * @param fila - Fila del tablero (0-2)
+   * @param columna - Columna del tablero (0-2)
+   */
   async realizarMovimiento(fila: number, columna: number): Promise<void> {
-    // Validaciones
     if (!this.esMiTurno) {
       console.log("No es tu turno");
       return;
@@ -124,7 +146,6 @@ export class VMPartida {
       return;
     }
 
-    // Crear y enviar el movimiento
     const movimiento = new Movimiento([fila, columna], this.miSimbolo!);
 
     try {
@@ -134,7 +155,10 @@ export class VMPartida {
     }
   }
 
-  // Aplicar un movimiento recibido
+  /**
+   * Aplica un movimiento recibido desde el servidor al tablero local.
+   * @param movimiento - Movimiento recibido
+   */
   private aplicarMovimiento(movimiento: Movimiento): void {
     const [fila, columna] = movimiento.posicion;
     
@@ -145,28 +169,24 @@ export class VMPartida {
         this.casillasOcupadas++;
         console.log(`Movimiento aplicado: [${fila}, ${columna}] = ${movimiento.simbolo}`);
 
-        // PRIMERO verificar ganador
         let hayGanadorOEmpate = false;
         if (this.casillasOcupadas >= 5) {
           hayGanadorOEmpate = this.verificarGanador();
         }
 
-        // SOLO cambiar turno si NO hay ganador ni empate
         if (!hayGanadorOEmpate && this.estadoJuego === "jugando") {
           const esMiMovimiento = movimiento.simbolo === this.miSimbolo;
-          if (esMiMovimiento) {
-            this.esMiTurno = false;
-            this.mensajeEstado = "Turno del oponente";
-          } else {
-            this.esMiTurno = true;
-            this.mensajeEstado = "Tu turno";
-          }
+          this.esMiTurno = !esMiMovimiento;
+          this.mensajeEstado = esMiMovimiento ? "Turno del oponente" : "Tu turno";
         }
       }
     });
   }
 
-  // Verificar si hay ganador o empate
+  /**
+   * Verifica si hay ganador o empate después de un movimiento.
+   * @returns true si hubo ganador o empate, false si la partida sigue
+   */
   private verificarGanador(): boolean {
     const ganador = this.tablero.verificarGanador();
     
@@ -174,69 +194,62 @@ export class VMPartida {
       this.estadoJuego = "finalizado";
       this.esMiTurno = false;
       this.simboloGanador = ganador;
-      
-      if (ganador === this.miSimbolo) {
-        this.mensajeEstado = "¡Has ganado! 🎉";
-      } else {
-        this.mensajeEstado = "Has perdido 😢";
-      }
-      
+      this.mensajeEstado = ganador === this.miSimbolo ? "¡Has ganado! 🎉" : "Has perdido 😢";
       console.log("Ganador:", ganador);
-      
-      // Notificar al servidor quién ganó
       this.notificarFinPartida(ganador);
-      
       return true;
     }
 
-    // Verificar empate
     if (this.tablero.verificarEmpate()) {
       this.estadoJuego = "finalizado";
       this.mensajeEstado = "¡Empate! 🤝";
       this.esMiTurno = false;
       this.simboloGanador = "EMPATE";
       console.log("Empate");
-      
-      // Notificar empate (sin ganador)
       this.notificarFinPartida("EMPATE");
-      
       return true;
     }
 
     return false;
   }
 
-  // Notificar al servidor que la partida terminó (solo una vez)
+  /**
+   * Notifica al servidor que la partida ha terminado.
+   * Se asegura de notificar solo una vez.
+   * @param resultado - Símbolo del ganador o "EMPATE"
+   */
   private notificarFinPartida(resultado: string): void {
     if (!this.partidaTerminadaNotificada) {
       this.partidaTerminadaNotificada = true;
-      
       this.useCase.notificarFinPartida(resultado).catch(err => {
         console.error("Error al notificar fin de partida:", err);
       });
     }
   }
 
-  // Resetear el tablero local para jugar de nuevo
+  /**
+   * Resetea el tablero local y comienza una nueva partida.
+   */
   jugarDeNuevo(): void {
     runInAction(() => {
       this.tablero.resetear();
       this.casillasOcupadas = 0;
       this.estadoJuego = "jugando";
       this.partidaTerminadaNotificada = false;
-      
-      // El ganador empieza (o X si fue empate)
+
       const empiezaQuien = this.turnoInicialProximaPartida;
       const esMiTurno = this.miSimbolo === empiezaQuien;
-      
+
       this.esMiTurno = esMiTurno;
       this.mensajeEstado = esMiTurno ? "Tu turno" : "Turno del oponente";
-      
+
       console.log(`🔄 Nueva partida - Empieza: ${empiezaQuien}, ¿Es mi turno? ${esMiTurno}`);
     });
   }
 
-  // Desconectar del servidor
+  /**
+   * Desconecta del servidor.
+   */
   async desconectar(): Promise<void> {
     try {
       await this.useCase.disconnect();

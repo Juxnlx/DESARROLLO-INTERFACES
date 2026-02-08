@@ -3,8 +3,16 @@ using TresEnRayaSignalR.Entities;
 
 namespace TresEnRayaSignalR.Hubs
 {
+    /// <summary>
+    /// Encargado de gestionar la lógica de la partida del Tres en Raya.
+    /// Controla conexiones, turnos, movimientos y finalización de partida.
+    /// </summary>
     public class PartidaHub : Hub
     {
+        /// <summary>
+        /// Método que se ejecuta automáticamente cuando un cliente se conecta al Hub.
+        /// Asigna el jugador (X u O) y gestiona el inicio de la partida.
+        /// </summary>
         public override async Task OnConnectedAsync()
         {
             EstadoPartida.TotalJugadores++;
@@ -18,7 +26,6 @@ namespace TresEnRayaSignalR.Hubs
                 EstadoPartida.ConnectionIdJugadorX = Context.ConnectionId;
                 Console.WriteLine($"Asignado como JUGADOR X");
 
-                // Enviar símbolo al jugador 1
                 await Clients.Caller.SendAsync("SimboloAsignado", "X");
             }
             else if (EstadoPartida.TotalJugadores == 2)
@@ -26,15 +33,12 @@ namespace TresEnRayaSignalR.Hubs
                 EstadoPartida.ConnectionIdJugadorO = Context.ConnectionId;
                 Console.WriteLine($"Asignado como JUGADOR O");
 
-                // Enviar símbolo al jugador 2
                 await Clients.Caller.SendAsync("SimboloAsignado", "O");
 
-                // Iniciar partida
                 await Clients.All.SendAsync("IniciarPartida");
             }
             else
             {
-                // Si hay más de 2 jugadores, rechazar la conexión
                 await Clients.Caller.SendAsync("PartidaLlena");
                 Context.Abort();
                 Console.WriteLine("Conexión rechazada - Partida llena");
@@ -45,9 +49,13 @@ namespace TresEnRayaSignalR.Hubs
             await base.OnConnectedAsync();
         }
 
+        /// <summary>
+        /// Recibe un movimiento enviado por un cliente y verifica si es válido
+        /// según el turno actual y el jugador que lo envía.
+        /// </summary>
+        /// <param name="movimiento">Movimiento realizado por el jugador.</param>
         public async Task EnviarMovimiento(Movimiento movimiento)
         {
-            // Verificar que es el turno correcto
             bool esTurnoValido = false;
 
             if (movimiento.Simbolo == "X" && Context.ConnectionId == EstadoPartida.ConnectionIdJugadorX
@@ -67,45 +75,46 @@ namespace TresEnRayaSignalR.Hubs
                 return;
             }
 
-            // Cambiar el turno
             EstadoPartida.TurnoActual = EstadoPartida.TurnoActual == "X" ? "O" : "X";
 
             Console.WriteLine($"Movimiento válido - Nuevo turno: {EstadoPartida.TurnoActual}");
 
-            // Enviar el movimiento a todos los clientes
             await Clients.All.SendAsync("RecibirMovimiento", movimiento);
         }
 
+        /// <summary>
+        /// Notifica a todos los clientes que la partida ha terminado y prepara una nueva partida.
+        /// </summary>
+        /// <param name="simboloGanador">Símbolo del jugador ganador (X u O) o cualquier otro valor en caso de empate.</param>
         public async Task NotificarFinPartida(string simboloGanador)
         {
             Console.WriteLine("=================================");
             Console.WriteLine($"PARTIDA FINALIZADA - Ganador: {simboloGanador}");
             Console.WriteLine("=================================");
 
-            // Notificar a todos que la partida finalizó
             await Clients.All.SendAsync("PartidaTerminada");
 
-            // Esperar 3 segundos antes de resetear
             await Task.Delay(3000);
 
-            // Establecer el turno inicial según quién ganó
             if (simboloGanador == "X" || simboloGanador == "O")
             {
-                // El ganador empieza
                 EstadoPartida.TurnoActual = simboloGanador;
                 Console.WriteLine($"Nueva partida - Empieza el ganador: {simboloGanador}");
             }
             else
             {
-                // Empate - empieza X por defecto
                 EstadoPartida.TurnoActual = "X";
                 Console.WriteLine("Nueva partida - Empate, empieza X por defecto");
             }
 
-            // Notificar a todos quién empieza la nueva partida
             await Clients.All.SendAsync("ListoParaNuevaPartida", EstadoPartida.TurnoActual);
         }
 
+        /// <summary>
+        /// Método que se ejecuta cuando un cliente se desconecta del Hub.
+        /// Si queda menos de dos jugadores, se resetea el estado de la partida.
+        /// </summary>
+        /// <param name="exception">Excepción producida durante la desconexión, si existe.</param>
         public override async Task OnDisconnectedAsync(Exception? exception)
         {
             EstadoPartida.TotalJugadores--;
@@ -115,7 +124,6 @@ namespace TresEnRayaSignalR.Hubs
             Console.WriteLine($"Total jugadores restantes: {EstadoPartida.TotalJugadores}");
             Console.WriteLine("=================================");
 
-            // Si un jugador se desconecta, resetear TODO
             if (EstadoPartida.TotalJugadores < 2)
             {
                 await Clients.All.SendAsync("JugadorDesconectado");
