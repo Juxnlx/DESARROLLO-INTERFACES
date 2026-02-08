@@ -61,46 +61,62 @@ const Tablero = observer(() => {
   };
 
   const obtenerColorEstado = () => {
-    if (viewModel.estadoJuego === 'esperando') return '#3498db';
+    if (viewModel.estadoJuego === 'esperando') return '#7c3aed';
     if (viewModel.estadoJuego === 'finalizado') {
-      if (viewModel.mensajeEstado.includes('ganado')) return '#27ae60';  // ← Cambiar aquí
-      if (viewModel.mensajeEstado.includes('perdido')) return '#e74c3c';  // ← Cambiar aquí
-      return '#f39c12'; // Empate
+      if (viewModel.mensajeEstado.includes('ganado')) return '#10b981';
+      if (viewModel.mensajeEstado.includes('perdido')) return '#ef4444';
+      return '#f59e0b';
     }
-    return viewModel.esMiTurno ? '#27ae60' : '#e67e22';
+    return viewModel.esMiTurno ? '#10b981' : '#f59e0b';
   };
 
-    const obtenerInfoResultado = () => {
-      const mensaje = viewModel.mensajeEstado;
-      
-      // Verificar victoria
-      if (mensaje.includes('ganado')) {
-        return { titulo: '¡VICTORIA!', color: '#27ae60', icono: '🏆' };
-      }
-      
-      // Verificar derrota
-      if (mensaje.includes('perdido')) {
-        return { titulo: 'DERROTA', color: '#e74c3c', icono: '😢' };
-      }
-      
-      // Verificar empate
-      if (mensaje.includes('Empate')) {
-        return { titulo: 'EMPATE', color: '#f39c12', icono: '🤝' };
-      }
-      
-      // Verificar desconexión
-      if (mensaje.includes('desconectado')) {
-        return { titulo: 'DESCONECTADO', color: '#95a5a6', icono: '👋' };
-      }
-      
-      // Por defecto (no debería llegar aquí)
-      return { titulo: 'FIN', color: '#95a5a6', icono: '🎮' };
+  const obtenerInfoResultado = () => {
+    const mensaje = viewModel.mensajeEstado;
+    
+    if (mensaje.includes('ganado')) {
+      return { 
+        titulo: '¡VICTORIA!', 
+        color: '#10b981', 
+        icono: '🏆' 
+      };
+    }
+    
+    if (mensaje.includes('perdido')) {
+      return { 
+        titulo: 'DERROTA', 
+        color: '#ef4444', 
+        icono: '😢' 
+      };
+    }
+    
+    if (mensaje.includes('Empate')) {
+      return { 
+        titulo: 'EMPATE', 
+        color: '#f59e0b', 
+        icono: '🤝' 
+      };
+    }
+    
+    if (mensaje.includes('desconectado')) {
+      return { 
+        titulo: 'DESCONECTADO', 
+        color: '#6b7280', 
+        icono: '👋' 
+      };
+    }
+    
+    return { 
+      titulo: 'FIN', 
+      color: '#6b7280', 
+      icono: '🎮' 
     };
+  };
 
   const renderModal = () => {
     if (viewModel.estadoJuego !== 'finalizado') return null;
 
     const info = obtenerInfoResultado();
+    const puedeJugarDeNuevo = !viewModel.esperandoReset;
 
     return (
       <Modal
@@ -110,7 +126,10 @@ const Tablero = observer(() => {
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalIcono}>{info.icono}</Text>
+            <View style={[styles.modalIconoContainer, { backgroundColor: info.color + '20' }]}>
+              <Text style={styles.modalIcono}>{info.icono}</Text>
+            </View>
+            
             <Text style={[styles.modalTitulo, { color: info.color }]}>
               {info.titulo}
             </Text>
@@ -134,9 +153,18 @@ const Tablero = observer(() => {
               ))}
             </View>
 
-            <Text style={styles.modalInstruccion}>
-              Cierra y vuelve a abrir la app para jugar de nuevo
-            </Text>
+            {puedeJugarDeNuevo ? (
+              <TouchableOpacity
+                style={[styles.botonJugarDeNuevo, { backgroundColor: info.color }]}
+                onPress={() => viewModel.jugarDeNuevo()}
+              >
+                <Text style={styles.textoBotonJugar}>🔄 Jugar de Nuevo</Text>
+              </TouchableOpacity>
+            ) : (
+              <View style={styles.esperandoContainer}>
+                <Text style={styles.esperandoTexto}>⏳ Preparando nueva partida...</Text>
+              </View>
+            )}
           </View>
         </View>
       </Modal>
@@ -144,70 +172,75 @@ const Tablero = observer(() => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#2c3e50" />
+    <View style={styles.container}>
+      <StatusBar barStyle="dark-content" backgroundColor="#fef3c7" />
       
-      <View style={styles.header}>
-        <Text style={styles.titulo}>Tres en Raya</Text>
-        
-        <View style={styles.infoContainer}>
-          <View style={styles.infoBox}>
-            <Text style={styles.infoLabel}>Tu símbolo</Text>
-            <Text style={styles.infoValor}>
-              {viewModel.miSimbolo || '...'}
-            </Text>
-          </View>
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.header}>
+          <Text style={styles.titulo}>✨ Tres en Raya ✨</Text>
           
-          <View style={styles.infoBox}>
-            <Text style={styles.infoLabel}>Turno</Text>
-            <Text style={styles.infoValor}>
-              {viewModel.esMiTurno ? 'TÚ' : 'RIVAL'}
+          <View style={styles.infoContainer}>
+            <View style={styles.infoBox}>
+              <Text style={styles.infoLabel}>Tu símbolo</Text>
+              <Text style={styles.infoValor}>
+                {viewModel.miSimbolo || '...'}
+              </Text>
+            </View>
+            
+            <View style={styles.infoBox}>
+              <Text style={styles.infoLabel}>Turno</Text>
+              <Text style={styles.infoValor}>
+                {viewModel.esMiTurno ? 'TÚ' : 'RIVAL'}
+              </Text>
+            </View>
+          </View>
+
+          <View style={[
+            styles.estadoBanner,
+            { backgroundColor: obtenerColorEstado() }
+          ]}>
+            <Text style={styles.estadoTexto}>
+              {viewModel.mensajeEstado}
             </Text>
           </View>
         </View>
 
-        <View style={[
-          styles.estadoBanner,
-          { backgroundColor: obtenerColorEstado() }
-        ]}>
-          <Text style={styles.estadoTexto}>
-            {viewModel.mensajeEstado}
-          </Text>
+        <View style={styles.tableroContainer}>
+          {renderFila(0)}
+          {renderFila(1)}
+          {renderFila(2)}
         </View>
-      </View>
 
-      <View style={styles.tableroContainer}>
-        {renderFila(0)}
-        {renderFila(1)}
-        {renderFila(2)}
-      </View>
-
-      {renderModal()}
-    </SafeAreaView>
+        {renderModal()}
+      </SafeAreaView>
+    </View>
   );
 });
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ecf0f1',
+    backgroundColor: '#fef3c7',
+  },
+  safeArea: {
+    flex: 1,
   },
   header: {
     padding: 20,
     alignItems: 'center',
-    backgroundColor: '#2c3e50',
+    backgroundColor: '#fff',
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
-    elevation: 8,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 5,
   },
   titulo: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    color: '#fff',
+    fontSize: 38,
+    fontWeight: '900',
+    color: '#7c3aed',
     marginBottom: 20,
     letterSpacing: 2,
   },
@@ -219,35 +252,45 @@ const styles = StyleSheet.create({
   },
   infoBox: {
     alignItems: 'center',
-    backgroundColor: '#34495e',
-    padding: 15,
-    borderRadius: 15,
-    minWidth: 120,
-    elevation: 4,
+    backgroundColor: '#fef3c7',
+    padding: 18,
+    borderRadius: 20,
+    minWidth: 130,
+    shadowColor: '#7c3aed',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 6,
+    elevation: 3,
   },
   infoLabel: {
-    fontSize: 12,
-    color: '#bdc3c7',
-    marginBottom: 5,
+    fontSize: 11,
+    color: '#6b7280',
+    marginBottom: 8,
     textTransform: 'uppercase',
-    letterSpacing: 1,
+    letterSpacing: 1.5,
+    fontWeight: '700',
   },
   infoValor: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#fff',
+    fontSize: 32,
+    fontWeight: '900',
+    color: '#7c3aed',
   },
   estadoBanner: {
     width: '100%',
-    padding: 15,
-    borderRadius: 15,
+    padding: 18,
+    borderRadius: 20,
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 6,
     elevation: 4,
   },
   estadoTexto: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: '700',
     color: '#fff',
+    letterSpacing: 0.5,
   },
   tableroContainer: {
     flex: 1,
@@ -262,95 +305,144 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     backgroundColor: '#fff',
-    margin: 5,
+    margin: 6,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 15,
+    borderRadius: 20,
+    shadowColor: '#7c3aed',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
     elevation: 5,
-    shadowColor: '#3498db',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
   },
   celdaDisabled: {
-    opacity: 0.7,
+    opacity: 0.6,
   },
   simbolo: {
-    fontSize: 48,
-    fontWeight: 'bold',
+    fontSize: 52,
+    fontWeight: '900',
   },
   simboloX: {
-    color: '#e74c3c',
+    color: '#ef4444',
   },
   simboloO: {
-    color: '#3498db',
+    color: '#3b82f6',
   },
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.85)',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
   },
   modalContent: {
     backgroundColor: '#fff',
-    borderRadius: 25,
-    padding: 30,
+    borderRadius: 30,
+    padding: 35,
     alignItems: 'center',
     width: '90%',
-    maxWidth: 400,
-    elevation: 10,
+    maxWidth: 420,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.3,
+    shadowRadius: 20,
+    elevation: 15,
+  },
+  modalIconoContainer: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
   },
   modalIcono: {
-    fontSize: 80,
-    marginBottom: 15,
+    fontSize: 60,
   },
   modalTitulo: {
-    fontSize: 42,
-    fontWeight: 'bold',
-    marginBottom: 10,
+    fontSize: 44,
+    fontWeight: '900',
+    marginBottom: 12,
+    letterSpacing: 2,
   },
   modalMensaje: {
     fontSize: 20,
-    color: '#7f8c8d',
-    marginBottom: 25,
+    color: '#6b7280',
+    marginBottom: 28,
+    fontWeight: '600',
   },
   tableroFinal: {
-    backgroundColor: '#ecf0f1',
-    padding: 15,
-    borderRadius: 15,
-    marginBottom: 20,
+    backgroundColor: '#fef3c7',
+    padding: 18,
+    borderRadius: 20,
+    marginBottom: 25,
   },
   tableroFinalTitulo: {
-    fontSize: 16,
-    color: '#2c3e50',
-    marginBottom: 12,
+    fontSize: 15,
+    color: '#6b7280',
+    marginBottom: 15,
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontWeight: '700',
+    letterSpacing: 1.5,
+    textTransform: 'uppercase',
   },
   filaFinal: {
     flexDirection: 'row',
     justifyContent: 'center',
   },
   celdaFinal: {
-    width: 50,
-    height: 50,
+    width: 55,
+    height: 55,
     backgroundColor: '#fff',
-    margin: 3,
+    margin: 4,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 2,
-    borderColor: '#bdc3c7',
+    borderRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 2,
   },
   valorFinal: {
-    fontSize: 28,
-    fontWeight: 'bold',
+    fontSize: 30,
+    fontWeight: '900',
   },
-  modalInstruccion: {
-    fontSize: 14,
-    color: '#95a5a6',
-    textAlign: 'center',
-    fontStyle: 'italic',
+  botonJugarDeNuevo: {
+    paddingVertical: 16,
+    paddingHorizontal: 45,
+    borderRadius: 20,
+    minWidth: 220,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 6,
+  },
+  textoBotonJugar: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '800',
+    letterSpacing: 1,
+  },
+  esperandoContainer: {
+    paddingVertical: 16,
+    paddingHorizontal: 45,
+    backgroundColor: '#f59e0b',
+    borderRadius: 20,
+    minWidth: 220,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 6,
+  },
+  esperandoTexto: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '700',
+    letterSpacing: 0.5,
   },
 });
 

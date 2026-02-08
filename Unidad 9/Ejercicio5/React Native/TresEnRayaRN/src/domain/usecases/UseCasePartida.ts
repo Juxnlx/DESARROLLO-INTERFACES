@@ -27,4 +27,8 @@ export class UseCasePartida implements IUseCasePartida {
   on(eventName: string, callback: (...args: any[]) => void): void {
     this.repository.on(eventName, callback);
   }
+
+  async notificarFinPartida(simboloGanador: string): Promise<void> {
+    await this.repository.notificarFinPartida(simboloGanador);
+  }
 }

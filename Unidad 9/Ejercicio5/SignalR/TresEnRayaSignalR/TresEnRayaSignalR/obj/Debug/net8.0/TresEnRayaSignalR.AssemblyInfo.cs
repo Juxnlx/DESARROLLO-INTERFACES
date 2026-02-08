@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TresEnRayaSignalR")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bc9945fc97cfbc49145ee42b7a2286ac203791fa")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6baef3c55b86d95226a60ec59a34c4bcea967428")]
 [assembly: System.Reflection.AssemblyProductAttribute("TresEnRayaSignalR")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TresEnRayaSignalR")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

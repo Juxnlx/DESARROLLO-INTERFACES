@@ -34,7 +34,14 @@ export class PartidaDataSource {
     }
   }
 
-  // Método genérico para suscribirse a eventos
+  async invoke(methodName: string, ...args: any[]): Promise<void> {
+    if (this.connection && this.connection.state === signalR.HubConnectionState.Connected) {
+      await this.connection.invoke(methodName, ...args);
+    } else {
+      throw new Error("No hay conexión con el servidor");
+    }
+  }
+
   on(eventName: string, callback: (...args: any[]) => void): void {
     if (this.connection) {
       this.connection.on(eventName, callback);

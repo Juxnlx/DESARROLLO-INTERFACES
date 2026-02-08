@@ -3,32 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\TresEnRayaSignalR\\Properties\\launchSettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:TresEnRayaSignalR\\Properties\\launchSettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{8C8FA9A4-E718-4696-AE86-50D04D80D78C}|TresEnRayaSignalR\\TresEnRayaSignalR.csproj|c:\\users\\juanl\\onedrive\\escritorio\\2_daw\\desarrollo-interfaces\\unidad 9\\ejercicio5\\signalr\\tresenrayasignalr\\tresenrayasignalr\\hubs\\partidahub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C8FA9A4-E718-4696-AE86-50D04D80D78C}|TresEnRayaSignalR\\TresEnRayaSignalR.csproj|solutionrelative:tresenrayasignalr\\hubs\\partidahub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\TresEnRayaSignalR\\TresEnRayaSignalR.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:TresEnRayaSignalR\\TresEnRayaSignalR.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+      "AbsoluteMoniker": "D:0:0:{8C8FA9A4-E718-4696-AE86-50D04D80D78C}|TresEnRayaSignalR\\TresEnRayaSignalR.csproj|c:\\users\\juanl\\onedrive\\escritorio\\2_daw\\desarrollo-interfaces\\unidad 9\\ejercicio5\\signalr\\tresenrayasignalr\\tresenrayasignalr\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{8C8FA9A4-E718-4696-AE86-50D04D80D78C}|TresEnRayaSignalR\\TresEnRayaSignalR.csproj|solutionrelative:tresenrayasignalr\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\TresEnRayaSignalR\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:TresEnRayaSignalR\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{8C8FA9A4-E718-4696-AE86-50D04D80D78C}|TresEnRayaSignalR\\TresEnRayaSignalR.csproj|c:\\users\\juanl\\onedrive\\escritorio\\2_daw\\desarrollo-interfaces\\unidad 9\\ejercicio5\\signalr\\tresenrayasignalr\\tresenrayasignalr\\tresenrayasignalr.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{8C8FA9A4-E718-4696-AE86-50D04D80D78C}|TresEnRayaSignalR\\TresEnRayaSignalR.csproj|solutionrelative:tresenrayasignalr\\tresenrayasignalr.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\TresEnRayaSignalR\\Entities\\Movimiento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:TresEnRayaSignalR\\Entities\\Movimiento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8C8FA9A4-E718-4696-AE86-50D04D80D78C}|TresEnRayaSignalR\\TresEnRayaSignalR.csproj|c:\\users\\juanl\\onedrive\\escritorio\\2_daw\\desarrollo-interfaces\\unidad 9\\ejercicio5\\signalr\\tresenrayasignalr\\tresenrayasignalr\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{8C8FA9A4-E718-4696-AE86-50D04D80D78C}|TresEnRayaSignalR\\TresEnRayaSignalR.csproj|solutionrelative:tresenrayasignalr\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\TresEnRayaSignalR\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:TresEnRayaSignalR\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8C8FA9A4-E718-4696-AE86-50D04D80D78C}|TresEnRayaSignalR\\TresEnRayaSignalR.csproj|c:\\users\\juanl\\onedrive\\escritorio\\2_daw\\desarrollo-interfaces\\unidad 9\\ejercicio5\\signalr\\tresenrayasignalr\\tresenrayasignalr\\entities\\movimiento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C8FA9A4-E718-4696-AE86-50D04D80D78C}|TresEnRayaSignalR\\TresEnRayaSignalR.csproj|solutionrelative:tresenrayasignalr\\entities\\movimiento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\TresEnRayaSignalR\\Entities\\EstadoPartida.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:TresEnRayaSignalR\\Entities\\EstadoPartida.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8C8FA9A4-E718-4696-AE86-50D04D80D78C}|TresEnRayaSignalR\\TresEnRayaSignalR.csproj|c:\\users\\juanl\\onedrive\\escritorio\\2_daw\\desarrollo-interfaces\\unidad 9\\ejercicio5\\signalr\\tresenrayasignalr\\tresenrayasignalr\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C8FA9A4-E718-4696-AE86-50D04D80D78C}|TresEnRayaSignalR\\TresEnRayaSignalR.csproj|solutionrelative:tresenrayasignalr\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\TresEnRayaSignalR\\Hubs\\PartidaHub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:TresEnRayaSignalR\\Hubs\\PartidaHub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8C8FA9A4-E718-4696-AE86-50D04D80D78C}|TresEnRayaSignalR\\TresEnRayaSignalR.csproj|c:\\users\\juanl\\onedrive\\escritorio\\2_daw\\desarrollo-interfaces\\unidad 9\\ejercicio5\\signalr\\tresenrayasignalr\\tresenrayasignalr\\entities\\estadopartida.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C8FA9A4-E718-4696-AE86-50D04D80D78C}|TresEnRayaSignalR\\TresEnRayaSignalR.csproj|solutionrelative:tresenrayasignalr\\entities\\estadopartida.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,23 +38,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "TresEnRayaSignalR.http",
-              "DocumentMoniker": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\TresEnRayaSignalR\\TresEnRayaSignalR.http",
-              "RelativeDocumentMoniker": "TresEnRayaSignalR\\TresEnRayaSignalR.http",
-              "ToolTip": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\TresEnRayaSignalR\\TresEnRayaSignalR.http",
-              "RelativeToolTip": "TresEnRayaSignalR\\TresEnRayaSignalR.http",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
-              "WhenOpened": "2026-02-07T15:50:26.488Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
               "Title": "launchSettings.json",
               "DocumentMoniker": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\TresEnRayaSignalR\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "TresEnRayaSignalR\\Properties\\launchSettings.json",
@@ -67,7 +55,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\TresEnRayaSignalR\\appsettings.json",
               "RelativeDocumentMoniker": "TresEnRayaSignalR\\appsettings.json",
@@ -79,7 +67,32 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
+              "Title": "PartidaHub.cs",
+              "DocumentMoniker": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\TresEnRayaSignalR\\Hubs\\PartidaHub.cs",
+              "RelativeDocumentMoniker": "TresEnRayaSignalR\\Hubs\\PartidaHub.cs",
+              "ToolTip": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\TresEnRayaSignalR\\Hubs\\PartidaHub.cs",
+              "RelativeToolTip": "TresEnRayaSignalR\\Hubs\\PartidaHub.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAH8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-04T12:59:56.096Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TresEnRayaSignalR.http",
+              "DocumentMoniker": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\TresEnRayaSignalR\\TresEnRayaSignalR.http",
+              "RelativeDocumentMoniker": "TresEnRayaSignalR\\TresEnRayaSignalR.http",
+              "ToolTip": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\TresEnRayaSignalR\\TresEnRayaSignalR.http",
+              "RelativeToolTip": "TresEnRayaSignalR\\TresEnRayaSignalR.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2026-02-07T15:50:26.488Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Movimiento.cs",
               "DocumentMoniker": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\TresEnRayaSignalR\\Entities\\Movimiento.cs",
               "RelativeDocumentMoniker": "TresEnRayaSignalR\\Entities\\Movimiento.cs",
@@ -91,7 +104,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\TresEnRayaSignalR\\Program.cs",
               "RelativeDocumentMoniker": "TresEnRayaSignalR\\Program.cs",
@@ -103,7 +116,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "EstadoPartida.cs",
               "DocumentMoniker": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\TresEnRayaSignalR\\Entities\\EstadoPartida.cs",
               "RelativeDocumentMoniker": "TresEnRayaSignalR\\Entities\\EstadoPartida.cs",
@@ -112,18 +125,6 @@
               "ViewState": "AgIAAAQAAAAAAAAAAAAzwBMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-04T12:59:30.653Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "PartidaHub.cs",
-              "DocumentMoniker": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\TresEnRayaSignalR\\Hubs\\PartidaHub.cs",
-              "RelativeDocumentMoniker": "TresEnRayaSignalR\\Hubs\\PartidaHub.cs",
-              "ToolTip": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\TresEnRayaSignalR\\Hubs\\PartidaHub.cs",
-              "RelativeToolTip": "TresEnRayaSignalR\\Hubs\\PartidaHub.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGEAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-04T12:59:56.096Z"
             }
           ]
         }

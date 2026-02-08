@@ -8,7 +8,6 @@ export class PartidaRepository implements IRepositoryPartida {
   private dataSource: PartidaDataSource;
 
   constructor() {
-    // IMPORTANTE: Cambia esta URL por la de tu servidor
     this.dataSource = new PartidaDataSource("http://192.168.0.29:5217/partidahub");
   }
 
@@ -26,5 +25,9 @@ export class PartidaRepository implements IRepositoryPartida {
 
   on(eventName: string, callback: (...args: any[]) => void): void {
     this.dataSource.on(eventName, callback);
+  }
+
+  async notificarFinPartida(simboloGanador: string): Promise<void> {
+    await this.dataSource.invoke("NotificarFinPartida", simboloGanador);
   }
 }

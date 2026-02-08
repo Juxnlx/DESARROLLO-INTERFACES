@@ -13,8 +13,11 @@ export class VMPartida {
   tablero: Tablero = new Tablero();
   casillasOcupadas: number = 0;
   esMiTurno: boolean = false;
+  esperandoReset: boolean = false;
+  simboloGanador: string | null = null;
 
   private useCase: IUseCasePartida;
+  private partidaTerminadaNotificada: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -52,6 +55,8 @@ export class VMPartida {
         const esJugadorX = this.miSimbolo === "X";
         this.esMiTurno = esJugadorX;
         this.mensajeEstado = esJugadorX ? "Tu turno" : "Turno del oponente";
+        this.partidaTerminadaNotificada = false; // Reset flag
+        this.simboloGanador = null;
       });
       console.log("🎮 Partida iniciada!");
     });
@@ -78,7 +83,28 @@ export class VMPartida {
       });
       console.log("Partida llena");
     });
+
+    // Cuando el servidor confirma que la partida terminó
+    this.useCase.on("PartidaTerminada", () => {
+      runInAction(() => {
+        this.esperandoReset = true;
+        console.log("⏳ Esperando reset del servidor...");
+      });
+    });
+
+    // Cuando el servidor está listo para una nueva partida
+    this.useCase.on("ListoParaNuevaPartida", (turnoInicial: string) => {
+      runInAction(() => {
+        this.esperandoReset = false;
+        console.log(`✅ Servidor listo - Turno inicial: ${turnoInicial}`);
+        
+        // Guardar quién debe empezar
+        this.turnoInicialProximaPartida = turnoInicial;
+      });
+    });
   }
+
+  private turnoInicialProximaPartida: string = "X";
 
   // Realizar un movimiento
   async realizarMovimiento(fila: number, columna: number): Promise<void> {
@@ -103,8 +129,6 @@ export class VMPartida {
 
     try {
       await this.useCase.enviarMovimiento(movimiento);
-      
-      // NO cambiamos el turno aquí, lo haremos cuando recibamos el movimiento
     } catch (error) {
       console.error("Error al enviar movimiento:", error);
     }
@@ -131,11 +155,9 @@ export class VMPartida {
         if (!hayGanadorOEmpate && this.estadoJuego === "jugando") {
           const esMiMovimiento = movimiento.simbolo === this.miSimbolo;
           if (esMiMovimiento) {
-            // Yo hice el movimiento, ahora es turno del rival
             this.esMiTurno = false;
             this.mensajeEstado = "Turno del oponente";
           } else {
-            // El rival hizo el movimiento, ahora es mi turno
             this.esMiTurno = true;
             this.mensajeEstado = "Tu turno";
           }
@@ -151,6 +173,7 @@ export class VMPartida {
     if (ganador) {
       this.estadoJuego = "finalizado";
       this.esMiTurno = false;
+      this.simboloGanador = ganador;
       
       if (ganador === this.miSimbolo) {
         this.mensajeEstado = "¡Has ganado! 🎉";
@@ -159,7 +182,11 @@ export class VMPartida {
       }
       
       console.log("Ganador:", ganador);
-      return true; // Hay ganador
+      
+      // Notificar al servidor quién ganó
+      this.notificarFinPartida(ganador);
+      
+      return true;
     }
 
     // Verificar empate
@@ -167,11 +194,46 @@ export class VMPartida {
       this.estadoJuego = "finalizado";
       this.mensajeEstado = "¡Empate! 🤝";
       this.esMiTurno = false;
+      this.simboloGanador = "EMPATE";
       console.log("Empate");
-      return true; // Hay empate
+      
+      // Notificar empate (sin ganador)
+      this.notificarFinPartida("EMPATE");
+      
+      return true;
     }
 
-    return false; // No hay ganador ni empate
+    return false;
+  }
+
+  // Notificar al servidor que la partida terminó (solo una vez)
+  private notificarFinPartida(resultado: string): void {
+    if (!this.partidaTerminadaNotificada) {
+      this.partidaTerminadaNotificada = true;
+      
+      this.useCase.notificarFinPartida(resultado).catch(err => {
+        console.error("Error al notificar fin de partida:", err);
+      });
+    }
+  }
+
+  // Resetear el tablero local para jugar de nuevo
+  jugarDeNuevo(): void {
+    runInAction(() => {
+      this.tablero.resetear();
+      this.casillasOcupadas = 0;
+      this.estadoJuego = "jugando";
+      this.partidaTerminadaNotificada = false;
+      
+      // El ganador empieza (o X si fue empate)
+      const empiezaQuien = this.turnoInicialProximaPartida;
+      const esMiTurno = this.miSimbolo === empiezaQuien;
+      
+      this.esMiTurno = esMiTurno;
+      this.mensajeEstado = esMiTurno ? "Tu turno" : "Turno del oponente";
+      
+      console.log(`🔄 Nueva partida - Empieza: ${empiezaQuien}, ¿Es mi turno? ${esMiTurno}`);
+    });
   }
 
   // Desconectar del servidor
