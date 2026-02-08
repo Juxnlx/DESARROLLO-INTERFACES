@@ -63,8 +63,8 @@ const Tablero = observer(() => {
   const obtenerColorEstado = () => {
     if (viewModel.estadoJuego === 'esperando') return '#3498db';
     if (viewModel.estadoJuego === 'finalizado') {
-      if (viewModel.mensajeEstado === '¡Has ganado!') return '#27ae60';
-      if (viewModel.mensajeEstado === 'Has perdido') return '#e74c3c';
+      if (viewModel.mensajeEstado.includes('ganado')) return '#27ae60';  // ← Cambiar aquí
+      if (viewModel.mensajeEstado.includes('perdido')) return '#e74c3c';  // ← Cambiar aquí
       return '#f39c12'; // Empate
     }
     return viewModel.esMiTurno ? '#27ae60' : '#e67e22';
