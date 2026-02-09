@@ -17,8 +17,10 @@ export class PartidaRepository implements IRepositoryPartida {
    * Crea un nuevo repositorio e inicializa el DataSource con la URL del Hub.
    */
   constructor() {
-    // URL local del Hub de SignalR
-    this.dataSource = new PartidaDataSource("http://192.168.0.29:5217/partidahub");
+    // URL de Azure - IMPORTANTE: debe coincidir con la ruta del MapHub en Program.cs
+    this.dataSource = new PartidaDataSource(
+      "https://tresenraya-juanluis-ekbaaah0hegwdnc9.spaincentral-01.azurewebsites.net/partidahub"
+    );
   }
 
   /**
@@ -54,7 +56,7 @@ export class PartidaRepository implements IRepositoryPartida {
 
   /**
    * Notifica al servidor que la partida ha terminado y quién ha ganado.
-   * @param {string} simboloGanador - Símbolo del jugador ganador ("X" u "O")
+   * @param {string} simboloGanador - Símbolo del jugador ganador ("X", "O" o "EMPATE")
    */
   async notificarFinPartida(simboloGanador: string): Promise<void> {
     await this.dataSource.invoke("NotificarFinPartida", simboloGanador);

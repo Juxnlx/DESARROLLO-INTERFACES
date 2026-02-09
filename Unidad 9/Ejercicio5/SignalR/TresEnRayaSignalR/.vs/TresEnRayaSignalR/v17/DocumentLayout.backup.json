@@ -38,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
@@ -48,9 +48,10 @@
               "RelativeDocumentMoniker": "TresEnRayaSignalR\\Hubs\\PartidaHub.cs",
               "ToolTip": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\TresEnRayaSignalR\\Hubs\\PartidaHub.cs",
               "RelativeToolTip": "TresEnRayaSignalR\\Hubs\\PartidaHub.cs",
-              "ViewState": "AgIAAGYAAAAAAAAAAAAAAAYAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-04T12:59:56.096Z"
+              "WhenOpened": "2026-02-04T12:59:56.096Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -66,6 +67,19 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\TresEnRayaSignalR\\Program.cs",
+              "RelativeDocumentMoniker": "TresEnRayaSignalR\\Program.cs",
+              "ToolTip": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\TresEnRayaSignalR\\Program.cs",
+              "RelativeToolTip": "TresEnRayaSignalR\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-04T13:00:06.627Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 3,
               "Title": "Movimiento.cs",
               "DocumentMoniker": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\TresEnRayaSignalR\\Entities\\Movimiento.cs",
@@ -75,19 +89,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-04T12:59:11.776Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\TresEnRayaSignalR\\Program.cs",
-              "RelativeDocumentMoniker": "TresEnRayaSignalR\\Program.cs",
-              "ToolTip": "C:\\Users\\juanl\\OneDrive\\Escritorio\\2_DAW\\DESARROLLO-INTERFACES\\Unidad 9\\Ejercicio5\\SignalR\\TresEnRayaSignalR\\TresEnRayaSignalR\\Program.cs",
-              "RelativeToolTip": "TresEnRayaSignalR\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAABJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-04T13:00:06.627Z",
-              "EditorCaption": ""
             },
             {
               "$type": "Document",

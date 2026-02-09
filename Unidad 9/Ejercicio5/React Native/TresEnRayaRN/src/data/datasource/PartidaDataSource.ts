@@ -2,42 +2,46 @@ import * as signalR from "@microsoft/signalr";
 import { Movimiento } from "../../domain/entities/Movimiento";
 
 /**
- * DataSource encargado de la comunicación con el servidor SignalR
- * para la gestión de partidas de Tres en Raya.
+ * DataSource que maneja la conexión con el servidor SignalR.
+ * Responsable de establecer y mantener la conexión, enviar movimientos
+ * y suscribirse a eventos del servidor.
  */
 export class PartidaDataSource {
-  /** Conexión actual al Hub de SignalR */
+  /** Conexión de SignalR al Hub del servidor */
   private connection: signalR.HubConnection | null = null;
-
+  
   /** URL del Hub de SignalR */
   private readonly hubUrl: string;
 
   /**
-   * Crea un nuevo datasource para conectarse a un Hub de SignalR.
-   * @param {string} hubUrl - URL del Hub de SignalR
+   * Crea una nueva instancia del DataSource.
+   * @param {string} hubUrl - URL completa del Hub de SignalR
    */
   constructor(hubUrl: string) {
     this.hubUrl = hubUrl;
   }
 
   /**
-   * Conecta al servidor SignalR y establece la conexión al Hub.
-   * Configura LongPolling como transporte y reconexión automática.
+   * Establece la conexión con el servidor SignalR.
    */
   async connect(): Promise<void> {
     this.connection = new signalR.HubConnectionBuilder()
       .withUrl(this.hubUrl, {
-        transport: signalR.HttpTransportType.LongPolling
+        // Permitir WebSockets y LongPolling (fallback automático)
+        transport: signalR.HttpTransportType.WebSockets | signalR.HttpTransportType.LongPolling,
+        skipNegotiation: false
       })
+      .configureLogging(signalR.LogLevel.Information)
       .withAutomaticReconnect()
       .build();
 
+    console.log("🔄 Intentando conectar a SignalR...");
     await this.connection.start();
     console.log("✅ Conectado a SignalR");
   }
 
   /**
-   * Desconecta del servidor SignalR si hay conexión activa.
+   * Desconecta del servidor SignalR.
    */
   async disconnect(): Promise<void> {
     if (this.connection) {
@@ -47,20 +51,19 @@ export class PartidaDataSource {
   }
 
   /**
-   * Envía un movimiento al servidor mediante SignalR.
-   * @param {Movimiento} movimiento - Movimiento que se desea enviar
+   * Envía un movimiento al servidor.
+   * @param {Movimiento} movimiento - Movimiento a enviar
    */
   async enviarMovimiento(movimiento: Movimiento): Promise<void> {
-    if (this.connection) {
+    if (this.connection && this.connection.state === signalR.HubConnectionState.Connected) {
       await this.connection.invoke("EnviarMovimiento", movimiento);
     }
   }
 
   /**
-   * Invoca un método arbitrario en el servidor SignalR.
-   * @param {string} methodName - Nombre del método a invocar en el Hub
-   * @param {...any[]} args - Argumentos que se pasarán al método
-   * @throws Error si no hay conexión activa con el servidor
+   * Invoca un método del Hub en el servidor.
+   * @param {string} methodName - Nombre del método del Hub
+   * @param {...any[]} args - Argumentos del método
    */
   async invoke(methodName: string, ...args: any[]): Promise<void> {
     if (this.connection && this.connection.state === signalR.HubConnectionState.Connected) {
@@ -71,9 +74,9 @@ export class PartidaDataSource {
   }
 
   /**
-   * Se suscribe a un evento emitido por el servidor SignalR.
-   * @param {string} eventName - Nombre del evento a escuchar
-   * @param {(...args: any[]) => void} callback - Función que se ejecuta cuando se dispara el evento
+   * Se suscribe a un evento del servidor.
+   * @param {string} eventName - Nombre del evento
+   * @param {Function} callback - Función a ejecutar cuando se reciba el evento
    */
   on(eventName: string, callback: (...args: any[]) => void): void {
     if (this.connection) {

@@ -3,17 +3,35 @@ import {
   View,
   Text,
   TouchableOpacity,
+  StyleSheet,
   Modal,
   SafeAreaView,
   StatusBar,
-  StyleSheet,
 } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { VMPartida } from '../../presenter/viewmodels/VMPartida';
 
+/**
+ * Componente principal del tablero de Tres en Raya.
+ * 
+ * Este componente gestiona:
+ * - La visualización del tablero 3x3
+ * - La información del jugador (símbolo y turno)
+ * - El estado de la partida (esperando, jugando, finalizado)
+ * - El modal de resultado final
+ * - La interacción con las celdas del tablero
+ */
 const Tablero = observer(() => {
+  // Crea una instancia del ViewModel y la mantiene durante toda la vida del componente
   const [viewModel] = useState(() => new VMPartida());
 
+  /**
+   * Hook de efecto que se ejecuta al montar el componente.
+   * Inicializa la conexión con el servidor SignalR.
+   * 
+   * La función de limpieza (return) se ejecuta al desmontar el componente
+   * para desconectar correctamente del servidor.
+   */
   useEffect(() => {
     viewModel.inicializar();
 
@@ -22,12 +40,27 @@ const Tablero = observer(() => {
     };
   }, []);
 
+  /**
+   * Maneja el evento de presionar una celda del tablero.
+   * Delega la lógica de validación y envío al ViewModel.
+   * 
+   * @param {number} fila - Índice de la fila (0-2)
+   * @param {number} columna - Índice de la columna (0-2)
+   */
   const handleCeldaPress = (fila: number, columna: number) => {
     viewModel.realizarMovimiento(fila, columna);
   };
 
+  /**
+   * Renderiza una celda individual del tablero.
+   * 
+   * @param {number} fila - Índice de la fila (0-2)
+   * @param {number} columna - Índice de la columna (0-2)
+   * @returns {JSX.Element} Componente TouchableOpacity con el símbolo (X, O o vacío)
+   */
   const renderCelda = (fila: number, columna: number) => {
     const valor = viewModel.tablero.celdas[fila][columna];
+    // La celda está deshabilitada si no es mi turno, ya tiene un símbolo, o la partida terminó
     const disabled = !viewModel.esMiTurno || valor !== '' || viewModel.estadoJuego !== 'jugando';
 
     return (
@@ -50,6 +83,12 @@ const Tablero = observer(() => {
     );
   };
 
+  /**
+   * Renderiza una fila completa del tablero (3 celdas).
+   * 
+   * @param {number} fila - Índice de la fila (0-2)
+   * @returns {JSX.Element} Vista horizontal con 3 celdas
+   */
   const renderFila = (fila: number) => {
     return (
       <View key={fila} style={styles.fila}>
@@ -60,50 +99,119 @@ const Tablero = observer(() => {
     );
   };
 
+  /**
+   * Obtiene el color de fondo del banner de estado según el estado actual del juego.
+   * 
+   * @returns {string} Código hexadecimal del color
+   */
   const obtenerColorEstado = () => {
-    if (viewModel.estadoJuego === 'esperando') return '#7c3aed';
+    if (viewModel.estadoJuego === 'esperando') return '#7c3aed'; // Morado
     if (viewModel.estadoJuego === 'finalizado') {
-      if (viewModel.mensajeEstado.includes('ganado')) return '#10b981';
-      if (viewModel.mensajeEstado.includes('perdido')) return '#ef4444';
-      return '#f59e0b';
+      if (viewModel.mensajeEstado.includes('ganado')) return '#10b981'; // Verde
+      if (viewModel.mensajeEstado.includes('perdido')) return '#ef4444'; // Rojo
+      return '#f59e0b'; // Naranja para empate
     }
+    // Durante el juego: verde si es mi turno, naranja si es del rival
     return viewModel.esMiTurno ? '#10b981' : '#f59e0b';
   };
 
+  /**
+   * Obtiene la información visual para mostrar en el modal de resultado.
+   * Incluye el título, color e icono según el resultado de la partida.
+   * 
+   * @returns {Object} Objeto con propiedades titulo, color e icono
+   */
   const obtenerInfoResultado = () => {
     const mensaje = viewModel.mensajeEstado;
-
-    if (mensaje.includes('ganado')) return { titulo: '¡VICTORIA!', color: '#10b981', icono: '🏆' };
-    if (mensaje.includes('perdido')) return { titulo: 'DERROTA', color: '#ef4444', icono: '😢' };
-    if (mensaje.includes('Empate')) return { titulo: 'EMPATE', color: '#f59e0b', icono: '🤝' };
-    if (mensaje.includes('desconectado')) return { titulo: 'DESCONECTADO', color: '#6b7280', icono: '👋' };
-    return { titulo: 'FIN', color: '#6b7280', icono: '🎮' };
+    
+    // Verifica el resultado usando .includes() para detectar el texto clave
+    if (mensaje.includes('ganado')) {
+      return { 
+        titulo: '¡VICTORIA!', 
+        color: '#10b981', 
+        icono: '🏆' 
+      };
+    }
+    
+    if (mensaje.includes('perdido')) {
+      return { 
+        titulo: 'DERROTA', 
+        color: '#ef4444', 
+        icono: '😢' 
+      };
+    }
+    
+    if (mensaje.includes('Empate')) {
+      return { 
+        titulo: 'EMPATE', 
+        color: '#f59e0b', 
+        icono: '🤝' 
+      };
+    }
+    
+    if (mensaje.includes('desconectado')) {
+      return { 
+        titulo: 'DESCONECTADO', 
+        color: '#6b7280', 
+        icono: '👋' 
+      };
+    }
+    
+    // Caso por defecto (no debería ocurrir)
+    return { 
+      titulo: 'FIN', 
+      color: '#6b7280', 
+      icono: '🎮' 
+    };
   };
 
+  /**
+   * Renderiza el modal que se muestra cuando la partida termina.
+   * Muestra el resultado, el tablero final y el botón para jugar de nuevo.
+   * 
+   * @returns {JSX.Element | null} Modal con el resultado o null si la partida no ha terminado
+   */
   const renderModal = () => {
+    // No mostrar el modal si la partida no ha terminado
     if (viewModel.estadoJuego !== 'finalizado') return null;
 
     const info = obtenerInfoResultado();
+    // Solo se puede jugar de nuevo si el servidor ya reseteó el estado
     const puedeJugarDeNuevo = !viewModel.esperandoReset;
 
     return (
-      <Modal transparent={true} animationType="fade" visible={true}>
+      <Modal
+        transparent={true}
+        animationType="fade"
+        visible={true}
+      >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
+            {/* Contenedor circular con el icono del resultado */}
             <View style={[styles.modalIconoContainer, { backgroundColor: info.color + '20' }]}>
               <Text style={styles.modalIcono}>{info.icono}</Text>
             </View>
-
-            <Text style={[styles.modalTitulo, { color: info.color }]}>{info.titulo}</Text>
+            
+            {/* Título del resultado (VICTORIA, DERROTA, EMPATE) */}
+            <Text style={[styles.modalTitulo, { color: info.color }]}>
+              {info.titulo}
+            </Text>
+            
+            {/* Mensaje detallado del resultado */}
             <Text style={styles.modalMensaje}>{viewModel.mensajeEstado}</Text>
 
+            {/* Tablero final mostrando el estado al terminar la partida */}
             <View style={styles.tableroFinal}>
               <Text style={styles.tableroFinalTitulo}>Tablero Final</Text>
               {viewModel.tablero.celdas.map((fila, i) => (
                 <View key={i} style={styles.filaFinal}>
                   {fila.map((valor, j) => (
                     <View key={j} style={styles.celdaFinal}>
-                      <Text style={[styles.valorFinal, valor === 'X' ? styles.simboloX : styles.simboloO]}>
+                      <Text style={[
+                        styles.valorFinal,
+                        valor === 'X' ? styles.simboloX : styles.simboloO
+                      ]}>
+                        {/* Muestra un guion si la celda está vacía */}
                         {valor || '-'}
                       </Text>
                     </View>
@@ -112,6 +220,7 @@ const Tablero = observer(() => {
               ))}
             </View>
 
+            {/* Botón condicional: "Jugar de Nuevo" o "Preparando..." */}
             {puedeJugarDeNuevo ? (
               <TouchableOpacity
                 style={[styles.botonJugarDeNuevo, { backgroundColor: info.color }]}
@@ -120,6 +229,7 @@ const Tablero = observer(() => {
                 <Text style={styles.textoBotonJugar}>🔄 Jugar de Nuevo</Text>
               </TouchableOpacity>
             ) : (
+              // Muestra este mensaje mientras el servidor resetea el estado (3 segundos)
               <View style={styles.esperandoContainer}>
                 <Text style={styles.esperandoTexto}>⏳ Preparando nueva partida...</Text>
               </View>
@@ -132,34 +242,52 @@ const Tablero = observer(() => {
 
   return (
     <View style={styles.container}>
+      {/* Barra de estado del sistema (hora, batería, etc.) */}
       <StatusBar barStyle="dark-content" backgroundColor="#fef3c7" />
+      
       <SafeAreaView style={styles.safeArea}>
+        {/* Cabecera con título, información del jugador y estado */}
         <View style={styles.header}>
           <Text style={styles.titulo}>✨ Tres en Raya ✨</Text>
-
+          
+          {/* Contenedor con información del símbolo y turno */}
           <View style={styles.infoContainer}>
+            {/* Tarjeta con el símbolo del jugador (X u O) */}
             <View style={styles.infoBox}>
               <Text style={styles.infoLabel}>Tu símbolo</Text>
-              <Text style={styles.infoValor}>{viewModel.miSimbolo || '...'}</Text>
+              <Text style={styles.infoValor}>
+                {viewModel.miSimbolo || '...'}
+              </Text>
             </View>
-
+            
+            {/* Tarjeta indicando de quién es el turno */}
             <View style={styles.infoBox}>
               <Text style={styles.infoLabel}>Turno</Text>
-              <Text style={styles.infoValor}>{viewModel.esMiTurno ? 'TÚ' : 'RIVAL'}</Text>
+              <Text style={styles.infoValor}>
+                {viewModel.esMiTurno ? 'TÚ' : 'RIVAL'}
+              </Text>
             </View>
           </View>
 
-          <View style={[styles.estadoBanner, { backgroundColor: obtenerColorEstado() }]}>
-            <Text style={styles.estadoTexto}>{viewModel.mensajeEstado}</Text>
+          {/* Banner con el mensaje de estado (color dinámico según el estado) */}
+          <View style={[
+            styles.estadoBanner,
+            { backgroundColor: obtenerColorEstado() }
+          ]}>
+            <Text style={styles.estadoTexto}>
+              {viewModel.mensajeEstado}
+            </Text>
           </View>
         </View>
 
+        {/* Contenedor principal del tablero 3x3 */}
         <View style={styles.tableroContainer}>
           {renderFila(0)}
           {renderFila(1)}
           {renderFila(2)}
         </View>
 
+        {/* Modal de resultado (solo visible cuando la partida termina) */}
         {renderModal()}
       </SafeAreaView>
     </View>
