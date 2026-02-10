@@ -11,9 +11,6 @@ import { Tablero } from "../../domain/entities/Tablero";
  * la interacción con SignalR y la lógica de negocio de la partida.
  */
 export class VMPartida {
-  // ----------------------------
-  // Propiedades observables
-  // ----------------------------
   miSimbolo: string | null = null; // Símbolo asignado al jugador
   estadoJuego: string = "esperando"; // "esperando" | "jugando" | "finalizado"
   mensajeEstado: string = "Conectando..."; // Mensaje para mostrar en la UI
@@ -34,10 +31,6 @@ export class VMPartida {
     makeAutoObservable(this); // Hace que todas las propiedades sean observables
     this.useCase = container.get<IUseCasePartida>(TYPES.IUseCasePartida);
   }
-
-  // ----------------------------
-  // Métodos de inicialización
-  // ----------------------------
 
   /**
    * Conecta al servidor y configura los eventos de SignalR.
@@ -121,9 +114,6 @@ export class VMPartida {
     });
   }
 
-  // ----------------------------
-  // Métodos de juego
-  // ----------------------------
 
   /**
    * Realiza un movimiento si es válido y es el turno del jugador.

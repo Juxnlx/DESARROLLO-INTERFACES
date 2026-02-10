@@ -13,6 +13,7 @@ import { VMPartida } from '../../presenter/viewmodels/VMPartida';
 
 /**
  * Componente principal del tablero de Tres en Raya.
+ * Utiliza MobX para observar cambios en el ViewModel y actualizar la UI automáticamente.
  * 
  * Este componente gestiona:
  * - La visualización del tablero 3x3
@@ -53,6 +54,8 @@ const Tablero = observer(() => {
 
   /**
    * Renderiza una celda individual del tablero.
+   * Aplica estilos diferentes según el turno para indicar visualmente
+   * cuándo el jugador puede o no interactuar con el tablero.
    * 
    * @param {number} fila - Índice de la fila (0-2)
    * @param {number} columna - Índice de la columna (0-2)
@@ -62,20 +65,27 @@ const Tablero = observer(() => {
     const valor = viewModel.tablero.celdas[fila][columna];
     // La celda está deshabilitada si no es mi turno, ya tiene un símbolo, o la partida terminó
     const disabled = !viewModel.esMiTurno || valor !== '' || viewModel.estadoJuego !== 'jugando';
+    
+    // Determinar si la celda debe verse "bloqueada" visualmente (cuando no es mi turno)
+    const celdaBloqueada = viewModel.estadoJuego === 'jugando' && !viewModel.esMiTurno;
 
     return (
       <TouchableOpacity
         key={`${fila}-${columna}`}
         style={[
           styles.celda,
-          disabled && styles.celdaDisabled
+          disabled && styles.celdaDisabled,
+          // Si no es mi turno, aplicar estilo bloqueado (fondo gris)
+          celdaBloqueada && styles.celdaBloqueada
         ]}
         onPress={() => handleCeldaPress(fila, columna)}
         disabled={disabled}
       >
         <Text style={[
           styles.simbolo,
-          valor === 'X' ? styles.simboloX : styles.simboloO
+          valor === 'X' ? styles.simboloX : styles.simboloO,
+          // Si no es mi turno, hacer los símbolos más tenues
+          celdaBloqueada && styles.simboloBloqueado
         ]}>
           {valor}
         </Text>
@@ -395,6 +405,11 @@ const styles = StyleSheet.create({
   celdaDisabled: {
     opacity: 0.6,
   },
+  // Estilo para celdas cuando NO es tu turno (bloqueadas visualmente)
+  celdaBloqueada: {
+    backgroundColor: '#e5e7eb', // Fondo gris claro
+    shadowOpacity: 0.1, // Sombra más suave
+  },
   simbolo: {
     fontSize: 52,
     fontWeight: '900',
@@ -404,6 +419,10 @@ const styles = StyleSheet.create({
   },
   simboloO: {
     color: '#3b82f6',
+  },
+  // Estilo para símbolos cuando NO es tu turno (más tenues)
+  simboloBloqueado: {
+    opacity: 0.4, // Símbolos muy tenues
   },
   modalOverlay: {
     flex: 1,

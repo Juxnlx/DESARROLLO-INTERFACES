@@ -17,7 +17,7 @@ export class PartidaRepository implements IRepositoryPartida {
    * Crea un nuevo repositorio e inicializa el DataSource con la URL del Hub.
    */
   constructor() {
-    // URL de Azure - IMPORTANTE: debe coincidir con la ruta del MapHub en Program.cs
+    // URL de Azure
     this.dataSource = new PartidaDataSource(
       "https://tresenraya-juanluis-ekbaaah0hegwdnc9.spaincentral-01.azurewebsites.net/partidahub"
     );
